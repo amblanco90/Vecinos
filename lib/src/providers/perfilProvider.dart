@@ -1,0 +1,81 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/models/perfilResidente.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as client;
+
+
+class PerfilProvider{
+
+  final _url = 'http://18.191.213.12//api';
+  
+  Future<PerfilResidente> getPerfilResidente() async {
+
+    final Map<String, dynamic> authData = {"cedula": appData.cedula};
+
+    final response = await client.post(
+        "$_url/residente/get",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+
+    
+    final decodedData = json.decode(response.body);
+    print(decodedData);
+    final reservas = new PerfilResidente.fromJson(decodedData);
+    appData.nombre = reservas.inputName;
+    appData.apellido = reservas.inputApe;
+    if(reservas.inputFoto!=''){
+      appData.fotoPerfil = base64.decode(reservas.inputFoto);
+    }
+    
+   
+   
+  
+
+    
+
+    return reservas;
+
+  }
+
+  Future editarPerfilResidente(nombre, apellido, dir, tel, correo) async {
+
+    final  Map<String, dynamic> authData = {
+        "InputId": appData.idUsuario,
+        "InputCed": appData.cedula,
+        "InputName": nombre,
+        "InputApe": apellido,
+        "InputDir": dir,
+        "InputTel": tel,
+        "InputEmail": correo,
+        "Estado": appData.estado,
+        "InputFoto": appData.encodedFotoPerfil,
+    };
+
+    
+
+    
+
+    final response = await client.post(
+        "$_url/residente/perfil/editar",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+
+    
+    appData.fotoPerfil = base64.decode(appData.encodedFotoPerfil);
+    appData.nombre = nombre;
+    appData.apellido = apellido;
+    
+    final decodedData = json.decode(response.body);
+    print(decodedData);
+    print(appData.idUsuario);
+
+    
+    
+
+  }
+
+
+
+}
