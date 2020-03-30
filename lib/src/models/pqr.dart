@@ -19,6 +19,7 @@ class Pqrs {
 }
 
 class Pqr {
+    int id;
     int idResidente;
     int idSubunidad;
     int estado;
@@ -28,6 +29,7 @@ class Pqr {
     String fechaCreacion;
 
     Pqr({
+        this.id,
         this.idResidente,
         this.idSubunidad,
         this.descripcion,
@@ -38,6 +40,7 @@ class Pqr {
     });
 
     factory Pqr.fromJson(Map<String, dynamic> json) => Pqr(
+        id:json["id_casillero"],
         idResidente: json["id_residente"],
         idSubunidad: json["id_subunidad"],
         descripcion: json["descripcion"],

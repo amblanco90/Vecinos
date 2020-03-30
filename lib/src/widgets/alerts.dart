@@ -146,6 +146,9 @@ Widget MensajeRecibido(BuildContext context) {
       });
 }
 
+
+
+
 Widget NuevoMensaje(BuildContext context) {
   showDialog(
       context: context,

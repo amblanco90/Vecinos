@@ -23,6 +23,25 @@ class PedidoTaxiProvider{
         
 }
 
+Future<Map<String, dynamic>> eliminarPedidoTaxi(BuildContext context, id) async {
+  final Map<String, dynamic> authData = {"id_taxi": id};
+
+    Client client = Client();
+    final response = await client.post(
+        "$baseUrl/residente/taxi/delete",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    print(response.body);
+    final decodedData = json.decode(response.body);
+    if(decodedData["resp"]=="ok"){
+      return {"respuesta":"Pedido eliminado correctamente"};
+    }else{
+      return {"respuesta":"Error eliminar"};
+    }
+    
+        
+}
+
 Future<List<PedidoTaxi>> getAllPedidosTaxi() async {
     final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
     final response = await client.post(

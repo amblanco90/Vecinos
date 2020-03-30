@@ -123,6 +123,125 @@ class _DropDownSidebarState extends State<DropDownSidebar> {
 }
 
 
+class DropDownZonaPqr extends StatefulWidget {
+  DropDownZonaPqr({Key key}) : super(key: key);
+
+  @override
+  _DropDownZonaPqrState createState() => _DropDownZonaPqrState();
+}
+
+String dropdownPqr = 'ZONA';
+
+class _DropDownZonaPqrState extends State<DropDownZonaPqr> {
+   @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3.0),
+        color: Colors.grey.shade200,
+      ),
+      padding: EdgeInsets.symmetric(horizontal:5.0),
+      
+      child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+            
+            focusColor:  Color.fromRGBO(205, 105, 55, 1.0),
+            iconEnabledColor:  Color.fromRGBO(205, 105, 55, 1.0),
+            isExpanded: true,
+            icon: Icon(Icons.arrow_drop_down, color:Colors.orange),
+
+            value: dropdownPqr,
+            onChanged: (String newValue){
+
+        dropdownPqr = newValue;
+        setState(() {
+          
+        });
+             
+
+            },
+             
+             items : <String>['ZONA','CASA','UNIDAD GENERAL','OTRO']
+           .map<DropdownMenuItem<String>> ((String value){
+             
+             return DropdownMenuItem<String>(
+               
+               
+               value: value,
+               child: Text(value, style:TextStyle(fontSize:13.0,fontFamily:'CenturyGothic', color: Colors.grey.shade700, fontWeight: FontWeight.bold),) ,
+               
+               );
+
+           }).toList()
+            
+          ),
+      ),
+    );
+  }
+ 
+}
+
+
+class DropDownDestinoPqr extends StatefulWidget {
+  DropDownDestinoPqr({Key key}) : super(key: key);
+
+  @override
+  _DropDownDestinoPqrState createState() => _DropDownDestinoPqrState();
+}
+
+String dropdownDestinoPqr = 'ADMINISTRADOR';
+
+class _DropDownDestinoPqrState extends State<DropDownDestinoPqr> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3.0),
+        color: Colors.grey.shade200,
+      ),
+      padding: EdgeInsets.symmetric(horizontal:5.0),
+      
+      child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+            
+            focusColor:  Color.fromRGBO(205, 105, 55, 1.0),
+            iconEnabledColor:  Color.fromRGBO(205, 105, 55, 1.0),
+            isExpanded: true,
+            icon: Icon(Icons.arrow_drop_down, color:Colors.orange),
+
+            value: dropdownDestinoPqr,
+            onChanged: (String newValue){
+
+        dropdownDestinoPqr = newValue;
+        setState(() {
+          
+        });
+             
+
+            },
+             
+             items : <String>['ADMINISTRADOR','JUNTA DIRECTIVA','TODOS']
+           .map<DropdownMenuItem<String>> ((String value){
+             
+             return DropdownMenuItem<String>(
+               
+               
+               value: value,
+               child: Text(value, style:TextStyle(fontSize:13.0,fontFamily:'CenturyGothic', color: Colors.grey.shade700, fontWeight: FontWeight.bold),) ,
+               
+               );
+
+           }).toList()
+            
+          ),
+      ),
+    );
+  }
+ 
+}
+
+
+
 class DropDownZonaSocialAdmin extends StatefulWidget {
   DropDownZonaSocialAdmin({Key key}) : super(key: key);
 
@@ -246,7 +365,7 @@ class _DropDownZonasAdminState extends State<DropDownZonasAdmin> {
     return Container(
        child: Center(
          child: DropdownButton(
-
+ 
            focusColor:  Color.fromRGBO(205, 105, 55, 1.0),
            iconEnabledColor:  Color.fromRGBO(205, 105, 55, 1.0),
            value: appData.tipo_zona_string,
