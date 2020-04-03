@@ -18,44 +18,44 @@ class Pqrs {
   }
 }
 
+
+
 class Pqr {
-    int id;
-    int idResidente;
-    int idSubunidad;
-    int estado;
+    int idPqr;
     String descripcion;
-    String foto;
-    String username;
+    int estado;
+    int idTipoPqr;
+    String destinatario;
     String fechaCreacion;
+    String foto;
 
     Pqr({
-        this.id,
-        this.idResidente,
-        this.idSubunidad,
+        this.idPqr,
         this.descripcion,
         this.estado,
+        this.idTipoPqr,
+        this.destinatario,
+        this.fechaCreacion,
         this.foto,
-        this.username,
-        this.fechaCreacion
     });
 
     factory Pqr.fromJson(Map<String, dynamic> json) => Pqr(
-        id:json["id_casillero"],
-        idResidente: json["id_residente"],
-        idSubunidad: json["id_subunidad"],
+        idPqr: json["id_pqr"],
         descripcion: json["descripcion"],
         estado: json["estado"],
-        foto: json["foto"]!=null?json["foto"]:'',
+        idTipoPqr: json["id_tipo_pqr"],
+        destinatario: json["destinatario"],
         fechaCreacion: json["fecha_creacion"],
-        username: json["username"],
+        foto: json["foto"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id_residente": idResidente,
-        "id_subunidad": idSubunidad,
+        "id_pqr": idPqr,
         "descripcion": descripcion,
-        "foto": foto,
         "estado": estado,
-        "username": username,
+        "id_tipo_pqr": idTipoPqr,
+        "destinatario": destinatario,
+        "fecha_creacion": fechaCreacion,
+        "foto": foto,
     };
 }

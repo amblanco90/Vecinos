@@ -130,7 +130,7 @@ class DropDownZonaPqr extends StatefulWidget {
   _DropDownZonaPqrState createState() => _DropDownZonaPqrState();
 }
 
-String dropdownPqr = 'ZONA';
+String dropdownPqr = 'CASA';
 
 class _DropDownZonaPqrState extends State<DropDownZonaPqr> {
    @override
@@ -154,6 +154,16 @@ class _DropDownZonaPqrState extends State<DropDownZonaPqr> {
             onChanged: (String newValue){
 
         dropdownPqr = newValue;
+        if(newValue=='CASA'){
+          appData.tipo_pqr=2;
+        }
+        else if(newValue=='ZONA'){
+          appData.tipo_pqr=1;
+        }else if(newValue=='UNIDAD GENERAL'){
+          appData.tipo_pqr=3;
+        }else if(newValue=='OTRO'){
+          appData.tipo_pqr=4;
+        }
         setState(() {
           
         });
@@ -161,7 +171,7 @@ class _DropDownZonaPqrState extends State<DropDownZonaPqr> {
 
             },
              
-             items : <String>['ZONA','CASA','UNIDAD GENERAL','OTRO']
+             items : <String>['CASA','UNIDAD GENERAL','OTRO','ZONA']
            .map<DropdownMenuItem<String>> ((String value){
              
              return DropdownMenuItem<String>(
@@ -213,6 +223,13 @@ class _DropDownDestinoPqrState extends State<DropDownDestinoPqr> {
             onChanged: (String newValue){
 
         dropdownDestinoPqr = newValue;
+        if(newValue=='ADMINISTRADOR'){
+          appData.dirigido_a=1;
+        }else if(newValue=='JUNTA DIRECTIVA'){
+          appData.dirigido_a=2;
+        }else if(newValue=='TODOS'){
+          appData.dirigido_a=3;
+        }
         setState(() {
           
         });

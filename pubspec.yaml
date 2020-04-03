@@ -23,7 +23,7 @@ dependencies:
   splashscreen:
   table_calendar:
   flutter_svg:
-  image_picker:
+  image_picker: 0.6.0+8
   geolocator: 
   usage: 
   toast:

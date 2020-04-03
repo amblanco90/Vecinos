@@ -43,7 +43,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 0: return _homeAdmin(); 
         case 1: return ProviderUnidad(child: MiUnidad(),);
         case 2: return ResidentesP(); 
-        case 3: return PqrPages();
+        case 3: return PqrUnidades();
         case 4: return BuzonAdmin();
         case 5: return SeguridaPages();
         case 6: return PqrUnidades();

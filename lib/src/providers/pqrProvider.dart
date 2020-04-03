@@ -20,12 +20,17 @@ class PqrProvider {
     }
 
     final Map<String, dynamic> authData = {
+
       "id_residente": appData.idUsuario,
       "id_subunidad": appData.idSubunidad,
       "descripcion": descripcion,
-      "username": appData.nombre,
+      "dirigido_a": appData.dirigido_a,
+      "id_tipo_pqr":appData.tipo_pqr,
+      "username": appData.nombre + ''+appData.apellido,
       "foto": image != null ? convertImage(image) : '',
     };
+
+    print(authData);
 
     Client client = Client();
     final response = await client.post("$baseUrl/residente/pqr/save",
@@ -46,9 +51,10 @@ class PqrProvider {
     print(response.body);
     final decodedData = json.decode(response.body);
     
-      final entidades = new Pqrs.fromJsonList(decodedData);
-
+      final entidades = new Pqrs.fromJsonList(
+           decodedData);
+      
       return entidades.items.reversed.toList();
-    
+     
   }
 }

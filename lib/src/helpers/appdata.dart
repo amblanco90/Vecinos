@@ -8,6 +8,8 @@ class AppData {
   String fecha_inicial_reserva;
   String fecha_final_reserva;
 
+  //ZONAS SOCIALES
+
   String hora_inicio_lunes ='Inicio';
   String hora_final_lunes = 'Fin';
 
@@ -38,6 +40,10 @@ class AppData {
   int estado_zona = 1;
   String estado_zona_string='Activo';
   int idZonaSocial;
+
+  //PQR 
+  int tipo_pqr= 2;
+  int dirigido_a = 1;
 
   List<DateTime> fechasReservas;
 
