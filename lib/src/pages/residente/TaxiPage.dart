@@ -16,7 +16,7 @@ class TaxiPage extends StatefulWidget {
 }
 
 class _TaxiPageState extends State<TaxiPage> {
-  var estadoString = '';
+  var estadoString = 'ACTIVO';
   final descripcionController = TextEditingController();
   final api = PedidoTaxiProvider();
 
@@ -243,7 +243,7 @@ Widget cardMensajes(texto, fecha, hora, color, estado, BuildContext context,id){
   
   if(estado==0){
 
-    estadoString= 'INACTIVO';
+    estadoString= 'CANCELADO';
 
   }else if(estado==1){
      estadoString= 'ACTIVO';
@@ -255,8 +255,19 @@ Widget cardMensajes(texto, fecha, hora, color, estado, BuildContext context,id){
 
   return    GestureDetector(
      onTap: (){
+       if(estado==0){
+
+    estadoString= 'CANCELADO';
+
+  }else if(estado==1){
+     estadoString= 'ACTIVO';
+  }else if(estado==20){
+     estadoString= 'EN PORTERIA';
+  }else if(estado==21){
+     estadoString= 'DESPACHADO';
+  }
        setState(() {
-         print(estadoString);
+        
        });
         
      },
@@ -265,7 +276,7 @@ Widget cardMensajes(texto, fecha, hora, color, estado, BuildContext context,id){
              
              color: color,
              child: Container(
-               padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 8.0),
+               padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 15.0),
                child: Row(
                  children: <Widget>[
                    
@@ -284,6 +295,19 @@ Widget cardMensajes(texto, fecha, hora, color, estado, BuildContext context,id){
                     
                     child: Text('(LEER)'+ estadoString, style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                     onTap: (){
+
+                      if(estado==0){
+
+    estadoString= 'CANCELADO';
+
+  }else if(estado==1){
+     estadoString= 'ACTIVO';
+  }else if(estado==20){
+     estadoString= 'EN PORTERIA';
+  }else if(estado==21){
+     estadoString= 'DESPACHADO';
+  }
+
 
                       verTaxi(context, estadoString, texto, id);
                      
@@ -409,6 +433,7 @@ Widget PedirTaxi (BuildContext context) {
                                       
                                     });
                                     pr.dismiss();
+                                    Navigator.pop(context);
                                     PedirTaxiAlert(context);
                                   });
                                 }

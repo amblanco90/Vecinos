@@ -19,10 +19,24 @@ Future<List<PedidoTaxi>> getAllCasillero() async {
         headers: {"Content-Type": "application/json"});
     print(response.body);
     final decodedData = json.decode(response.body);
-    final entidades = new PedidosTaxis.fromJsonList(decodedData);
+
+    if(decodedData["resp"]=='error'){
+
+      return null;
+
+
+
+    }else{
+
+      final entidades = new PedidosTaxis.fromJsonList(decodedData);
+      return entidades.items;
+
+    }
+
+    
    
 
-    return entidades.items;
+    
   }
 
 

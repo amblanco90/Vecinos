@@ -34,7 +34,7 @@ Future<Map<String, dynamic>> eliminarPedidoTaxi(BuildContext context, id) async 
     print(response.body);
     final decodedData = json.decode(response.body);
     if(decodedData["resp"]=="ok"){
-      return {"respuesta":"Pedido eliminado correctamente"};
+      return {"respuesta":"Pedido cancelado correctamente"};
     }else{
       return {"respuesta":"Error eliminar"};
     }

@@ -25,6 +25,7 @@ import 'package:edificion247/src/providers/noticiasProvider.dart';
 import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
+import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -1169,30 +1170,39 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return Card(
-                                color: Colors.grey.shade300,
-                                child: Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      /*Text(
-                                  'TITULO',
-                                  style: TextStyle(
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.0),
-                                ),*/
-                                      Text(''),
-                                      Text(
-                                        snapshot.data[index].descripcion,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                              return GestureDetector(
+                                  onTap: (){
+
+                                    noticiaAlert(context, snapshot.data[index].descripcion,
+                                    snapshot.data[index].titulo, snapshot.data[index].fechaCreacion);
+
+                                  },
+
+                                  child: Card(
+                                  color: Colors.grey.shade300,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                    snapshot.data[index].fechaCreacion, 
+                                    style: TextStyle(
+                                        fontFamily: 'CenturyGothic',
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                        Text(snapshot.data[index].titulo,  style: TextStyle(
+                                        color: Colors.grey.shade700,
+                                        fontFamily: 'CenturyGothic',
+
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0), ),
+                                        
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

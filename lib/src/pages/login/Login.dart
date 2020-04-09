@@ -246,29 +246,36 @@ class _LoginPageState extends State<LoginPage> {
 
                 Color.fromRGBO(255, 135, 5, 1.0),
               ])),
-          child: Center(
-              child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          child: Column(
             children: <Widget>[
-              Text(
-                pais,
-                style: TextStyle(fontSize: 18.0),
+              Expanded(
+                              child: Center(
+                    child: ListView(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                  children: <Widget>[
+                    Text(
+                      pais,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    logo,
+                    user,
+                    SizedBox(height:25.0),
+                    password,
+                    SizedBox(height: 5.0,),
+                    forgotLabel,
+                    containerRecordar,
+                    loginButton,
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                   
+                  ],
+                )),
               ),
-              logo,
-              user,
-              SizedBox(height:25.0),
-              password,
-              SizedBox(height: 5.0,),
-              forgotLabel,
-              containerRecordar,
-              loginButton,
-              SizedBox(
-                height: 20.0,
-              ),
-              Image.asset('recursos/imagenes/LogoEmpresa.png'),
+               Image.asset('recursos/imagenes/LogoEmpresa.png'),
             ],
-          )),
+          ),
         ));
   }
   _obtenerdatos() async {

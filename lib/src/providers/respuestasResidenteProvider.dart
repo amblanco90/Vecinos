@@ -1,9 +1,8 @@
-import 'package:edificion247/src/models/propietario.dart';
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/respuestaPqr.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as client;
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 class RespuestaResidenteProvider{
@@ -14,7 +13,8 @@ Future<List<RespuestaPqr>>  getHilo(id,context) async {
 
 
     final Map<String, dynamic> authData = {
-      "id_pqr": id
+      "id_pqr": id,
+      "id_residente":appData.idUsuario
     };
     final response = await client.post("$baseUrl/residente/pqr/hilo/list",
         body: json.encode(authData),
@@ -26,8 +26,8 @@ Future<List<RespuestaPqr>>  getHilo(id,context) async {
     return entidades.items;
   }
 
-  
-  Future<Map<String, dynamic>> respuestaResidente(descripcion,idresidente,idPqr,foto,username,context) async {
+
+Future<Map<String, dynamic>> respuestaResidente(descripcion,idresidente,idPqr,foto,username,context) async {
 
     ProgressDialog pr;
 
@@ -141,5 +141,6 @@ print(authData);
     
         
 }
+
 
 }

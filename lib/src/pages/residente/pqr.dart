@@ -251,7 +251,7 @@ class _PqrPagesState extends State<PqrPages> {
         child: Card(
           color: color,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
             child: Row(
               children: <Widget>[
                 Container(
@@ -283,7 +283,11 @@ class _PqrPagesState extends State<PqrPages> {
                               fontWeight: FontWeight.bold,
                               fontSize: 10.0),
                         ),
-                        onTap: () {},
+                        onTap: () {
+
+                           estadoPqr(context,texto,foto,estadoString,id,destinatario,tipo);
+
+                        },
                       ),
                       SizedBox(
                         width: 10.0,

@@ -17,19 +17,26 @@ class Noticias {
     }
   }
 }
-
 class Noticia {
     String descripcion;
+    String titulo;
+    String fechaCreacion;
 
     Noticia({
         this.descripcion,
+        this.titulo,
+        this.fechaCreacion,
     });
 
     factory Noticia.fromJson(Map<String, dynamic> json) => Noticia(
         descripcion: json["descripcion"],
+        titulo: json["titulo"],
+        fechaCreacion: json["fecha_creacion"],
     );
 
     Map<String, dynamic> toJson() => {
         "descripcion": descripcion,
+        "titulo": titulo,
+        "fecha_creacion": fechaCreacion,
     };
 }

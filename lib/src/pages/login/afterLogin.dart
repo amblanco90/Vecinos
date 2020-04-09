@@ -1,193 +1,240 @@
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/pages/residente/drawer.dart';
 import 'package:edificion247/src/pages/residente/unidadesLista.dart';
+import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:flutter/material.dart';
 import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 
-class AfterLoginPage extends StatelessWidget {
+class AfterLoginPage extends StatefulWidget {
   const AfterLoginPage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-              //Color.fromRGBO(205, 105, 55,1.0),
-              Color.fromRGBO(168, 86, 0, 1.0),
-              Color.fromRGBO(211, 94, 0, 1.0),
-
-              Color.fromRGBO(255, 114, 0, 1.0),
-
-              Color.fromRGBO(255, 135, 5, 1.0),
-            ])),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Text(
-                '¿Con que rol desea ingresar?',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17.0,
-                    fontFamily: 'CenturyGothic'),
-              ),
-            ),
-            Container(
-              child: Column(
-                children: <Widget>[
-                 Container(
-                    child: FlatButton(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onPressed: ()=>  Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DrawerAdminItem(),
-                                    maintainState: false)),
-                      child: Column(children: <Widget>[
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.business,
-                            size: 50.0,
-                            color: Colors.white,
-                          ),
-                        onPressed: (){
-                           Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DrawerAdminItem(),
-                                    maintainState: false));
-                        },
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Center(
-                          child: Text(
-                            'A D M I N I S T R A D O R',
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: 'CenturyGothic'),
-                          ),
-                        ),
-                      ]),
-                    ),
-                  ),
-                  
-                  
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 100.0, vertical: 5.0 ) ,
-                    child: FlatButton(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onPressed: ()=>  Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DrawerItem(),
-                                    maintainState: false)),
-                      child: Column(children: <Widget>[
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.home,
-                            size: 50.0,
-                            color: Colors.white, 
-                          ),
-                          onPressed: () {
-                             Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DrawerItem(),
-                                    maintainState: false));
-                          },
-                        ),
-                        SizedBox( 
-                          height: 10.0,
-                        ),
-                        Center(
-                          child: Text(
-                            'R E S I D E N T E',
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: 'CenturyGothic'),
-                          ),
-                        ),
-                      ]),
-                    ),
-                  ),
-
-                  /* _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),(Icons.home),'R E S I D E N T E', context, DrawerItem()),
-                   _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.business_center ,'A D M I N I S T R A D O R', context, DrawerAdminItem()),
-               */
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  _AfterLoginPageState createState() => _AfterLoginPageState();
 }
 
-Widget _crearBotonRedondeado(Color color, IconData icon, String texto,
-    BuildContext context, Widget route) {
-  return Container(
-    height: 130.0,
-    margin: EdgeInsets.all(30.0),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(0.0),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.3),
-          spreadRadius: 2,
-          blurRadius: 3,
-          offset: Offset(0, 3), // changes position of shadow
-        ),
-      ],
-    ),
-    child: Column(
+class _AfterLoginPageState extends State<AfterLoginPage> {
+  var color1 = Colors.transparent;
+  var color2 = Colors.transparent;
+  var seleccionado = 'Ninguno';
+
+  boton1() {
+    if (color1 == Colors.transparent) {
+      setState(() {
+        color1 = Colors.orangeAccent.shade700;
+        seleccionado = 'r';
+        color2 = Colors.transparent;
+      });
+    } else {
+      color1 = Colors.transparent;
+      seleccionado = 'Ninguno';
+      setState(() {});
+    }
+  }
+
+  boton2() {
+    if (color2 == Colors.transparent) {
+      color2 = Colors.orangeAccent.shade700;
+      seleccionado = 'a';
+      color1 = Colors.transparent;
+      setState(() {});
+    } else {
+      color2 = Colors.transparent;
+      seleccionado = 'Ninguno';
+      setState(() {});
+    }
+  }
+
+  entrada(){
+
+    if(seleccionado=='a'){
+      Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => DrawerAdminItem()));
+    }
+    if(seleccionado=='r'){
+      Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => DrawerItem()));
+    }
+    if(seleccionado=='Ninguno'){
+      GenericAlert(context, 'Por favor seleccione un rol.');
+    }
+
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final logo = Container(
+      height: size.height * 0.2,
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 20.0,
+        child: Image.asset('recursos/imagenes/logoApp.png'),
+      ),
+    );
+
+    final botones = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        SizedBox(height: 5.0),
-        IconButton(
-          icon: Icon(
-            icon,
-            color: Colors.grey.shade700,
-            size: 40.0,
-          ),
-          color: Colors.black,
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => route, maintainState: false));
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              texto,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+         Column(
+              children: <Widget>[
+                FlatButton(
+                    color: color1,
+                    onPressed: boton1,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 41.0,
+                            child: Image.asset(
+                                'recursos/imagenes/residenteicon.png'),
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        Text(
+                          'RESIDENTE',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2),
+                        ),
+                      ],
+                    ))
+              ],
             ),
-          ),
-        ),
-        SizedBox(
-          height: 5.0,
+           appData.permisos=='Administrador'? Column(
+              children: <Widget>[
+                FlatButton(
+                    color: color2,
+                    onPressed: boton2,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 40.0,
+                            child:
+                                Image.asset('recursos/imagenes/adminicon.png'),
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'ADMIN',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2),
+                        ),
+                      ],
+                    ))
+              ],
+            ):Container(),
+          ],
         ),
       ],
-    ),
-  );
+    );
+
+    final loginButton = Padding(
+      padding: EdgeInsets.all(10),
+      child: RaisedButton(
+        padding: EdgeInsets.all(8.0),
+        textColor: Colors.orange.shade800,
+        color: Colors.white,
+        child: Text(
+          "INGRESAR",
+          style: TextStyle(
+              letterSpacing: 3.0,
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'CenturyGothic'),
+        ),
+        onPressed: entrada,
+      ),
+    );
+
+    final leyenda = Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'SELECCIONA TU ROL',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'CenturyGothic',
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0,
+              letterSpacing: 1.2),
+        ),
+      ],
+    );
+
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                //Color.fromRGBO(205, 105, 55,1.0),
+                Color.fromRGBO(168, 86, 0, 1.0),
+                Color.fromRGBO(211, 94, 0, 1.0),
+
+                Color.fromRGBO(255, 114, 0, 1.0),
+
+                Color.fromRGBO(255, 135, 5, 1.0),
+              ])),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Center(
+                    child: ListView(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                  children: <Widget>[
+                    SizedBox(height: 20.0),
+                    logo,
+                    SizedBox(height: 30.0),
+                    leyenda,
+                    SizedBox(height: 30.0),
+                    botones,
+                    SizedBox(height: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Container(
+                        height: 6.0,
+                        width: 300.0,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    ),
+                    SizedBox(height: 50.0),
+                    loginButton,
+                    SizedBox(height: 50.0),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                  ],
+                )),
+              ),
+              Image.asset('recursos/imagenes/LogoEmpresa.png'),
+            ],
+          ),
+        ));
+  }
 }
