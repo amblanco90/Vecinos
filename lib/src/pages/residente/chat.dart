@@ -10,108 +10,151 @@ class ChatPages extends StatefulWidget {
 }
 
 class _ChatPagesState extends State<ChatPages> {
-  final List<Message> _messages = <Message>[];
 
   final _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    DateTime time = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(time);
-    return Container(
-       child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.white,
-            child: new Container(
-              child: new Column(
+    return SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Column(children: <Widget>[
+              Divider(
+                height: 30,
+                color: Colors.white,
+              ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
+                  child: Row(children: <Widget>[
+                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                    Text("CON QUIEN",
+                        style: TextStyle(
+                            fontSize: 23.0,
+                            color: Color.fromRGBO(255, 153, 29, 1.0),
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold)),
+                            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                    Text("DESEA HABLAR?",
+                        style: TextStyle(
+                            fontSize: 23.0,
+                            color:Color.fromRGBO(167, 164, 164, 1),
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold)),
+                  ])),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  height: 10.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color:  Color.fromRGBO(255, 153, 29, 1.0),
+                      borderRadius: BorderRadius.circular(5.0)),
+                ),
+              ),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  //Chat list
-                  new Flexible(
-                    child: new ListView.builder(
-                      padding: new EdgeInsets.all(8.0),
-                      reverse: true,
-                      itemBuilder: (_, int index) => _messages[index],
-                      itemCount: _messages.length,
-                    ),
+                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 15),
+                  SizedBox(
+                    width: 10.0,
                   ),
-                  new Divider(height: 1.0),
-                  new Container(
-                      decoration:
-                          new BoxDecoration(color: Theme.of(context).cardColor),
-                      child: new IconTheme(
-                          data: new IconThemeData(
-                              color: Theme.of(context).accentColor),
-                          child: new Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                            child: new Row(
-                              children: <Widget>[
-                                //left send button
-
-                                Container(width: 10.0,),
-                                //Enter Text message here
-                                new Flexible(
-                                  child: new TextField(
-                                    
-                                    controller: _textController,
-                                    decoration: new InputDecoration.collapsed(
-                                        hintText: "Enter message"),
-                                  ),
-                                ),
-
-                                  new Container(
-                                    width: 48.0,
-                                    height: 48.0,
-                                    child: new IconButton(
-                                        icon: Icon(Icons.send ,color: Color.fromRGBO(255, 153, 29, 0.9) ,),
-                                        onPressed: () => _sendMsg(
-                                            _textController.text,
-                                            'left',
-                                            formattedDate)),
-                                ),
-
-
-                                //right send button
-
-                              ],
-                            ),
-                          ))),
+                  _containerIcono(Icons.security, 'VIGILANTE', 16),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  _containerIcono(Icons.person, 'ADMINISTRADOR', 17),
                 ],
               ),
-            ))
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                height: 3.0,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color:Color.fromRGBO(167, 164, 164, 1),
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
+              Divider(
+                height: 10,
+                color: Colors.white,
+              ),
+              Divider(
+                height: 40,
+                color: Colors.white,
+              ),
+              _botonPrincipal()
+            ])
+          ],
+        ),
+      );
+  }
+
+ _botonPrincipal() {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DrawerItem() ));
+      },
+      child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 80.0),
+          padding: EdgeInsets.symmetric(vertical: 7.0),
+          child: RaisedButton(
+            shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(5),
+            ),
+            onPressed: () {
+            },
+            child: const Text('PRINCIPAL',
+                style: TextStyle(
+                    fontSize: 24.0,
+                    color: Color.fromRGBO(255, 153, 29, 1.0),
+                    fontFamily: 'CenturyGothic',
+                    fontWeight: FontWeight.bold)),
+          )),
     );
   }
-
-  void _sendMsg(String msg, String messageDirection, String date) {
-    if (msg.length == 0) {
-      Fluttertoast.showToast(
-          msg: "Escriba su mensaje aquí",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 1,
-          backgroundColor:  Color.fromRGBO(255, 153, 29, 0.9) ,);
-    } else {
-      _textController.clear();
-      Message message = new Message(
-        msg: msg,
-        direction: messageDirection,
-        dateTime: date,
-      );
-      setState(() {
-        _messages.insert(0, message);
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // Every listener should be canceled, the same should be done with this stream.
-    // Clean up the controller when the Widget is disposed
-    _textController.dispose();
-    super.dispose();
+  _containerIcono(IconData iconData, leyenda, int posicion) {
+    return GestureDetector(
+      onTap: () {
+        
+      
+      },
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            width: 85.0,
+            height: 85.0,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Color.fromRGBO(255, 114, 0, 1.0),
+                style: BorderStyle.solid,
+                width: 4.0,
+              ),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Icon(
+              iconData,
+              size: 70.0,
+              color: Colors.grey.shade800,
+            ),
+          ),
+          SizedBox(height: 5.0),
+          Text(
+            leyenda,
+            style: TextStyle(
+                fontFamily: 'CenturyGothic',
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10.0),
+        ],
+      ),
+    );
   }
 }

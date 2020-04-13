@@ -20,6 +20,7 @@ class _OtrosPageState extends State<OtrosPage> {
     final _solicitarListaOtros=new OtrosProvider();
     int _idNucleo;
     int _idfam;
+    bool _estadobuttonguardar=true;
   @override
   Widget build(BuildContext context) {
    //_actualizarListaHijos();
@@ -107,7 +108,6 @@ class _OtrosPageState extends State<OtrosPage> {
                     _alertHijoMensajes(context, "Campo numero de contacto no puede tener mas de 10 y menos 7 digitos");
                     return;
                   }else{
-                    print(_idNucleo);
                     DatosFamilia datosFamilia=new DatosFamilia(id_nucleo:"216",id_parentesco:"3",id_residente:"153",cedula_familiar:"12639357",nombre_familiar:"afdsds",apellidos_familiar:"",correo_familiar:"aad@gmail.com",movil_familiar:"7436463",direccion_familiar:"asdas",username:"rperez");
                     //DatosFamilia datosFamilia=DatosFamilia(id_parentesco: '3',id_residente:appData.idUsuario.toString(),cedula_familiar: _controllerIdentificacion.text,nombre_familiar: _controllerNombre.text,apellidos_familiar: '',correo_familiar:_controllerCorreo.text,movil_familiar: _controllerNumeroContacto.text,direccion_familiar: 'calle 1 # 45-25',username: 'rperz',id_nucleo: _idNucleo.toString(),id_familiar:_idfam.toString());
                     ApiService apiService=new ApiService();
@@ -118,6 +118,7 @@ class _OtrosPageState extends State<OtrosPage> {
                         _controllerIdentificacion.text="";
                         _controllerNumeroContacto.text="";
                         _controllerCorreo.text="";
+                        _estadobuttonguardar=true;
                         setState(() {
                           
                         });
@@ -214,6 +215,9 @@ return  Padding(
              ),
            ),
          ), onTap: (){
+           setState(() {
+             _estadobuttonguardar=false;
+           });
              _controllerNombre.text=nombre_otro;
              _controllerIdentificacion.text=texto;
                     _controllerCorreo.text=correo;
@@ -272,7 +276,6 @@ return  Padding(
      GestureDetector(
        child: Align( child:Container( child: Text('ELIMINAR',style:TextStyle(fontSize: 18.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),),alignment: Alignment.topRight,),
        onTap: (){
-         print(_idNucleo);
           ApiService apiService=new ApiService();
           if(_idNucleo != null){
             apiService.borrarFamiliar(_idNucleo).then((onValue){
@@ -281,6 +284,8 @@ return  Padding(
               _controllerIdentificacion.text="";
               _controllerCorreo.text="";
               _controllerNumeroContacto.text="";
+              _estadobuttonguardar=true;
+              _alertHijoMensajes(context, "Eliminado correstamente");
             });
             });
           }else{
@@ -368,14 +373,19 @@ _botonGuardar(){
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
        child: RaisedButton(
-         color: Color.fromRGBO(255, 153, 29, 1.0),
+         color: _estadobuttonguardar ? Color.fromRGBO(255, 153, 29, 1.0) :Colors.black12 ,
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
-                  _guardareditar("","");
+            if(_estadobuttonguardar){
+                _guardareditar("","");
+            }else{
+              _alertHijoMensajes(context, "Usted solo puede editar y eliminar");
+            }
+                  
           },
-          child: const Text(
-            'GUARDAR',
+          child:  Text(
+            _estadobuttonguardar ?  "GUARDAR" : "DESHABILITADO",
             style:TextStyle(fontSize: 18.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
           ),
           )

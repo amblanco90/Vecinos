@@ -22,6 +22,7 @@ class _ConyuguePageState extends State<ConyuguePage> {
     int _idNucleofamilia;
     int _idNucleo;
     int _idfam;
+    bool _estadoButtonGuardar=true;
     final  _conyugeProvider=new ConyugeProvider();
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,15 @@ class _ConyuguePageState extends State<ConyuguePage> {
             builder: (BuildContext context,
                 AsyncSnapshot<Conyuge> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) { 
-                      _controllerNombre.text=snapshot.data.nombre_familiar;
+                      if(snapshot.data.nombre_familiar != null){
+                        _controllerNombre.text=snapshot.data.nombre_familiar;
                       _controllerIdentificacion.text=snapshot.data.documento.toString();
                       _controllerCorreo.text=snapshot.data.correo.toString();
                       _controllerNumeroContacto.text=snapshot.data.movil.toString();
                       _idNucleo=snapshot.data.id_nucleo;
                       _idfam=snapshot.data.id_persona_familiar;
+                      _estadoButtonGuardar=false;
+                      }
                       return Stack(
         children: <Widget>[
           Column(
@@ -128,6 +132,8 @@ return  Padding(
               _controllerIdentificacion.text="";
               _controllerCorreo.text="";
               _controllerNumeroContacto.text="";
+              _estadoButtonGuardar=true;
+              _alertConyugeMensajes(context, "Eliminado correstamente");
             });
             });
           }else{
@@ -243,26 +249,25 @@ _guardareditar(String _idnucleo,String _idfamilia){
  
 _botonGuardar(){
 
-   return GestureDetector(
-       onTap: (){ 
-       }, 
-       child: Container(
+   return  Container(
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
        child: RaisedButton(
-         color: Color.fromRGBO(255, 153, 29, 1.0),
+         color: _estadoButtonGuardar ? Color.fromRGBO(255, 153, 29, 1.0) :Colors.black12 ,
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
-           _guardareditar("","");
+           if(_estadoButtonGuardar){
+             _guardareditar("","");
+           }else{
+             _alertConyugeMensajes(context, "Usted solo puede editar y eliminar");
+           }
           },
-          child: const Text(
-            'GUARDAR',
-            style:TextStyle(fontSize: 18.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+          child:  Text(
+           _estadoButtonGuardar ?  "GUARDAR" : "DESHABILITADO",  style:TextStyle(fontSize: 18.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
           ),
           )
-     ),
-   );
+     );
 
  }
 Widget _alertConyugeMensajes (BuildContext context,String mensaje){

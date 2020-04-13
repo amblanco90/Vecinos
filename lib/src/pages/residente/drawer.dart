@@ -7,7 +7,6 @@ import 'package:edificion247/src/models/noticia.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
 import 'package:edificion247/src/pages/login/Login.dart';
 import 'package:edificion247/src/pages/residente/TaxiPage.dart';
-import 'package:edificion247/src/pages/residente/administrador.dart';
 import 'package:edificion247/src/pages/residente/chat.dart';
 import 'package:edificion247/src/pages/residente/home_pages.dart';
 import 'package:edificion247/src/pages/residente/junta-directiva.dart';
@@ -18,6 +17,7 @@ import 'package:edificion247/src/pages/residente/miperfil.dart';
 import 'package:edificion247/src/pages/residente/misfacturas.dart';
 import 'package:edificion247/src/pages/residente/misreservas.dart';
 import 'package:edificion247/src/pages/residente/misvisitas.dart';
+import 'package:edificion247/src/pages/residente/re_chatadministrador.dart';
 import 'package:edificion247/src/pages/residente/vigilante.dart';
 import 'package:edificion247/src/pages/residente/miunidad.dart';
 import 'package:edificion247/src/pages/residente/pqr.dart';
@@ -616,6 +616,39 @@ class _DrawerItemState extends State<DrawerItem> {
                 ]),
           ],
         );
+        case 13:
+        return Row(
+          children: <Widget>[
+            Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'CHAT',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'CenturyGothic'),
+                  ),
+                  SizedBox(
+                    height: 2.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Container(
+                      height: 3.0,
+                      width: 95.0,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(137, 70, 39, 2.0),
+                          borderRadius: BorderRadius.circular(2.0)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.0,
+                  ),
+                ]),
+          ],
+        );
     }
   }
 
@@ -666,6 +699,8 @@ class _DrawerItemState extends State<DrawerItem> {
         return ChatAdministradorPages();
       case 20:
         return ChatJuntaDirectivaPage();
+      case 21:
+        return ChatPages();
     }
   }
 
@@ -870,6 +905,11 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
                       thickness: 0.7,
                     ),
                     listTile('PQR', 10, 5),
+                     Divider(
+                       color: Colors.black,
+                       thickness: 0.7,
+                       ),
+                    listTile('CHAT', 21,13),
                     Divider(
                       color: Colors.black,
                       thickness: 0.7,

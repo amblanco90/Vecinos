@@ -20,6 +20,7 @@ class _HijoPageState extends State<HijoPage> {
     int _idNucleofamilia;
     int _idNucleo;
     int _idfam;
+    bool _estadobuttonguardar=true;
   @override
  Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -160,12 +161,16 @@ return  Padding(
              ),
            ),
          ), onTap: (){
+           setState(() {
+             _estadobuttonguardar=false;
+           });
                      _controllerNombre.text=nombre_hijo;
                     _controllerIdentificacion.text=texto;
                     _controllerCorreo.text=correo;
                     _controllerNumeroContacto.text=telefono;
                     _idNucleo=nucleo;
                   _idfam=idfamiliar;
+                  
                   },
                   );
 
@@ -219,11 +224,14 @@ return  Padding(
           ApiService apiService=new ApiService();
           if(_idNucleo != null){
             apiService.borrarFamiliar(_idNucleo).then((onValue){
+              _alertHijoMensajes(context, "Eliminado correstamente");
                setState(() {
               _controllerNombre.text="";
               _controllerIdentificacion.text="";
               _controllerCorreo.text="";
               _controllerNumeroContacto.text="";
+              _estadobuttonguardar=true;
+              
             });
             });
           }else{
@@ -310,14 +318,19 @@ _botonGuardar(){
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
        child: RaisedButton(
-         color: Color.fromRGBO(255, 153, 29, 1.0),
+         color: _estadobuttonguardar ? Color.fromRGBO(255, 153, 29, 1.0) :Colors.black12 ,
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
-            _guardareditar("","");
+            if(_estadobuttonguardar){
+                 _guardareditar("","");
+            }else{
+              _alertHijoMensajes(context, "Usted solo puede editar y eliminar");
+            }
+           
           },
-          child: const Text(
-            'GUARDAR',
+          child:  Text(
+            _estadobuttonguardar ?  "GUARDAR" : "DESHABILITADO",
             style:TextStyle(fontSize: 18.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
           ),
           )
@@ -353,8 +366,8 @@ _guardareditar(String _idnucleo,String _idfamilia){
                         _controllerIdentificacion.text="";
                         _controllerNumeroContacto.text="";
                         _controllerCorreo.text="";
+                        _estadobuttonguardar=true;
                         setState(() {
-                          
                         });
                       }else{
                         _alertHijoMensajes(context, "A ocurrido un error al tratar de guardar un familiar");

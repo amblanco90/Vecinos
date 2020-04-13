@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "982110548213",
+    "firebase_url": "https://vecinos247-ac1df.firebaseio.com",
+    "project_id": "vecinos247-ac1df",
+    "storage_bucket": "vecinos247-ac1df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982110548213:android:746284b20adfb84194d5bc",
+        "android_client_info": {
+          "package_name": "com.vecinos.edificion247"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982110548213-d3m5gml447duo7fmcgvoct89srde1gsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw5UBayx3LlXjbErjqh8dKaFHUSBVclZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982110548213-d3m5gml447duo7fmcgvoct89srde1gsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatPageAdmin extends StatefulWidget {
@@ -7,86 +8,115 @@ class ChatPageAdmin extends StatefulWidget {
 }
 
 class _ChatPageAdminState extends State<ChatPageAdmin> {
+   final Firestore _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Stack(
-        children: <Widget>[
-          Column(children: <Widget>[
-            Divider(
-              height: 30,
-              color: Colors.white,
-            ),
-            Container(
-                margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
-                child: Row(children: <Widget>[
-                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
-                  Text("CON QUIEN",
-                      style: TextStyle(
-                          fontSize: 23.0,
-                          color: Color.fromRGBO(255, 153, 29, 1.0),
-                          fontFamily: 'CenturyGothic',
-                          fontWeight: FontWeight.bold)),
-                          Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
-                  Text("DESEA HABLAR?",
-                      style: TextStyle(
-                          fontSize: 23.0,
-                          color:Color.fromRGBO(167, 164, 164, 1),
-                          fontFamily: 'CenturyGothic',
-                          fontWeight: FontWeight.bold)),
-                ])),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                height: 10.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color:  Color.fromRGBO(255, 153, 29, 1.0),
-                    borderRadius: BorderRadius.circular(5.0)),
+      return SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Column(children: <Widget>[
+              Divider(
+                height: 30,
+                color: Colors.white,
               ),
-            ),
-            Divider(
-              height: 20,
-              color: Colors.white,
-            ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
+                  child:
+                    Text("CHAT ADMINISTRADOR",
+                        style: TextStyle(
+                            fontSize: 23.0,
+                            color: Color.fromRGBO(255, 153, 29, 1.0),
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold)),
+                
+                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  height: 10.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color:  Color.fromRGBO(255, 153, 29, 1.0),
+                      borderRadius: BorderRadius.circular(5.0)),
+                ),
+              ),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Container(  
+                width: 400,
+                height: 400,
+  child: StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection('userChatAdmin').snapshots(),
+    builder: (context, snapshot) {
+
+      if (!snapshot.hasData) {
+        return Center(
+                      child: CircularProgressIndicator(
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(Colors.orange),
+                  ));
+      } else {
+      List<Widget> itemchat =  snapshot.data.documents.map((f) {
+        return _cardMensajes(f.documentID , f.data['nombre'] , f.data['texto']);
+}).toList();
+        return ListView(
+          padding: EdgeInsets.all(10.0),
+          children: <Widget>[
+            ...itemchat,
+          ],
+          );
+      }
+    },
+  ),
+),
+             
+
+              
+         
             
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 15),
-                SizedBox(
-                  width: 10.0,
-                ),
-                _containerIcono(Icons.security, 'VIGILANTE', 16),
-                SizedBox(
-                  width: 10.0,
-                ),
-                _containerIcono(Icons.person, 'ADMINISTRADOR', 17),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              height: 3.0,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color:Color.fromRGBO(167, 164, 164, 1),
-                  borderRadius: BorderRadius.circular(5.0)),
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white,
-            ),
-            Divider(
-              height: 40,
-              color: Colors.white,
-            ),
-            _botonPrincipal()
-          ])
-        ],
-      ),
-    );
+           
+             
+            ])
+          ],
+        ),
+      );
   }
+     Widget _cardMensajes( _numeroidentificacion,_nombre,_mensaje){
+   
+
+  return  GestureDetector(  
+         child: Card(
+           child: Container(
+             height: 50,
+             padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
+             child: Row(
+               children: <Widget>[
+                 
+                Text(_numeroidentificacion, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+                SizedBox(width: 15.0,),
+                Text(_nombre, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+                SizedBox(width: 15.0,),
+                 Text(_mensaje, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                Expanded(
+                                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+
+              
+                    ],
+                  ),
+                )
+              ],
+             ),
+           ),
+         ), onTap: (){
+         
+         });
+
+}
   _botonPrincipal() {
     return GestureDetector(
       onTap: () {

@@ -2,6 +2,8 @@ import 'package:edificion247/src/bloc/provider_perfil_admin.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/residente.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
 import 'package:edificion247/src/pages/admin/buzon_unidades_admin.dart';
 import 'package:edificion247/src/pages/admin/chat_admin.dart';
@@ -36,6 +38,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     String _nombre_appbar_anterior="";
     int _posicion_appbar=0;
     int _posicion_appbar_anterior=0;
+    String cedularecidente=null;
 
    int _item=0;
      _itemSelecionado(  ){
@@ -54,14 +57,17 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 11:return MiPerfilAdminPages();
         case 13:return _unidadAdmin();
         case 14:return ListaSubUnidadesPage();
-        case 15:return ChatPageAdmin();
+        case 15:return _chatAdmin();
+        case 16:return AdminChatAdministradorPages(cedulachatresidente:cedularecidente);
                 
 
       }
     
     }
     _selecionadoItem(int posicion,String nombre){
-      Navigator.of(context).pop();
+      if(posicion!=16){
+        Navigator.of(context).pop();
+      }
          setState(() {
            _posicion_appbar_anterior=_item;
            _nombre_appbar_anterior=_nombre_appbar;
@@ -69,6 +75,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
             _nombre_appbar=nombre;
             _posicion_appbar=posicion;
          });
+        
     
       }
       _selecionadoItem2(int posicion,String nombre){
@@ -784,5 +791,108 @@ Widget drawerItem(){
       ],
     );
   }
+
+  _chatAdmin(){
+      final Firestore _firestore = Firestore.instance;
+    return SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Column(children: <Widget>[
+              Divider(
+                height: 30,
+                color: Colors.white,
+              ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
+                  child:
+                    Text("CHAT ADMINISTRADOR",
+                        style: TextStyle(
+                            fontSize: 23.0,
+                            color: Color.fromRGBO(255, 153, 29, 1.0),
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold)),
+                
+                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  height: 10.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color:  Color.fromRGBO(255, 153, 29, 1.0),
+                      borderRadius: BorderRadius.circular(5.0)),
+                ),
+              ),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              Container(  
+                width: 400,
+                height: 400,
+  child: StreamBuilder<QuerySnapshot>(
+    stream: Firestore.instance.collection('userChatAdmin').snapshots(),
+    builder: (context, snapshot) {
+
+      if (!snapshot.hasData) {
+        return Center(
+                      child: CircularProgressIndicator(
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(Colors.orange),
+                  ));
+      } else {
+      List<Widget> itemchat =  snapshot.data.documents.map((f) {
+        return _cardMensajes(f.documentID , f.data['nombre'] , f.data['texto']);
+}).toList();
+        return ListView(
+          padding: EdgeInsets.all(10.0),
+          children: <Widget>[
+            ...itemchat,
+          ],
+          );
+      }
+    },
+  ),
+),
+            ])
+          ],
+        ),
+      );
+  }
+  Widget _cardMensajes( _numeroidentificacion,_nombre,_mensaje){
+   
+
+  return  GestureDetector(  
+         child: Card(
+           child: Container(
+             height: 50,
+             padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
+             child: Row(
+               children: <Widget>[
+                 
+                Text(_numeroidentificacion, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+                SizedBox(width: 15.0,),
+                Text(_nombre, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+                SizedBox(width: 15.0,),
+                 Text(_mensaje, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                Expanded(
+                                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+
+              
+                    ],
+                  ),
+                )
+              ],
+             ),
+           ),
+         ), onTap: (){
+           cedularecidente=_numeroidentificacion;
+           _selecionadoItem(16, "CHAT ADMINITRADOR");
+         });
+
+}
 
 }
