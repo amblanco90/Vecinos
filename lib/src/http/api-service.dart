@@ -275,26 +275,14 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
       appData.idUsuario = datos["id"];
       appData.idSubunidad= datos["id_subunidad"];
       appData.cedula= datos["cedula"];
-      for (var item in datos["perfiles"]) {
+      if(datos["perfiles"].length==1){
 
-        if(item["id_perfil"]==100){
+        appData.permisos='Residente';
 
-          appData.permisos='Residente';
-
-        }
-        if(item["id_perfil"]==200){
-          appData.permisos='Familiar';
-        }
-
-        if(item["id_perfil"]==300){
-
-          appData.permisos='Administrador';
-
-        }
-
-        
-        
+      }else{
+        appData.permisos='Administrador';
       }
+      
       print(appData.permisos);
       final prefs = await SharedPreferences.getInstance();
       if(estado == true){

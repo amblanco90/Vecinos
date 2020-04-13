@@ -111,6 +111,9 @@ flutter:
       - recursos/imagenes/warning.png
       - recursos/imagenes/adminicon.png 
       - recursos/imagenes/residenteicon.png
+      - recursos/imagenes/admin.png
+      - recursos/imagenes/personas.png
+      - recursos/imagenes/junta.png
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf

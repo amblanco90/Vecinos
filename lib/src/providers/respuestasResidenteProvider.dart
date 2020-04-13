@@ -9,9 +9,6 @@ class RespuestaResidenteProvider{
   final String baseUrl = "http://18.191.213.12//api";
 Future<List<RespuestaPqr>>  getHilo(id,context) async {
 
-   
-
-
     final Map<String, dynamic> authData = {
       "id_pqr": id,
       "id_residente":appData.idUsuario
