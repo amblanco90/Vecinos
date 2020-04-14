@@ -40,7 +40,7 @@ class AppData {
   int estado_zona = 1;
   String estado_zona_string='Activo';
   int idZonaSocial;
-
+  String permisos;
   //PQR 
   int tipo_pqr= 2;
   int dirigido_a = 1;

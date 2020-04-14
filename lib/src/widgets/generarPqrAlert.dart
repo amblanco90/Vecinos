@@ -210,9 +210,10 @@ gg(BuildContext context, funcion) {
                                 appData.dirigido_a=1;
                                 appData.tipo_pqr=1;
                                 pr.dismiss();
-                                
+                                Navigator.pop(context);
                                 pqrGeneradaAlert(context);
                                 funcion();
+                                
                               });
                             });
                           }

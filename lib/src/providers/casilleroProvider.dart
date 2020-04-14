@@ -12,18 +12,60 @@ class CasilleroProvider{
    final String baseUrl = "http://18.191.213.12//api";
 
 Future<List<PedidoTaxi>> getAllCasillero() async {
-    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad};
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
     final response = await client.post(
         "$baseUrl/subunidad/casillero/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
     print(response.body);
     final decodedData = json.decode(response.body);
-    final entidades = new PedidosTaxis.fromJsonList(decodedData);
+
+    if(decodedData[0]["resp"]!=null){
+
+      return null;
+
+
+
+    }else{
+
+      final entidades = new PedidosTaxis.fromJsonList(decodedData);
+      return entidades.items;
+
+    }
+
+
+  
+
+    
    
 
-    return entidades.items;
+    
   }
 
+  
+Future<List<PedidoTaxi>> getAllNotificaciones() async {
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
+    final response = await client.post(
+        "$baseUrl/subunidad/casillero/list",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    print(response.body);
+    final decodedData = json.decode(response.body);
+
+    if(decodedData[0]["resp"]!=null){
+
+      return null;
+
+
+
+    }else{
+
+      final entidades = new PedidosTaxis.fromJsonListNotificaciones(decodedData);
+      return entidades.items;
+
+    }
+
+
+}
 
 }

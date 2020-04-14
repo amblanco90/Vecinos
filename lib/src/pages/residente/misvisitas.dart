@@ -413,7 +413,15 @@ return  Padding(
 
 Widget _qr(String _codigo){
   
-  return  QrImage(
+  return Container(
+    padding: const EdgeInsets.all(2.0),
+    decoration: BoxDecoration( 
+      border: Border.all(
+        width: 8,
+        color: Color.fromRGBO(255, 153, 29, 1.0)
+      )
+    ), //       <--- BoxDecoration here
+    child: QrImage(
   data: _codigo,
   version: QrVersions.auto,
   size: 150,
@@ -421,7 +429,8 @@ Widget _qr(String _codigo){
   embeddedImageStyle: QrEmbeddedImageStyle(
     size: Size(80, 80),
   ),
-);
+)
+  )  ;
 }
 Widget _campoAlert(String texto){
     return Container(
@@ -467,16 +476,22 @@ Widget _campoAlert(String texto){
     final size=MediaQuery.of(context).size;
     Dialog simpleDialog = Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(5.0),
       ),
       child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+        width: 8,
+        color: Color.fromRGBO(255, 153, 29, 1.0)
+      )
+         ),
         width: 500,
-        height: 400,
+        height: 500,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(child: Text("VISITA",style:
-                     TextStyle(fontSize: 20.0, color: Colors.black,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,)),),
+                     TextStyle(fontSize: 24.0, color: Colors.black,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,)),),
             Padding(padding:EdgeInsets.fromLTRB(0, 0, 0, 10)),
             
             _campoAlert(nombrelista),
@@ -495,7 +510,9 @@ Widget _campoAlert(String texto){
                 margin:EdgeInsets.all(10),),
                 _qr(id+"/"+fecha)
                  //_qr(),
-              ],)
+              ],),
+              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),)
+              ,botonCompartir()
             
           ],
         ),
@@ -570,6 +587,31 @@ Widget _calendario(){
           ],
         );
 }
+
+ botonCompartir() {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DrawerItem() ));
+      },
+      child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(vertical: 7.0),
+          child: RaisedButton(
+            shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(5),
+            ),
+            onPressed: () {
+             
+            },
+            child: const Text('COMPARTIR CODIGO',
+                style: TextStyle(
+                    fontSize: 24.0,
+                    color: Color.fromRGBO(255, 153, 29, 1.0),
+                    fontFamily: 'CenturyGothic',
+                    fontWeight: FontWeight.bold)),
+          )),
+    );
+  }
  Future<void> _selectDate(BuildContext context) async {
 
       

@@ -4,6 +4,7 @@ import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/bloc/provider_visitas.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/noticia.dart';
+import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
 import 'package:edificion247/src/pages/login/Login.dart';
 import 'package:edificion247/src/pages/residente/TaxiPage.dart';
@@ -21,10 +22,12 @@ import 'package:edificion247/src/pages/residente/re_chatadministrador.dart';
 import 'package:edificion247/src/pages/residente/vigilante.dart';
 import 'package:edificion247/src/pages/residente/miunidad.dart';
 import 'package:edificion247/src/pages/residente/pqr.dart';
+import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/providers/noticiasProvider.dart';
 import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
+import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -682,7 +685,7 @@ class _DrawerItemState extends State<DrawerItem> {
       case 11:
         return _home();
       case 12:
-        return MiBuzonPages();
+        return _notificaciones();
       case 13:
         return TaxiPage();
       case 14:
@@ -699,8 +702,7 @@ class _DrawerItemState extends State<DrawerItem> {
         return ChatAdministradorPages();
       case 20:
         return ChatJuntaDirectivaPage();
-      case 21:
-        return ChatPages();
+      case 21:  return _chatResidente();
     }
   }
 
@@ -1000,7 +1002,85 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
       ]),
     );
   }
-
+Widget _chatResidente(){
+    return  SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Column(children: <Widget>[
+              Divider(
+                height: 30,
+                color: Colors.white,
+              ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
+                  child: Row(children: <Widget>[
+                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                    Text("CON QUIEN",
+                        style: TextStyle(
+                            fontSize: 23.0,
+                            color: Color.fromRGBO(255, 153, 29, 1.0),
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold)),
+                            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                    Text("DESEA HABLAR?",
+                        style: TextStyle(
+                            fontSize: 23.0,
+                            color:Color.fromRGBO(167, 164, 164, 1),
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold)),
+                  ])),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  height: 10.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color:  Color.fromRGBO(255, 153, 29, 1.0),
+                      borderRadius: BorderRadius.circular(5.0)),
+                ),
+              ),
+              Divider(
+                height: 20,
+                color: Colors.white,
+              ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 00,00),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  _containerIcono(Icons.security, 'VIGILANTE', 000,00),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  _containerIcono(Icons.person, 'ADMINISTRADOR', 19,12),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                height: 3.0,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color:Color.fromRGBO(167, 164, 164, 1),
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
+              Divider(
+                height: 10,
+                color: Colors.white,
+              ),
+              Divider(
+                height: 40,
+                color: Colors.white,
+              ),
+              //_botonPrincipal()
+            ])
+          ],
+        ),
+      );
+  }
   Widget _contactos() {
     return ListView(
       children: <Widget>[
@@ -1209,30 +1289,39 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return Card(
-                                color: Colors.grey.shade300,
-                                child: Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      /*Text(
-                                  'TITULO',
-                                  style: TextStyle(
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.0),
-                                ),*/
-                                      Text(''),
-                                      Text(
-                                        snapshot.data[index].descripcion,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                              return GestureDetector(
+                                  onTap: (){
+
+                                    noticiaAlert(context, snapshot.data[index].descripcion,
+                                    snapshot.data[index].titulo, snapshot.data[index].fechaCreacion);
+
+                                  },
+
+                                  child: Card(
+                                  color: Colors.grey.shade300,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                    snapshot.data[index].fechaCreacion, 
+                                    style: TextStyle(
+                                        fontFamily: 'CenturyGothic',
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                        Text(snapshot.data[index].titulo,  style: TextStyle(
+                                        color: Colors.grey.shade700,
+                                        fontFamily: 'CenturyGothic',
+
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0), ),
+                                        
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -1401,15 +1490,15 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                _containerIcono(Icons.favorite, 'CONYUGE', 15),
+                _containerIcono(Icons.favorite, 'CONYUGE', 15,9),
                 SizedBox(
                   width: 10.0,
                 ),
-                _containerIcono(Icons.people, 'HIJOS', 16),
+                _containerIcono(Icons.people, 'HIJOS', 16,9),
                 SizedBox(
                   width: 10.0,
                 ),
-                _containerIcono(Icons.add_circle_outline, 'OTROS', 17),
+                _containerIcono(Icons.add_circle_outline, 'OTROS', 17,9),
               ],
             ),
             Container(
@@ -1485,11 +1574,11 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
     );
   }
 
-  _containerIcono(IconData iconData, leyenda, int posicion) {
+  _containerIcono(IconData iconData, leyenda, int posicion,int drawer) {
     return GestureDetector(
       onTap: () {
         _selecionadoItem2(posicion, "");
-        selecionadoItem4(9);
+        selecionadoItem4(drawer);
         
       
       },
@@ -2025,6 +2114,234 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
           borderRadius: BorderRadius.circular(5.0)),
     );
   }
+
+  _notificaciones(){
+    final notificacionesProvider = CasilleroProvider();
+    return ListView(
+
+      children: <Widget>[
+        SizedBox(height: 10.0,),
+        cabecera(),
+       ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 250.0,
+    
+  ),
+
+  child: Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+       child: FutureBuilder(
+                    future: notificacionesProvider.getAllNotificaciones(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<PedidoTaxi>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done)
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return cardMensajes(
+                                snapshot.data[index].descripcion,
+                                snapshot.data[index].fechaCreacion,
+                                '',
+                                snapshot.data[index].idCasillero.isEven
+                                    ? Colors.red.shade100
+                                    : Colors.grey.shade300,
+                                snapshot.data[index].estado,
+                                context,
+                                snapshot.data[index].idCasillero);
+                               
+                          },
+                        );
+                      else
+                        return Center(
+                            child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(Colors.orange),
+                        ));
+                    },
+                  ),
+    ),
+  ),
+),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 4.0,width: 280.0, decoration: BoxDecoration( color: Colors.grey.shade500, borderRadius: BorderRadius.circular(5.0)),),
+        ),
+        SizedBox(height: 5.0,),
+
+        Text('CONTACTAR', style: TextStyle(color: Colors.orange.shade800,fontWeight: FontWeight.bold,fontSize: 18.0, fontFamily: 'CenturyGothic'),textAlign: TextAlign.center,),
+
+        SizedBox(height: 5.0,),
+      
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 7.0,width: 200.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: <Widget>[
+               _containerIconoNotficaciones('recursos/imagenes/personas.png', 'JUNTA DIRECTIVA',00,00),
+               SizedBox(width: 10.0,),
+               _containerIconoNotficaciones('recursos/imagenes/junta.png', 'VIGILANCIA',00,00),
+               SizedBox(width: 10.0,),
+               _containerIconoNotficaciones('recursos/imagenes/admin.png','ADMINISTRADOR',19,12),
+             ],),
+             SizedBox(height:20.0),
+             _botonPrincipal(),
+             SizedBox(height:10.0),
+      ],
+
+    );
+  }
+
+  
+  cabecera(){
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Row(children: <Widget>[
+              Icon(Icons.mail_outline, color: Colors.transparent ),
+              SizedBox(width: 5.0,),
+              Text('INBOX', style: TextStyle(color: Colors.transparent,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
+            ],)
+          ],),
+        Column(children: <Widget>[
+            Row(children: <Widget>[
+              Icon(Icons.mail_outline, color: Color.fromRGBO(255, 114, 0, 1.0), ),
+              SizedBox(width: 5.0,),
+              Text('INBOX', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
+            ],)
+        ],),
+        Column(
+          children: <Widget>[
+            
+              Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            child: Text('ENVIADOS', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 14.0,),textAlign: TextAlign.end,),
+            onTap: (){
+                _selecionadoItem2(19, "");
+                selecionadoItem4(12);
+            },
+           ),
+        ),
+          ],
+        )
+      ],
+    );
+
+   
+
+  }
+
+
+  
+ Widget cardMensajes(
+      texto, fecha, hora, color, estado, BuildContext context, id) {
+  
+    return GestureDetector(
+        
+        child: Card(
+          color: color,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  texto,
+                  style: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontFamily: 'CenturyGothic',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.0),
+                ),
+                SizedBox(
+                  width: 15.0,
+                ),
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Text(
+                          '(LEER)' ,
+                          style: TextStyle(
+                              color: Color.fromRGBO(255, 114, 0, 1.0),
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10.0),
+                        ),
+                        onTap: () {
+
+                          noticiaAlert(context, texto,
+                                    'DETALLES', fecha);
+                         
+
+                         
+                        },
+                      ),
+                      SizedBox(width: 30),
+                      Text(
+                        fecha,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                      Text(
+                        hora,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+
+ 
+ _containerIconoNotficaciones( iconData, leyenda,int posicion,int drawer){
+
+   return GestureDetector(child: Column(
+     children: <Widget>[
+       SizedBox(height: 10.0,),
+       Container( 
+                  width: 75.0,
+                  height: 75.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(255, 114, 0, 1.0), style: BorderStyle.solid, width: 4.0, ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Image.asset(iconData),
+                  padding: EdgeInsets.all(5.0),
+                 
+                ),
+                SizedBox(height:5.0),
+                Text(leyenda, style: TextStyle(fontFamily: 'CenturyGothic', fontSize:12.0, fontWeight: FontWeight.bold),),
+     ],
+   ),
+   onTap: (){
+     _selecionadoItem2(19, "");
+                selecionadoItem4(12);
+   },
+   );
+
+ }
+
 }
 
 class cabeceradrawer extends StatefulWidget {
@@ -2113,4 +2430,7 @@ class _cabeceradrawerState extends State<cabeceradrawer> {
       ),
     );
   }
+  
+
+  
 }

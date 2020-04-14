@@ -16,7 +16,7 @@ class TaxiPage extends StatefulWidget {
 }
 
 class _TaxiPageState extends State<TaxiPage> {
-  var estadoString = '';
+  var estadoString = 'ACTIVO';
   final descripcionController = TextEditingController();
   final api = PedidoTaxiProvider();
 
@@ -25,7 +25,6 @@ class _TaxiPageState extends State<TaxiPage> {
 
   @override
   Widget build(BuildContext context) {
-
     pr = new ProgressDialog(context);
     pr.style(
         message: 'Guardando...',
@@ -45,8 +44,7 @@ class _TaxiPageState extends State<TaxiPage> {
 
     pr = new ProgressDialog(context);
 
-
-    peliminar= new ProgressDialog(context);
+    peliminar = new ProgressDialog(context);
     peliminar.style(
         message: 'Eliminando...',
         borderRadius: 10.0,
@@ -105,63 +103,66 @@ class _TaxiPageState extends State<TaxiPage> {
             SizedBox(
               height: 10.0,
             ),
-        Center(child: 
-        GestureDetector(
-          onTap: (){
-            PedirTaxi(context);
-          },
-          child:CircleAvatar(
-            backgroundColor: Colors.orange,
-            radius: 90,
-            child: CircleAvatar(
-            backgroundColor: Colors.yellow,
-            radius: 83,
-            child: Text('TAXI',  style: TextStyle(
-                 
-                  fontFamily: 'CenturyGothic',
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 60.0),
-            ),),
-           
-            ),
-            )
-        ),
-        SizedBox(
+            Center(
+                child: GestureDetector(
+              onTap: () {
+                PedirTaxi(context);
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.orange,
+                radius: 90,
+                child: CircleAvatar(
+                  backgroundColor: Colors.yellow,
+                  radius: 83,
+                  child: Text(
+                    'TAXI',
+                    style: TextStyle(
+                        fontFamily: 'CenturyGothic',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 60.0),
+                  ),
+                ),
+              ),
+            )),
+            SizedBox(
               height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-               children: <Widget>[
-
-                 Text(
-              'ESTADO: ',
-              style: TextStyle(
-                  fontFamily: 'CenturyGothic',
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
+              children: <Widget>[
+                Text(
+                  'ESTADO: ',
+                  style: TextStyle(
+                      fontFamily: 'CenturyGothic',
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0),
+                ),
+                Text(
+                  estadoString,
+                  style: TextStyle(
+                      fontFamily: 'CenturyGothic',
+                      color: Colors.grey.shade600,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0),
+                ),
+              ],
             ),
-             Text(
-              estadoString,
-              style: TextStyle(
-                  fontFamily: 'CenturyGothic',
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
+            SizedBox(
+              height: 10.0,
             ),
-         
-
-               ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                height: 4.0,
+                width: 300.0,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade500,
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
             ),
-             SizedBox(height: 10.0,),
-               Padding(
-          padding: const EdgeInsets.symmetric(horizontal:25.0),
-          child: Container(height: 4.0,width: 300.0, decoration: BoxDecoration( color: Colors.grey.shade500, borderRadius: BorderRadius.circular(5.0)),),
-        ),
-
-       
             ConstrainedBox(
               constraints: new BoxConstraints(
                 minHeight: 50.0,
@@ -169,7 +170,7 @@ class _TaxiPageState extends State<TaxiPage> {
               ),
               child: Container(
                 margin: EdgeInsets.all(5.0),
-                padding: EdgeInsets.all(5.0), 
+                padding: EdgeInsets.all(5.0),
                 child: Scrollbar(
                   child: FutureBuilder(
                     future: api.getAllPedidosTaxi(),
@@ -179,14 +180,20 @@ class _TaxiPageState extends State<TaxiPage> {
                         return ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return cardMensajes(snapshot.data[index].descripcion, 
-                            snapshot.data[index].fechaCreacion, '', 
-                            snapshot.data[index].idCasillero.isEven?Colors.red.shade100:Colors.grey.shade300, snapshot.data[index].estado, context, snapshot.data[index].idCasillero );
-
-                            },
+                            return cardMensajes(
+                                snapshot.data[index].descripcion,
+                                snapshot.data[index].fechaCreacion,
+                                '',
+                                snapshot.data[index].idCasillero.isEven
+                                    ? Colors.red.shade100
+                                    : Colors.grey.shade300,
+                                snapshot.data[index].estado,
+                                context,
+                                snapshot.data[index].idCasillero);
+                          },
                         );
                       else
-                      return Center(
+                        return Center(
                             child: CircularProgressIndicator(
                           valueColor:
                               new AlwaysStoppedAnimation<Color>(Colors.orange),
@@ -196,12 +203,16 @@ class _TaxiPageState extends State<TaxiPage> {
                 ),
               ),
             ),
-
             Padding(
-          padding: const EdgeInsets.symmetric(horizontal:25.0),
-          child: Container(height: 4.0,width: 300.0, decoration: BoxDecoration( color: Colors.grey.shade500, borderRadius: BorderRadius.circular(5.0)),),
-        ),
-
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Container(
+                height: 4.0,
+                width: 300.0,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade500,
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
+            ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 100.0, vertical: 5.0),
               child: FlatButton(
@@ -211,7 +222,6 @@ class _TaxiPageState extends State<TaxiPage> {
                 },
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Container(
-                  
                   margin: EdgeInsets.symmetric(horizontal: 5.0),
                   padding: EdgeInsets.symmetric(vertical: 7.0),
                   child: Center(
@@ -224,424 +234,417 @@ class _TaxiPageState extends State<TaxiPage> {
                           fontSize: 20.0),
                     ),
                   ),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Colors.grey.shade300,),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.grey.shade300,
+                  ),
                 ),
               ),
             )
-
-
-   
           ],
         ),
       ),
     );
   }
 
-  
-Widget cardMensajes(texto, fecha, hora, color, estado, BuildContext context,id){
-  
-  if(estado==0){
+  Widget cardMensajes(
+      texto, fecha, hora, color, estado, BuildContext context, id) {
+    if (estado == 0) {
+      estadoString = 'CANCELADO';
+    } else if (estado == 1) {
+      estadoString = 'ACTIVO';
+    } else if (estado == 20) {
+      estadoString = 'EN PORTERIA';
+    } else if (estado == 21) {
+      estadoString = 'DESPACHADO';
+    }
 
-    estadoString= 'INACTIVO';
+    return GestureDetector(
+        onTap: () {
+          if (estado == 0) {
+            estadoString = 'CANCELADO';
+          } else if (estado == 1) {
+            estadoString = 'ACTIVO';
+          } else if (estado == 20) {
+            estadoString = 'EN PORTERIA';
+          } else if (estado == 21) {
+            estadoString = 'DESPACHADO';
+          }
+          setState(() {});
+        },
+        child: Card(
+          color: color,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  texto,
+                  style: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontFamily: 'CenturyGothic',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.0),
+                ),
+                SizedBox(
+                  width: 15.0,
+                ),
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Text(
+                          '(LEER)' + estadoString,
+                          style: TextStyle(
+                              color: Color.fromRGBO(255, 114, 0, 1.0),
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10.0),
+                        ),
+                        onTap: () {
+                          if (estado == 0) {
+                            estadoString = 'CANCELADO';
+                          } else if (estado == 1) {
+                            estadoString = 'ACTIVO';
+                          } else if (estado == 20) {
+                            estadoString = 'EN PORTERIA';
+                          } else if (estado == 21) {
+                            estadoString = 'DESPACHADO';
+                          }
 
-  }else if(estado==1){
-     estadoString= 'ACTIVO';
-  }else if(estado==20){
-     estadoString= 'EN PORTERIA';
-  }else if(estado==21){
-     estadoString= 'DESPACHADO';
+                          verTaxi(context, estadoString, texto, id);
+                        },
+                      ),
+                      SizedBox(width: 30),
+                      Text(
+                        fecha,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                      Text(
+                        hora,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 
-  return    GestureDetector(
-     onTap: (){
-       setState(() {
-         print(estadoString);
-       });
-        
-     },
-     
-      child: Card(
-             
-             color: color,
-             child: Container(
-               padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 8.0),
-               child: Row(
-                 children: <Widget>[
-                   
-                  Text(texto, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
-                  SizedBox(width: 15.0,),
-                  
-                  Expanded(
-                                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-
-                    GestureDetector(
-
-                    
-                    
-                    child: Text('(LEER)'+ estadoString, style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
-                    onTap: (){
-
-                      verTaxi(context, estadoString, texto, id);
-                     
+  Widget PedirTaxi(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          final observaciones = TextEditingController();
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.orangeAccent.shade400,
+                    width: 4,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Column(children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(Icons.close),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(' SOLICITUD TAXI ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  ConstrainedBox(
+                    constraints: new BoxConstraints(
+                      maxHeight: 190.0,
+                    ),
+                    child: Container(
+                      color: Colors.grey.shade200,
+                      padding: EdgeInsets.all(10.0),
+                      child: Scrollbar(
+                        child: new ListView(
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            Container(
+                                width: 200.0,
+                                height: 200.0,
+                                child: TextField(
+                                  controller: observaciones,
+                                  cursorColor: Colors.orange,
+                                  decoration: InputDecoration.collapsed(
+                                      hintText: 'OBSERVACIONES',
+                                      hintStyle: TextStyle(
+                                        fontSize: 13.0,
+                                        color: Colors.grey.shade700,
+                                        fontFamily: 'CenturyGothic',
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: null,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      pr.show();
+                      if (observaciones.text.isEmpty) {
+                        ValidacionLoginAlert(context);
+                      } else {
+                        api
+                            .pedirTaxi(context, observaciones.text)
+                            .then((value) {
+                          observaciones.clear();
+                          print(value);
+                          setState(() {});
+                          pr.dismiss();
+                          Navigator.pop(context);
+                          PedirTaxiAlert(context);
+                        });
+                      }
                     },
-
-                    
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10.0),
+                      padding: EdgeInsets.symmetric(vertical: 5.0),
+                      child: Center(
+                        child: Text(
+                          'CONFIRMAR PEDIDO',
+                          style: TextStyle(
+                              color: Colors.orange.shade700,
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.0),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(5.0)),
                     ),
-
-                    SizedBox(width:30),
-
-                        Text(fecha, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
-                        Text(hora, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
-
-                      ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10.0),
+                      padding: EdgeInsets.symmetric(vertical: 5.0),
+                      child: Center(
+                        child: Text(
+                          'CANCELAR PEDIDO',
+                          style: TextStyle(
+                              color: Colors.orange.shade700,
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.0),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(5.0)),
                     ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
                   )
-                ],
-               ),
-             ),
-           )
-  );
-
-}
-
-
-Widget PedirTaxi (BuildContext context) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        final observaciones = TextEditingController();
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.orangeAccent.shade400,
-                  width: 4,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 3,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
+                ]),
               ),
-              child: Column(children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.close),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(' SOLICITUD TAXI ',
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,))
-                  
-                  ],
-                ),
-               
-                SizedBox(
-                  height: 10.0,
-                ),
-                ConstrainedBox(
-                  constraints: new BoxConstraints(
-                    maxHeight: 190.0,
-                  ),
-                  child: Container(
-                    color: Colors.grey.shade200,
-                    padding: EdgeInsets.all(10.0),
-                    child: Scrollbar(
-                      child: new ListView(
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          Container(
-                              width: 200.0,
-                              height: 200.0,
-                              child: TextField(
-                                controller: observaciones,
-                                cursorColor: Colors.orange,
-                                decoration:
-                                    InputDecoration.collapsed(hintText: 'OBSERVACIONES', hintStyle: TextStyle(
-                            fontSize: 13.0,
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,) ),
-                                keyboardType: TextInputType.multiline,
-                                maxLines: null,
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    pr.show();
-                    if (observaciones.text.isEmpty) {
-                                  ValidacionLoginAlert(context);
-                                } else {
-                                  api
-                                      .pedirTaxi(
-                                          context, observaciones.text)
-                                      .then((value) {
-                                    observaciones.clear();
-                                    print(value);
-                                    setState(() {
-                                      
-                                    });
-                                    pr.dismiss();
-                                    PedirTaxiAlert(context);
-                                  });
-                                }
-                  },
-                  child: Container(
-                    margin:
-                        EdgeInsets.only( top: 10.0),
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
-                    child: Center(
-                      child: Text(
-                        'CONFIRMAR PEDIDO',
-                        style: TextStyle(
-                            color: Colors.orange.shade700,
-                            fontFamily: 'CenturyGothic', 
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
-                ),
-               GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    
-                  },
-                  child: Container(
-                    margin:
-                        EdgeInsets.only( top: 10.0),
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
-                    child: Center(
-                      child: Text(
-                        'CANCELAR PEDIDO',
-                        style: TextStyle(
-                            color: Colors.orange.shade700,
-                            fontFamily: 'CenturyGothic', 
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
-                ),
-             
-              SizedBox(height: 20.0,)
-              ]),
             ),
-          ),
-        );
-      });
-}
+          );
+        });
+  }
 
-
-Widget verTaxi (BuildContext context, estadoString, observaciones,id) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.orangeAccent.shade400,
-                  width: 4,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 3,
-                    offset: Offset(0, 3), // changes position of shadow
+  Widget verTaxi(BuildContext context, estadoString, observaciones, id) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.orangeAccent.shade400,
+                    width: 4,
                   ),
-                ],
-              ),
-              child: Column(children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.close),
-                    )
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(' ESTADO SOLICITUD ',
-                        style: TextStyle(
+                child: Column(children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(Icons.close),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(' ESTADO SOLICITUD ',
+                          style: TextStyle(
                             fontSize: 20.0,
                             color: Colors.grey.shade700,
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,))
-                  
-                  ],
-                ),
-               
-                SizedBox(
-                  height: 10.0,
-                ),
-                ConstrainedBox(
-                  constraints: new BoxConstraints(
-                    maxHeight: 190.0,
+                            fontWeight: FontWeight.bold,
+                          ))
+                    ],
                   ),
-                  child: Container(
-                    color: Colors.grey.shade200,
-                    padding: EdgeInsets.all(10.0),
-                    child: Scrollbar(
-                      child: new ListView(
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          Container(
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  ConstrainedBox(
+                    constraints: new BoxConstraints(
+                      maxHeight: 190.0,
+                    ),
+                    child: Container(
+                      color: Colors.grey.shade200,
+                      padding: EdgeInsets.all(10.0),
+                      child: Scrollbar(
+                        child: new ListView(
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            Container(
                               width: 200.0,
                               height: 200.0,
-
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children:<Widget>[
-                                  Text('OBSERVACIONES: ',style: TextStyle(
-                            fontSize: 13.0,
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,) ),
-
-                            Text(observaciones,
-                            maxLines: null,
-                            style: TextStyle(
-                              
-                            fontSize: 13.0,
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,) ),
-
-                            SizedBox(height:10.0),
-
-                            Row(children: <Widget>[
-                              Text('ESTADO: ',
-                            maxLines: null,
-                            style: TextStyle(
-                              
-                            fontSize: 13.0,
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,) ),
-
-                            Text(estadoString,
-                            maxLines: null,
-                            style: TextStyle(
-                              
-                            fontSize: 13.0,
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,) ),
-                            ],),
-
-                             
-                         
-                                ]
-                              ),
-                          )
-                        ],
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text('OBSERVACIONES: ',
+                                        style: TextStyle(
+                                          fontSize: 13.0,
+                                          color: Colors.grey.shade700,
+                                          fontFamily: 'CenturyGothic',
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    Text(observaciones,
+                                        maxLines: null,
+                                        style: TextStyle(
+                                          fontSize: 13.0,
+                                          color: Colors.grey.shade700,
+                                          fontFamily: 'CenturyGothic',
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    SizedBox(height: 10.0),
+                                    Row(
+                                      children: <Widget>[
+                                        Text('ESTADO: ',
+                                            maxLines: null,
+                                            style: TextStyle(
+                                              fontSize: 13.0,
+                                              color: Colors.grey.shade700,
+                                              fontFamily: 'CenturyGothic',
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                        Text(estadoString,
+                                            maxLines: null,
+                                            style: TextStyle(
+                                              fontSize: 13.0,
+                                              color: Colors.grey.shade700,
+                                              fontFamily: 'CenturyGothic',
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      ],
+                                    ),
+                                  ]),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-               GestureDetector(
-                 
-                  onTap: () {
-                    pr.show();
-                     api
-                                      .eliminarPedidoTaxi(
-                                          context, id)
-                                      .then((value) {
+                  GestureDetector(
+                    onTap: () {
+                      pr.show();
+                      api.eliminarPedidoTaxi(context, id).then((value) {
+                        print(value);
+                        setState(() {});
+                        pr.dismiss();
 
-
-                                   
-                                    print(value);
-                                    setState(() {
-                                      
-                                    });
-                                    pr.dismiss();
-                                    
-                                    Navigator.pop(context);
-                                    GenericAlert(context, value["respuesta"]);
-                                     
-                                  });
-                    
-                  },
-                  child: Container(
-                    margin:
-                        EdgeInsets.only( top: 10.0),
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
-                    child: Center(
-                      child: Text(
-                        'CANCELAR PEDIDO',
-                        style: TextStyle(
-                            color: Colors.orange.shade700,
-                            fontFamily: 'CenturyGothic', 
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
+                        Navigator.pop(context);
+                        GenericAlert(context, value["respuesta"]);
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10.0),
+                      padding: EdgeInsets.symmetric(vertical: 5.0),
+                      child: Center(
+                        child: Text(
+                          'CANCELAR PEDIDO',
+                          style: TextStyle(
+                              color: Colors.orange.shade700,
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.0),
+                        ),
                       ),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(5.0)),
                     ),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(5.0)),
                   ),
-                ),
-             
-              SizedBox(height: 20.0,)
-              ]),
+                  SizedBox(
+                    height: 20.0,
+                  )
+                ]),
+              ),
             ),
-          ),
-        );
-      });
-}
-
-
-
-
-
-
-
-
-
+          );
+        });
+  }
 }

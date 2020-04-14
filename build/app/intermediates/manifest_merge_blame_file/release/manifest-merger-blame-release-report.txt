@@ -1,0 +1,159 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.vecinos.edificion247"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:3:5-66
+11-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:3:22-64
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:4:5-65
+12-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:4:22-62
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:5:5-81
+13-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:5:22-78
+14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+14-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:6:5-80
+14-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:6:22-77
+15    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+15-->[:geolocator] D:\Documentos\proyecto flutter\6042019\Vecinos\build\geolocator\intermediates\library_manifest\release\AndroidManifest.xml:7:5-79
+15-->[:geolocator] D:\Documentos\proyecto flutter\6042019\Vecinos\build\geolocator\intermediates\library_manifest\release\AndroidManifest.xml:7:22-76
+16    <!-- <uses-sdk android:minSdkVersion="14" /> -->
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\19838d4057b3c7f12f7dd65098a6a100\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:13:5-79
+17-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\19838d4057b3c7f12f7dd65098a6a100\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:13:22-76
+18    <!--
+19 io.flutter.app.FlutterApplication is an android.app.Application that
+20         calls FlutterMain.startInitialization(this); in its onCreate method.
+21         In most cases you can leave this as-is, but you if you want to provide
+22         additional functionality it is fine to subclass or reimplement
+23         FlutterApplication and put your custom class here.
+24    -->
+25    <application
+25-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:12:5-33:19
+26        android:name="io.flutter.app.FlutterApplication"
+26-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:13:9-57
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.1.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\3aaf6e5219b7f981ec263df919098c6f\core-1.1.0\AndroidManifest.xml:24:18-86
+28        android:icon="@mipmap/ic_launcher"
+28-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:15:9-43
+29        android:label="Vecinos247" >
+29-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:14:9-35
+30        <activity
+30-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:16:9-27:20
+31            android:name="com.vecinos.edificion247.MainActivity"
+31-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:17:13-41
+32            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+32-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:20:13-163
+33            android:hardwareAccelerated="true"
+33-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:21:13-47
+34            android:launchMode="singleTop"
+34-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:18:13-43
+35            android:theme="@style/LaunchTheme"
+35-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:19:13-47
+36            android:windowSoftInputMode="adjustResize" >
+36-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:22:13-55
+37            <intent-filter>
+37-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:23:13-26:29
+38                <action android:name="android.intent.action.MAIN" />
+38-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:24:17-68
+38-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:24:25-66
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:25:17-76
+40-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:25:27-74
+41            </intent-filter>
+42        </activity>
+43        <!--
+44             Don't delete the meta-data below.
+45             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+46        -->
+47        <meta-data
+47-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:30:9-32:33
+48            android:name="flutterEmbedding"
+48-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:31:13-44
+49            android:value="2" />
+49-->D:\Documentos\proyecto flutter\6042019\Vecinos\android\app\src\main\AndroidManifest.xml:32:13-30
+50
+51        <service
+51-->[:cloud_firestore] D:\Documentos\proyecto flutter\6042019\Vecinos\build\cloud_firestore\intermediates\library_manifest\release\AndroidManifest.xml:8:9-12:19
+52            android:name="com.google.firebase.components.ComponentDiscoveryService"
+52-->[:cloud_firestore] D:\Documentos\proyecto flutter\6042019\Vecinos\build\cloud_firestore\intermediates\library_manifest\release\AndroidManifest.xml:8:18-89
+53            android:directBootAware="true"
+53-->[com.google.firebase:firebase-common:19.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\39b995365a75fee770e528ed8917de4c\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+54            android:exported="false" >
+54-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\19838d4057b3c7f12f7dd65098a6a100\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:19:13-37
+55            <meta-data
+55-->[:cloud_firestore] D:\Documentos\proyecto flutter\6042019\Vecinos\build\cloud_firestore\intermediates\library_manifest\release\AndroidManifest.xml:9:13-11:85
+56                android:name="com.google.firebase.components:io.flutter.plugins.firebase.cloudfirestore.FlutterFirebaseAppRegistrar"
+56-->[:cloud_firestore] D:\Documentos\proyecto flutter\6042019\Vecinos\build\cloud_firestore\intermediates\library_manifest\release\AndroidManifest.xml:10:17-133
+57                android:value="com.google.firebase.components.ComponentRegistrar" />
+57-->[:cloud_firestore] D:\Documentos\proyecto flutter\6042019\Vecinos\build\cloud_firestore\intermediates\library_manifest\release\AndroidManifest.xml:11:17-82
+58            <meta-data
+58-->[:firebase_core] D:\Documentos\proyecto flutter\6042019\Vecinos\build\firebase_core\intermediates\library_manifest\release\AndroidManifest.xml:9:13-11:85
+59                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
+59-->[:firebase_core] D:\Documentos\proyecto flutter\6042019\Vecinos\build\firebase_core\intermediates\library_manifest\release\AndroidManifest.xml:10:17-123
+60                android:value="com.google.firebase.components.ComponentRegistrar" />
+60-->[:firebase_core] D:\Documentos\proyecto flutter\6042019\Vecinos\build\firebase_core\intermediates\library_manifest\release\AndroidManifest.xml:11:17-82
+61            <meta-data
+61-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\19838d4057b3c7f12f7dd65098a6a100\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:20:13-22:85
+62                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+62-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\19838d4057b3c7f12f7dd65098a6a100\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:21:17-111
+63                android:value="com.google.firebase.components.ComponentRegistrar" />
+63-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\19838d4057b3c7f12f7dd65098a6a100\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:22:17-82
+64        </service>
+65
+66        <provider
+66-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:11:9-19:20
+67            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+67-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:12:13-82
+68            android:authorities="com.vecinos.edificion247.flutter.image_provider"
+68-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:13:13-74
+69            android:exported="false"
+69-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:14:13-37
+70            android:grantUriPermissions="true" >
+70-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:15:13-47
+71            <meta-data
+71-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:16:13-18:75
+72                android:name="android.support.FILE_PROVIDER_PATHS"
+72-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:17:17-67
+73                android:resource="@xml/flutter_image_picker_file_paths" />
+73-->[:image_picker] D:\Documentos\proyecto flutter\6042019\Vecinos\build\image_picker\intermediates\library_manifest\release\AndroidManifest.xml:18:17-72
+74        </provider>
+75
+76        <activity
+76-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+77            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+77-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+78            android:exported="false"
+78-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+79            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+79-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+80
+81        <provider
+81-->[com.google.firebase:firebase-common:19.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\39b995365a75fee770e528ed8917de4c\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+82            android:name="com.google.firebase.provider.FirebaseInitProvider"
+82-->[com.google.firebase:firebase-common:19.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\39b995365a75fee770e528ed8917de4c\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+83            android:authorities="com.vecinos.edificion247.firebaseinitprovider"
+83-->[com.google.firebase:firebase-common:19.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\39b995365a75fee770e528ed8917de4c\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+84            android:exported="false"
+84-->[com.google.firebase:firebase-common:19.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\39b995365a75fee770e528ed8917de4c\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+85            android:initOrder="100" />
+85-->[com.google.firebase:firebase-common:19.3.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\39b995365a75fee770e528ed8917de4c\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+86
+87        <meta-data
+87-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\95ad887260741b40428378dceaa4bd1a\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+88            android:name="com.google.android.gms.version"
+88-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\95ad887260741b40428378dceaa4bd1a\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+89            android:value="@integer/google_play_services_version" />
+89-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\whdeveloper17\.gradle\caches\transforms-2\files-2.1\95ad887260741b40428378dceaa4bd1a\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+90    </application>
+91
+92</manifest>

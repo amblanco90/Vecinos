@@ -13,8 +13,8 @@ class MiCasillero extends StatelessWidget {
             builder: (BuildContext context,
                 AsyncSnapshot<List<PedidoTaxi>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return snapshot.data.length>0?ListView.builder(
-                  itemCount: snapshot.data.length,
+                return snapshot.data!=null?ListView.builder(
+                  itemCount: snapshot.data!=null?snapshot.data.length:0,
                   itemBuilder: (BuildContext context, int index) {
                     return crearCardCasillero(
                         snapshot.data[index].fechaCreacion,
