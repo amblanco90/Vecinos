@@ -275,7 +275,6 @@ responderPqr(BuildContext context,destinatario,tipo,id,estado) {
                             pqrRespuestaProvider.respuestaResidente(observaciones.text, appData.idUsuario, id, _image, appData.nombre,context).then((val){
                               
                               setState(() {
-
                                 observaciones.clear();
                                 _image =null;
                                 pr.dismiss();

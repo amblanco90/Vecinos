@@ -47,10 +47,13 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
   entrada(){
 
     if(seleccionado=='a'){
+      appData.rol ='Admin';
       Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => DrawerAdminItem()));
+
     }
     if(seleccionado=='r'){
+      appData.rol = 'Residente';
       Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => DrawerItem()));
     }

@@ -1,4 +1,6 @@
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
+import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 import 'package:edificion247/src/providers/pedidoTaxi.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:flutter/material.dart';
@@ -217,8 +219,9 @@ class _TaxiPageState extends State<TaxiPage> {
               margin: EdgeInsets.symmetric(horizontal: 100.0, vertical: 5.0),
               child: FlatButton(
                 onPressed: () {
+                  
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => DrawerItem()));
+                      MaterialPageRoute(builder: (context) =>  appData.rol=='Residente'? DrawerItem():DrawerAdminItem()));
                 },
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: Container(

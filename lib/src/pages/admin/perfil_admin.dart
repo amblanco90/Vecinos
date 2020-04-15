@@ -103,8 +103,30 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
                       SizedBox(
                         height: 10.0,
                       ),
-                      
-                     
+
+                      Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 7.0,width: 310.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             
+             children: <Widget>[
+               _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES'),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS'),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/iconreserva.png','RESERVAS'),
+                
+             ],),
+             
+             Padding(
+          padding: const EdgeInsets.symmetric(horizontal:30.0,vertical: 10.0),
+          child: Container(height: 7.0,width: 320.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+             SizedBox(height:10.0),
+            
+             
                       botonPrincipal(context)
                     ],
                   ),
@@ -177,8 +199,8 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
           height: 10.0,
         ),
         Container(
-          width: 85.0,
-          height: 85.0,
+          width: 100.0,
+          height: 100.0,
           decoration: BoxDecoration(
             border: Border.all(
               color: Color.fromRGBO(255, 114, 0, 1.0),
@@ -189,7 +211,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
           ),
           child: Icon(
             iconData,
-            size: 70.0,
+            size: 95.0,
             color: Colors.grey.shade800,
           ),
         ),
@@ -268,7 +290,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
        child: Center(child: Text('PRINCIPAL', style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 20.0),),),
-       decoration: BoxDecoration( color: Colors.grey.shade300, borderRadius: BorderRadius.circular(5.0)),
+       decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0)),
      ),
    );
 
@@ -298,6 +320,33 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
       ),
     );
   }
+
+  _containerIcono( iconData, leyenda){
+
+   return GestureDetector(child: Column(
+     children: <Widget>[
+       SizedBox(height: 10.0,),
+       Container( 
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(255, 114, 0, 1.0), style: BorderStyle.solid, width: 4.0, ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Image.asset(iconData),
+                  padding: EdgeInsets.all(5.0),
+                 
+                ),
+                SizedBox(height:5.0),
+                Text(leyenda, style: TextStyle(fontFamily: 'CenturyGothic', fontSize:16.0, fontWeight: FontWeight.bold),),
+     ],
+   ),
+   );
+
+ }
+
+ 
+
 
 }
 
