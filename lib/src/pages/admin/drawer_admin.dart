@@ -3,6 +3,7 @@ import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/noticia.dart';
 import 'package:edificion247/src/models/residente.dart';
+import 'package:edificion247/src/models/unidadmodel.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
 import 'package:edificion247/src/pages/admin/buzon_unidades_admin.dart';
 import 'package:edificion247/src/pages/admin/chat_admin.dart';
@@ -24,6 +25,8 @@ import 'package:edificion247/src/pages/residente/misfacturas.dart';
 import 'package:edificion247/src/pages/residente/miunidad.dart';
 import 'package:edificion247/src/pages/residente/pqr.dart';
 import 'package:edificion247/src/providers/noticiasProvider.dart';
+import 'package:edificion247/src/providers/push_notification_provider.dart';
+import 'package:edificion247/src/providers/subunidadProvider.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/home_button_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
@@ -43,6 +46,13 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     int _posicion_appbar=0;
     int _posicion_appbar_anterior=0;
 
+    @override
+    void initState() { 
+    super.initState();
+    final pushProvider = PushNotificationProvider();
+    pushProvider.initNotifications(fincion,context);
+    }
+
    int _item=0;
      _itemSelecionado(  ){
       switch(_item){
@@ -61,12 +71,22 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 13:return TaxiPage();
         case 14:return ListaSubUnidadesPage();
         case 15:return ChatPageAdmin();
-        case 16: MiBuzonPages();
+        case 16: return MiBuzonPages();
+        case 17:return  _vistaUnidad();
                 
 
       }
     
     }
+
+    fincion(){
+    
+    setState(() {
+                         _item = 16;
+                        _nombre_appbar = 'NOTIFICACIONES';
+                        _posicion_appbar=0;
+                      });
+  }
     _selecionadoItem(int posicion,String nombre){
       Navigator.of(context).pop();
          setState(() {
@@ -110,9 +130,9 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                       child: FlatButton(
                         onPressed: () {
                           setState(() {
-                            _item = 0;
-                            _nombre_appbar = 'Home';
-                            _posicion_appbar=0;
+                            _item = 17;
+                            _nombre_appbar = 'MI UNIDAD';
+                            _posicion_appbar=17;
                           });
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -403,7 +423,7 @@ Widget drawerItem(){
                     child: Text("DATOS BASICOS",style: TextStyle(fontSize: 15,color: Colors.black), textAlign: TextAlign.right,),
                     onTap: () {
 
-                        _selecionadoItem(1,'DATOS BASICOS');
+                        _selecionadoItem(17,'DATOS BASICOS');
                       
                       },
                     ), 
@@ -913,5 +933,196 @@ Widget _botonesRedondeados(context) {
     );
   }
 
+
+  _vistaUnidad() {
+    final unidadProvider  = SubUnidadProvider();
+    return FutureBuilder(
+      future: unidadProvider.getUnidad(),
+      builder: (BuildContext context, AsyncSnapshot<Unidad> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done)
+          return SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Container(
+                    width: 80.0,
+                    height: 80.0,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromRGBO(255, 114, 0, 1.0),
+                          style: BorderStyle.solid,
+                          width: 4.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    snapshot.data.nombre,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color.fromRGBO(255, 114, 0, 1.0),
+                        fontFamily: 'CenturyGothic',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 2.0),
+                    child: Container(
+                      height: 4.0,
+                      width: 280.0,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2.0)),
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Column(children: <Widget>[
+                      _containerUnidad('RESIDENCIAL'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      _containerUnidad(snapshot.data.direccion),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                    /* _containerUnidad('BARRANQUILLA'),
+                      SizedBox(
+                        height: 5.0,
+                      ),*/
+                      _containerUnidad(snapshot.data.movil+'-'+snapshot.data.fijo),
+                    ]),
+                  ),
+                  Container(
+                    height: 6.0,
+                    width: 280.0,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 114, 0, 1.0),
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      _containerIcono2(Icons.people, 'JUNTA DIRECTIVA', 20, 10),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      _containerIcono2(Icons.security, 'VIGILANCIA', 18, 11),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      _containerIcono2(Icons.person, 'ADMINISTRADOR', 19, 12),
+                    ],
+                  ),
+                  SizedBox(height: 20.0),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DrawerAdminItem()));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 80.0, vertical: 20.0),
+                        padding: EdgeInsets.symmetric(vertical: 7.0),
+                        child: Center(
+                          child: Text(
+                            'PRINCIPAL',
+                            style: TextStyle(
+                                color: Color.fromRGBO(255, 153, 29, 1.0),
+                                fontFamily: 'CenturyGothic',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(5.0)),
+                      )),
+                  SizedBox(height: 10.0),
+                ],
+              ),
+            ),
+          );
+        else
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
+          ));
+      },
+    );
+  }
+
+  _containerUnidad(texto) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      child: Center(
+        child: Text(
+          texto,
+          style: TextStyle(
+              color: Colors.grey.shade900,
+              fontFamily: 'CenturyGothic',
+              fontWeight: FontWeight.bold,
+              fontSize: 17.0),
+        ),
+      ),
+      decoration: BoxDecoration(
+          color: Color.fromRGBO(252, 71, 0, 0.2),
+          borderRadius: BorderRadius.circular(5.0)),
+    );
+  }
+
+   _containerIcono2(IconData iconData, leyenda, int posicion, int drawer) {
+    return GestureDetector(
+        onTap: () {
+          _selecionadoItem2(posicion, "asasdxsa");
+         
+        },
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              width: 75.0,
+              height: 75.0,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color.fromRGBO(255, 114, 0, 1.0),
+                  style: BorderStyle.solid,
+                  width: 4.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Icon(
+                iconData,
+                size: 65.0,
+                color: Colors.grey.shade800,
+              ),
+            ),
+            SizedBox(width: 5.0),
+            Text(
+              leyenda,
+              style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ));
+  }
+
+ 
+
+ 
   
 }
