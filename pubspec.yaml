@@ -116,6 +116,9 @@ flutter:
       - recursos/imagenes/admin.png
       - recursos/imagenes/personas.png
       - recursos/imagenes/junta.png
+      - recursos/imagenes/trespersonasicon.jpg
+      - recursos/imagenes/iconreserva.png
+      - recursos/imagenes/facturaicon.png
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf

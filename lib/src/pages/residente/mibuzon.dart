@@ -1,6 +1,8 @@
 
 
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
+import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 import 'package:edificion247/src/pages/residente/drawer.dart';
 import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:edificion247/src/providers/casilleroProvider.dart';
@@ -248,7 +250,7 @@ class _MiBuzonPagesState extends State<MiBuzonPages> {
          
          color: Colors.grey.shade300,
          onPressed: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DrawerItem() ));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => appData.rol=='Residente'? DrawerItem(): DrawerAdminItem() ));
          },
          
          child: Center(child: Text('PRINCIPAL', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 20.0),),),

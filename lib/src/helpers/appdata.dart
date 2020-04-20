@@ -56,7 +56,7 @@ class AppData {
   Uint8List fotoPerfil;
   String encodedFotoPerfil ='';
 
-  String rol = 'Residente';
+  String rol;
   factory AppData() {
     return _appData;
   }

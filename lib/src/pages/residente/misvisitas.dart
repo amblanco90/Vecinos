@@ -440,8 +440,6 @@ Widget _campoAlert(String texto){
       child:TextField(
                 autofocus: false,
                 keyboardType: TextInputType.text,
-                style:
-                    new TextStyle(fontSize: 13.0, color: Colors.black,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
                     textAlign: TextAlign.justify,
                 decoration: new InputDecoration(
                   filled: true,
@@ -449,6 +447,7 @@ Widget _campoAlert(String texto){
                   //hintStyle: TextStyle(color: Colors.white54, fontFamily: 'CenturyGothic'),
                   fillColor: Color.fromRGBO(233, 233, 233, 1),
                   hintText: texto,
+                  hintStyle: TextStyle(fontSize: 13.0, color: Colors.black,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,) ,
                  // hoverColor: Colors.black,
                  // focusColor: Colors.black,
                   contentPadding: const EdgeInsets.only(

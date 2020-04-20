@@ -1,6 +1,7 @@
 import 'package:edificion247/src/bloc/provider_perfil_admin.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/models/noticia.dart';
 import 'package:edificion247/src/models/residente.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
@@ -18,11 +19,16 @@ import 'package:edificion247/src/pages/admin/soporte.dart';
 import 'package:edificion247/src/pages/admin/sub_unidades.dart';
 import 'package:edificion247/src/pages/admin/zona_sociales.dart';
 import 'package:edificion247/src/pages/login/Login.dart';
+import 'package:edificion247/src/pages/residente/TaxiPage.dart';
+import 'package:edificion247/src/pages/residente/mibuzon.dart';
 import 'package:edificion247/src/pages/residente/miperfil.dart';
+import 'package:edificion247/src/pages/residente/misfacturas.dart';
 import 'package:edificion247/src/pages/residente/miunidad.dart';
 import 'package:edificion247/src/pages/residente/pqr.dart';
+import 'package:edificion247/src/providers/noticiasProvider.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/home_button_widget.dart';
+import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
@@ -48,14 +54,14 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 2: return ResidentesP(); 
         case 3: return PqrUnidades();
         case 4: return BuzonAdmin();
-        case 5: return SeguridaPages();
+        case 5: return MisFacturas();
         case 6: return PqrUnidades();
         case 7: return SubUnidadesPages();
-        case 8: return BuzonUnidadesAdmin();
+        case 8: return MiBuzonPages();
         case 9: return ZonasSocialesPages();
         case 12: return JuntaDirectivaPages();
         case 11:return MiPerfilAdminPages();
-        case 13:return _unidadAdmin();
+        case 13:return TaxiPage();
         case 14:return ListaSubUnidadesPage();
         case 15:return _chatAdmin();
         case 16:return AdminChatAdministradorPages(cedulachatresidente:cedularecidente);
@@ -172,7 +178,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                         child: Column(
                           children: <Widget>[
                             Text(
-                              'SEGURIDAD',
+                              'FACTURACION',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: Colors.white,
@@ -507,7 +513,10 @@ Widget drawerItem(){
                 listTile('CHAT', 15),
                 
                 Divider(color: Colors.black,thickness: 0.7,),
-                listTile('BUZON',4),
+                listTile('TAXI', 13),
+                
+                Divider(color: Colors.black,thickness: 0.7,),
+                listTile('NOTIFICACIONES',8),
                 
                 Divider(color: Colors.black,thickness: 0.7,),
                
@@ -627,137 +636,255 @@ Widget drawerItem(){
   );
 }
 
-
-  Widget _botonesRedondeados(context) {
-   return Table(
-
-      children: [
-        TableRow(
-          
+Widget _botonesRedondeados(context) {
+    final noticiasProvider = NoticiasProvider();
+    return Column(
+      children: <Widget>[
+        Table(
           children: [
-
-              _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.business,'Mi unidad', context, 13),
-
-              _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.device_unknown ,'Soporte 24/7', context, 3)
-
-          ]
-          
-          ),
-        TableRow(
-                  
-                  children: [
-
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.card_giftcard,'Buzon', context, 4),
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.security,'Mi seguridad', context, 5)
-
-                  ]
-                  
-                  ),
-
-  
-      ],
-
-   );
-
- }
-
-
- Widget _botonesRedondeadosUnidad(context) {
-   return Table(
-
-      children: [
-        TableRow(
-          
-          children: [
-
-              _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.event_note,'Datos basicos', context, 1),
-
-              _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.business ,'Sub unidades', context, 5)
-
-          ]
-          
-          ),
-        TableRow(
-                  
-                  children: [
-
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.card_giftcard,'Buzon unidades', context, 8),
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.nature_people,'Zonas sociales', context, 9)
-
-                  ]
-                  
-                  ),
-
-        TableRow(
-                  
-                  children: [
-
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.card_giftcard,'Contratos', context, 8),
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.device_unknown ,'PQR Unidad', context, 6)
-
-                  ]
-                  
-                  ),
-
-        TableRow(
-                  
-                  children: [
-
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.people,'Residentes', context, 2),
-                    _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.device_unknown ,'Otros', context, 6)
-
-                  ]
-                  
-                  ),
-
-
-  
-      ],
-
-   );
-
-
-
- }
-
- Widget _homeAdmin(){
-   return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center, 
-          children: <Widget>[
-            _botonesRedondeados(context),
-          ],
-         
-      );
- }
-
-
- Widget _unidadAdmin(){
-   return SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-              _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0), Icons.business_center ,'Contactar junta directiva', context,12 )
-            ],),
-            _botonesRedondeadosUnidad(context),  
+            TableRow(children: [
+              _crearBotonRedondeado(
+                  Color.fromRGBO(255, 153, 29, 1.0),
+                  Image.asset('recursos/imagenes/email.png'),
+                  'CASILLERO',
+                  context,
+                  7,
+                  EdgeInsets.all(2.0)),
+              _crearBotonRedondeado(
+                  Color.fromRGBO(255, 153, 29, 1.0),
+                  Image.asset('recursos/imagenes/calendar.png'),
+                  'RESERVAS',
+                  context,
+                  1,
+                  EdgeInsets.all(8.0)),
+              _crearBotonRedondeado(
+                  Color.fromRGBO(255, 153, 29, 1.0),
+                  Image.asset('recursos/imagenes/qr.png'),
+                  'VISITAS',
+                  context,
+                  2,
+                  EdgeInsets.all(2.0)),
+            ]),
           ],
         ),
-      );
+        SizedBox(
+          height: 5.0,
+        ),
+        Container(
+          width: 280.0,
+          height: 5.0,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: Color.fromRGBO(255, 114, 0, 1.0)),
+        ),
+        SizedBox(
+          height: 5.0,
+        ),
+        Text(
+          'NOTICIAS',
+          style: TextStyle(
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2.0,
+              fontSize: 25.0,
+              fontFamily: 'CenturyGothic'),
+        ),
+        ConstrainedBox(
+          constraints: new BoxConstraints(
+            minHeight: 35.0,
+            maxHeight: 270.0,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.orange,
+                width: 3,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            margin: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
+            child: Scrollbar(
+              child: FutureBuilder(
+                future: noticiasProvider.getAllNoticias(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Noticia>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done)
+                    return snapshot.data.length > 0
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                  onTap: (){
+
+                                    noticiaAlert(context, snapshot.data[index].descripcion,
+                                    snapshot.data[index].titulo, snapshot.data[index].fechaCreacion);
+
+                                  },
+
+                                  child: Card(
+                                  color: Colors.grey.shade300,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                    snapshot.data[index].fechaCreacion, 
+                                    style: TextStyle(
+                                        fontFamily: 'CenturyGothic',
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0),
+                                  ),
+                                        Text(snapshot.data[index].titulo,  style: TextStyle(
+                                        color: Colors.grey.shade700,
+                                        fontFamily: 'CenturyGothic',
+
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0), ),
+                                        
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        : Container();
+                  else
+                    return Center(
+                        child: CircularProgressIndicator(
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(Colors.orange),
+                    ));
+                },
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+ Widget _homeAdmin(){
+   return Container(
+      child: ListView(children: <Widget>[
+        SizedBox(
+          height: 10.0,
+        ),
+        cardBienvenida(context),
+        _botonesRedondeados(context),
+      ]),
+    );
  }
- Widget _crearBotonRedondeado(Color color,  IconData icon, String texto,
-      BuildContext context, int posicion) {
+
+ 
+  Widget cardBienvenida(context) {
+    final head = TextStyle(color: Colors.grey.shade700, fontSize: 12.0);
+
+    final head2 = TextStyle(
+      color: Colors.grey.shade700,
+      fontSize: 13.0,
+      fontWeight: FontWeight.bold,
+    );
+
+    final titulo = Theme.of(context).textTheme.title;
+    final subtitulo = Theme.of(context).textTheme.subhead;
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0.0),
+      ),
+      elevation: 5.0,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.topRight,
+                colors: [
+              //Color.fromRGBO(205, 105, 55,1.0)
+
+              Color.fromRGBO(224, 97, 0, 1.0),
+              Color.fromRGBO(255, 114, 0, 1.0),
+            ])),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'SU DEUDA ACTUAL ES :',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontFamily: 'CenturyGothic'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 40.0,
+                      ),
+                      Icon(
+                        Icons.monetization_on,
+                        color: Colors.white,
+                        size: 55.0,
+                      ),
+                      Text(' 123.000',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 45.0,
+                              fontFamily: 'CenturyGothic')),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                      width: 400.0,
+                      height: 5.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.white)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+ 
+
+ Widget _crearBotonRedondeado(Color color, Image image, String texto,
+      BuildContext context, int posicion, padding) {
     return Column(
       children: <Widget>[
         Container(
           width: 100.0,
           height: 90.0,
           margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-          
+          padding: padding,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -772,10 +899,10 @@ Widget drawerItem(){
                 offset: Offset(0, 3), // changes position of shadow
               ),
             ],
-          ), 
-          child: IconButton(
-            icon: Icon(icon, size: 70.0,),
-            onPressed: () {
+          ),
+          child: GestureDetector(
+            child: image,
+            onTap: () {
               _selecionadoItem2(posicion, texto);
             },
           ),
@@ -793,7 +920,6 @@ Widget drawerItem(){
   }
 
   _chatAdmin(){
-      final Firestore _firestore = Firestore.instance;
     return SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -894,5 +1020,4 @@ Widget drawerItem(){
          });
 
 }
-
 }
