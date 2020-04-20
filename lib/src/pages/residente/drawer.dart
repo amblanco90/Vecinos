@@ -6,6 +6,7 @@ import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/noticia.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
+import 'package:edificion247/src/models/unidadmodel.dart';
 import 'package:edificion247/src/pages/login/Login.dart';
 import 'package:edificion247/src/pages/residente/TaxiPage.dart';
 import 'package:edificion247/src/pages/residente/chat.dart';
@@ -25,6 +26,8 @@ import 'package:edificion247/src/pages/residente/pqr.dart';
 import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/providers/noticiasProvider.dart';
 import 'package:edificion247/src/providers/perfilProvider.dart';
+import 'package:edificion247/src/providers/push_notification_provider.dart';
+import 'package:edificion247/src/providers/subunidadProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
@@ -45,7 +48,7 @@ class _DrawerItemState extends State<DrawerItem> {
   String nombre_appbar = 'Home';
   int _posicionAnterior;
   String _nombreAnterion;
-   int _draweanterior;
+  int _draweanterior;
   final nombre = TextEditingController();
   final apellido = TextEditingController();
   final telefono = TextEditingController();
@@ -55,6 +58,20 @@ class _DrawerItemState extends State<DrawerItem> {
   var color = Colors.transparent;
   ProgressDialog pr;
   int i = 0;
+
+  @override
+  void initState() { 
+    super.initState();
+    final pushProvider = PushNotificationProvider();
+    pushProvider.initNotifications(fincion,context);
+  }
+
+  fincion(){
+    setState(() {
+                        _item = 12;
+                        nombre_appbar = 'Home';
+                      });
+  }
 
   _opcionesDrawer() {
     switch (i) {
@@ -690,8 +707,8 @@ class _DrawerItemState extends State<DrawerItem> {
         return TaxiPage();
       case 14:
         return _familia();
-      case 15: 
-      return ConyuguePage();
+      case 15:
+        return ConyuguePage();
       case 16:
         return HijoPage();
       case 17:
@@ -724,22 +741,22 @@ class _DrawerItemState extends State<DrawerItem> {
       nombre_appbar = nombre;
     });
   }
-_selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
-          if(draweranerior==null){
-            draweranerior=0;
-          }
 
-          if (posicion == null){
-            posicion=11;
-          }
-         setState(() {
-           
-            _item=posicion;
-            nombre_appbar=_nombre;
-            i=draweranerior;
-         });
-    
-      }
+  _selecionadoItemAnterior(int posicion, String _nombre, int draweranerior) {
+    if (draweranerior == null) {
+      draweranerior = 0;
+    }
+
+    if (posicion == null) {
+      posicion = 11;
+    }
+    setState(() {
+      _item = posicion;
+      nombre_appbar = _nombre;
+      i = draweranerior;
+    });
+  }
+
   selecionadoItem3(int posicion, String nombre) {
     _posicionAnterior = _item;
     _nombreAnterion = nombre;
@@ -750,7 +767,7 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
   }
 
   selecionadoItem4(int posicion) {
-    _draweanterior=i;
+    _draweanterior = i;
     setState(() {
       i = posicion;
     });
@@ -779,9 +796,12 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return WillPopScope(
-        onWillPop: () async =>
-            _selecionadoItemAnterior(_posicionAnterior, _nombreAnterion,_draweanterior),
+        onWillPop: () async => _selecionadoItemAnterior(
+            _posicionAnterior, _nombreAnterion, _draweanterior),
         child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(90.0),
@@ -796,7 +816,7 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
                         child: Text(appData.nombre + ' ' + appData.apellido,
                             style: TextStyle(fontFamily: 'CenturyGothic'),
                             textAlign: TextAlign.left)),
-                   // DropdownWidget(),
+                    // DropdownWidget(),
                   ],
                 ),
                 backgroundColor: Color.fromRGBO(255, 114, 0, 1),
@@ -804,7 +824,7 @@ _selecionadoItemAnterior(int posicion,String _nombre,int draweranerior){
                     child: _opcionesDrawer(),
                     preferredSize: Size.fromHeight(90.0)),
                 actions: <Widget>[
-                  FlatButton( 
+                  FlatButton(
                     color: Color.fromRGBO(255, 114, 0, 0.9),
                     child: Row(
                       children: <Widget>[
@@ -1290,14 +1310,14 @@ Widget _chatResidente(){
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                  onTap: (){
-
-                                    noticiaAlert(context, snapshot.data[index].descripcion,
-                                    snapshot.data[index].titulo, snapshot.data[index].fechaCreacion);
-
-                                  },
-
-                                  child: Card(
+                                onTap: () {
+                                  noticiaAlert(
+                                      context,
+                                      snapshot.data[index].descripcion,
+                                      snapshot.data[index].titulo,
+                                      snapshot.data[index].fechaCreacion);
+                                },
+                                child: Card(
                                   color: Colors.grey.shade300,
                                   child: Container(
                                     padding: EdgeInsets.all(10.0),
@@ -1306,20 +1326,21 @@ Widget _chatResidente(){
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                    snapshot.data[index].fechaCreacion, 
-                                    style: TextStyle(
-                                        fontFamily: 'CenturyGothic',
-                                        color: Colors.orange,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
-                                  ),
-                                        Text(snapshot.data[index].titulo,  style: TextStyle(
-                                        color: Colors.grey.shade700,
-                                        fontFamily: 'CenturyGothic',
-
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0), ),
-                                        
+                                          snapshot.data[index].fechaCreacion,
+                                          style: TextStyle(
+                                              fontFamily: 'CenturyGothic',
+                                              color: Colors.orange,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.0),
+                                        ),
+                                        Text(
+                                          snapshot.data[index].titulo,
+                                          style: TextStyle(
+                                              color: Colors.grey.shade700,
+                                              fontFamily: 'CenturyGothic',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.0),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -1728,7 +1749,8 @@ Widget _chatResidente(){
                                     builder: (context) => DrawerItem()));
                           },
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 80.0, vertical: 20.0),
                             padding: EdgeInsets.symmetric(vertical: 7.0),
                             child: Center(
                               child: Text(
@@ -1854,15 +1876,14 @@ Widget _chatResidente(){
           textAlign: TextAlign.center,
           controller: controller,
           decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: nombre,
-            hintStyle: TextStyle(
-              color: Colors.grey.shade400,
-            fontFamily: 'CenturyGothic',
-            fontWeight: FontWeight.bold,
-            fontSize: 15.0,
-            )
-          ),
+              border: InputBorder.none,
+              hintText: nombre,
+              hintStyle: TextStyle(
+                color: Colors.grey.shade400,
+                fontFamily: 'CenturyGothic',
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              )),
           style: TextStyle(
             color: Colors.grey.shade700,
             fontFamily: 'CenturyGothic',
@@ -1982,116 +2003,129 @@ Widget _chatResidente(){
   }
 
   _vistaUnidad() {
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 20.0,
-            ),
-            Container(
-              width: 80.0,
-              height: 80.0,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Color.fromRGBO(255, 114, 0, 1.0),
-                    style: BorderStyle.solid,
-                    width: 4.0,
+    final unidadProvider  = SubUnidadProvider();
+    return FutureBuilder(
+      future: unidadProvider.getUnidad(),
+      builder: (BuildContext context, AsyncSnapshot<Unidad> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done)
+          return SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20.0,
                   ),
-                  borderRadius: BorderRadius.circular(8.0)),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Text(
-              'URB. ADELITA DE CHAR',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Color.fromRGBO(255, 114, 0, 1.0),
-                  fontFamily: 'CenturyGothic',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 2.0),
-              child: Container(
-                height: 4.0,
-                width: 280.0,
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(2.0)),
+                  Container(
+                    width: 80.0,
+                    height: 80.0,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromRGBO(255, 114, 0, 1.0),
+                          style: BorderStyle.solid,
+                          width: 4.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    snapshot.data.nombre,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color.fromRGBO(255, 114, 0, 1.0),
+                        fontFamily: 'CenturyGothic',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 2.0),
+                    child: Container(
+                      height: 4.0,
+                      width: 280.0,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2.0)),
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Column(children: <Widget>[
+                      _containerUnidad('RESIDENCIAL'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      _containerUnidad(snapshot.data.direccion),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                    /* _containerUnidad('BARRANQUILLA'),
+                      SizedBox(
+                        height: 5.0,
+                      ),*/
+                      _containerUnidad(snapshot.data.movil+'-'+snapshot.data.fijo),
+                    ]),
+                  ),
+                  Container(
+                    height: 6.0,
+                    width: 280.0,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 114, 0, 1.0),
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      _containerIcono2(Icons.people, 'JUNTA DIRECTIVA', 20, 10),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      _containerIcono2(Icons.security, 'VIGILANCIA', 18, 11),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      _containerIcono2(Icons.person, 'ADMINISTRADOR', 19, 12),
+                    ],
+                  ),
+                  SizedBox(height: 20.0),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DrawerItem()));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 80.0, vertical: 20.0),
+                        padding: EdgeInsets.symmetric(vertical: 7.0),
+                        child: Center(
+                          child: Text(
+                            'PRINCIPAL',
+                            style: TextStyle(
+                                color: Color.fromRGBO(255, 153, 29, 1.0),
+                                fontFamily: 'CenturyGothic',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(5.0)),
+                      )),
+                  SizedBox(height: 10.0),
+                ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-              child: Column(children: <Widget>[
-                _containerUnidad('RESIDENCIAL'),
-                SizedBox(
-                  height: 5.0,
-                ),
-                _containerUnidad('CALLE 123 # 456 - 456'),
-                SizedBox(
-                  height: 5.0,
-                ),
-                _containerUnidad('BARRANQUILLA'),
-                SizedBox(
-                  height: 5.0,
-                ),
-                _containerUnidad('3000000 - 30101010'),
-              ]),
-            ),
-            Container(
-              height: 6.0,
-              width: 280.0,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 114, 0, 1.0),
-                  borderRadius: BorderRadius.circular(5.0)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                _containerIcono2(Icons.people, 'JUNTA DIRECTIVA', 20, 10),
-                SizedBox(
-                  width: 10.0,
-                ),
-                _containerIcono2(Icons.security, 'VIGILANCIA', 18, 11),
-                SizedBox(
-                  width: 10.0,
-                ),
-                _containerIcono2(Icons.person, 'ADMINISTRADOR', 19, 12),
-              ],
-            ),
-            SizedBox(height: 20.0),
-            GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DrawerItem()));
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
-                            padding: EdgeInsets.symmetric(vertical: 7.0),
-                            child: Center(
-                              child: Text(
-                                'PRINCIPAL',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(255, 153, 29, 1.0),
-                                    fontFamily: 'CenturyGothic',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20.0),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade300,
-                                borderRadius: BorderRadius.circular(5.0)),
-                          )),
-                  
-            SizedBox(height: 10.0),
-          ],
-        ),
-      ),
+          );
+        else
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
+          ));
+      },
     );
   }
 

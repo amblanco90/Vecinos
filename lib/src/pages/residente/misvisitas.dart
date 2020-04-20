@@ -95,6 +95,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
+            showSimpleCustomDialogpqr(context,"12345");
             if(_nombreController.text.length>1){
               if(_identificacionController.text.length<6){
                 _alertHijoMensajes(context,"Su numero de identificacion debe ser mayor a 5 digitos y menor a 10");
@@ -123,7 +124,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                      _numeroContantoController.text="";
                      _image=null;
                     });
-                    _alertHijoMensajes(context,"Registro de visita exitoso");
+                    showSimpleCustomDialogpqr(context,"12345");
                      }else{
                        _alertHijoMensajes(context,"A ocurrido un error al guardar visita");
                       }
@@ -510,6 +511,60 @@ Widget _campoAlert(String texto){
                 _qr(id+"/"+fecha)
                  //_qr(),
               ],),
+              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),)
+              ,botonCompartir()
+            
+          ],
+        ),
+      ),
+    );
+    showDialog(
+        context: context, builder: (BuildContext context) => simpleDialog);
+}
+void showSimpleCustomDialogpqr(BuildContext context,String code) {
+
+    Dialog simpleDialog = Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: Container(
+       
+        width: 500,
+        height: 500,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(child: Text("VISITA GENERADA CORRECTAMENTE",style:
+                     TextStyle(fontSize: 16.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,)),),
+            Padding(padding:EdgeInsets.fromLTRB(0, 0, 0, 10)),
+            Icon(
+              Icons.check_circle_outline,
+              color:Color.fromRGBO(255, 153, 29, 1.0) ,
+              size: 50.0,
+        
+            ),
+               Container(
+                 width: 300,
+                 height: 300,
+                 decoration: BoxDecoration(
+                    border: Border.all(
+                width: 8,
+                color: Color.fromRGBO(255, 153, 29, 1.0)
+                 ),
+                 ),
+                 child: QrImage(
+  data: code,
+  version: QrVersions.auto,
+  size: 150,
+  gapless: false,
+  embeddedImageStyle: QrEmbeddedImageStyle(
+    size: Size(80, 80),
+    
+    
+  ),
+),
+               ),
+           
               Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),)
               ,botonCompartir()
             

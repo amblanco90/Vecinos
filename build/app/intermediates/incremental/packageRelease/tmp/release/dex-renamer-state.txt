@@ -1,0 +1,4 @@
+#Mon Apr 20 04:16:04 COT 2020
+base.0=D\:\\Documentos\\proyecto flutter\\6042019\\Vecinos\\build\\app\\intermediates\\transforms\\r8\\release\\0\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

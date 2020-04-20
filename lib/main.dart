@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:edificion247/src/providers/push_notification_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -52,7 +53,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+
     super.initState();
+    
     startTime();
   }
 

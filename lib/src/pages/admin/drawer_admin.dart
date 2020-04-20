@@ -2,13 +2,11 @@ import 'package:edificion247/src/bloc/provider_perfil_admin.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/noticia.dart';
-import 'package:edificion247/src/models/residente.dart';
+import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
-import 'package:edificion247/src/pages/admin/buzon_unidades_admin.dart';
-import 'package:edificion247/src/pages/admin/chat_admin.dart';
-import 'package:edificion247/src/pages/admin/home_admin_pages.dart';
+import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/pages/admin/junta_directiva.dart';
 import 'package:edificion247/src/pages/admin/lista_subunidad_admin.dart';
 import 'package:edificion247/src/pages/admin/perfil_admin.dart';
@@ -26,11 +24,18 @@ import 'package:edificion247/src/pages/residente/misfacturas.dart';
 import 'package:edificion247/src/pages/residente/miunidad.dart';
 import 'package:edificion247/src/pages/residente/pqr.dart';
 import 'package:edificion247/src/providers/noticiasProvider.dart';
+import 'package:edificion247/src/providers/push_notification_provider.dart';
+import 'package:edificion247/src/providers/subunidadProvider.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/home_button_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+
+import '../../providers/reservas_provider.dart';
+import '../residente/misreservas.dart';
+import '../residente/misvisitas.dart';
+import '../residente/pqr.dart';
 
 class DrawerAdminItem extends StatefulWidget {
 
@@ -46,6 +51,13 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     int _posicion_appbar_anterior=0;
     String cedularecidente=null;
 
+    @override
+    void initState() { 
+    super.initState();
+    final pushProvider = PushNotificationProvider();
+    pushProvider.initNotifications(fincion,context);
+    }
+
    int _item=0;
      _itemSelecionado(  ){
       switch(_item){
@@ -57,7 +69,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 5: return MisFacturas();
         case 6: return PqrUnidades();
         case 7: return SubUnidadesPages();
-        case 8: return MiBuzonPages();
+        case 8: return _notificaciones();
         case 9: return ZonasSocialesPages();
         case 12: return JuntaDirectivaPages();
         case 11:return MiPerfilAdminPages();
@@ -65,15 +77,25 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 14:return ListaSubUnidadesPage();
         case 15:return _chatAdmin();
         case 16:return AdminChatAdministradorPages(cedulachatresidente:cedularecidente);
+        case 17:return VisitaPages();
+        case 18:return MyHomePage();
+        case 19:return PqrPages();
                 
 
       }
     
     }
+
+    fincion(){
+    
+    setState(() {
+                         _item = 16;
+                        _nombre_appbar = 'NOTIFICACIONES';
+                        _posicion_appbar=0;
+                      });
+  }
     _selecionadoItem(int posicion,String nombre){
-      if(posicion!=16){
         Navigator.of(context).pop();
-      }
          setState(() {
            _posicion_appbar_anterior=_item;
            _nombre_appbar_anterior=_nombre_appbar;
@@ -85,9 +107,12 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     
       }
       _selecionadoItem2(int posicion,String nombre){
-         setState(() {
+      setState(() {
+           _posicion_appbar_anterior=_item;
+           _nombre_appbar_anterior=_nombre_appbar;
             _item=posicion;
             _nombre_appbar=nombre;
+            _posicion_appbar=posicion;
          });
     
       }
@@ -116,9 +141,9 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                       child: FlatButton(
                         onPressed: () {
                           setState(() {
-                            _item = 0;
-                            _nombre_appbar = 'Home';
-                            _posicion_appbar=0;
+                            _item = 17;
+                            _nombre_appbar = 'MI UNIDAD';
+                            _posicion_appbar=17;
                           });
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -409,7 +434,7 @@ Widget drawerItem(){
                     child: Text("DATOS BASICOS",style: TextStyle(fontSize: 15,color: Colors.black), textAlign: TextAlign.right,),
                     onTap: () {
 
-                        _selecionadoItem(1,'DATOS BASICOS');
+                        _selecionadoItem(17,'DATOS BASICOS');
                       
                       },
                     ), 
@@ -509,9 +534,13 @@ Widget drawerItem(){
 
                 listTile('SOPORTE 24/7', 3),
                 Divider(color: Colors.black,thickness: 0.7,),
-
-                listTile('CHAT', 15),
-                
+                listTile('RESERVA', 18),
+                Divider(color: Colors.black,thickness: 0.7,),
+                listTile('FACTURA', 000),
+                Divider(color: Colors.black,thickness: 0.7,),
+                 listTile('VISITA', 17),
+                Divider(color: Colors.black,thickness: 0.7,),
+                 listTile('CHATEAR', 15),
                 Divider(color: Colors.black,thickness: 0.7,),
                 listTile('TAXI', 13),
                 
@@ -522,6 +551,8 @@ Widget drawerItem(){
                
                 listTile('SEGURIDAD',5),
                 
+                Divider(color: Colors.black,thickness: 0.7,),
+                listTile('PQR', 19),
                 Divider(color: Colors.black,thickness: 0.7,),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -918,6 +949,222 @@ Widget _botonesRedondeados(context) {
       ],
     );
   }
+   _notificaciones(){
+    final notificacionesProvider = CasilleroProvider();
+    return ListView(
+
+      children: <Widget>[
+        SizedBox(height: 10.0,),
+        cabecera(),
+       ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 250.0,
+    
+  ),
+
+  child: Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+       child: FutureBuilder(
+                    future: notificacionesProvider.getAllNotificaciones(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<PedidoTaxi>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done)
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return cardMensajes(
+                                snapshot.data[index].descripcion,
+                                snapshot.data[index].fechaCreacion,
+                                '',
+                                snapshot.data[index].idCasillero.isEven
+                                    ? Colors.red.shade100
+                                    : Colors.grey.shade300,
+                                snapshot.data[index].estado,
+                                context,
+                                snapshot.data[index].idCasillero);
+                               
+                          },
+                        );
+                      else
+                        return Center(
+                            child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(Colors.orange),
+                        ));
+                    },
+                  ),
+    ),
+  ),
+),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 4.0,width: 280.0, decoration: BoxDecoration( color: Colors.grey.shade500, borderRadius: BorderRadius.circular(5.0)),),
+        ),
+        SizedBox(height: 5.0,),
+
+        Text('CONTACTAR', style: TextStyle(color: Colors.orange.shade800,fontWeight: FontWeight.bold,fontSize: 18.0, fontFamily: 'CenturyGothic'),textAlign: TextAlign.center,),
+
+        SizedBox(height: 5.0,),
+      
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 7.0,width: 200.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: <Widget>[
+               _containerIconoNotficaciones('recursos/imagenes/personas.png', 'JUNTA DIRECTIVA',00,00),
+               SizedBox(width: 10.0,),
+               _containerIconoNotficaciones('recursos/imagenes/junta.png', 'VIGILANCIA',00,00),
+               SizedBox(width: 10.0,),
+               _containerIconoNotficaciones('recursos/imagenes/admin.png','ADMINISTRADOR',19,12),
+             ],),
+             SizedBox(height:20.0),
+             //_botonPrincipal(),
+             SizedBox(height:10.0),
+      ],
+
+    );
+  }
+   Widget cardMensajes(
+      texto, fecha, hora, color, estado, BuildContext context, id){
+      return GestureDetector(
+        
+        child: Card(
+          color: color,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  texto,
+                  style: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontFamily: 'CenturyGothic',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.0),
+                ),
+                SizedBox(
+                  width: 15.0,
+                ),
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Text(
+                          '(LEER)' ,
+                          style: TextStyle(
+                              color: Color.fromRGBO(255, 114, 0, 1.0),
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10.0),
+                        ),
+                        onTap: () {
+
+                          noticiaAlert(context, texto,
+                                    'DETALLES', fecha);
+                         
+
+                         
+                        },
+                      ),
+                      SizedBox(width: 30),
+                      Text(
+                        fecha,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                      Text(
+                        hora,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+  cabecera(){
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Row(children: <Widget>[
+              Icon(Icons.mail_outline, color: Colors.transparent ),
+              SizedBox(width: 5.0,),
+              Text('INBOX', style: TextStyle(color: Colors.transparent,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
+            ],)
+          ],),
+        Column(children: <Widget>[
+            Row(children: <Widget>[
+              Icon(Icons.mail_outline, color: Color.fromRGBO(255, 114, 0, 1.0), ),
+              SizedBox(width: 5.0,),
+              Text('INBOX', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
+            ],)
+        ],),
+        Column(
+          children: <Widget>[
+            
+              Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            child: Text('ENVIADOS', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 14.0,),textAlign: TextAlign.end,),
+            onTap: (){
+              _selecionadoItem2(15, "CHATEAR");
+            },
+           ),
+        ),
+          ],
+        )
+      ],
+    );
+
+   
+
+  }
+  _containerIconoNotficaciones( iconData, leyenda,int posicion,int drawer){
+
+   return GestureDetector(child: Column(
+     children: <Widget>[
+       SizedBox(height: 10.0,),
+       Container( 
+                  width: 75.0,
+                  height: 75.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(255, 114, 0, 1.0), style: BorderStyle.solid, width: 4.0, ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Image.asset(iconData),
+                  padding: EdgeInsets.all(5.0),
+                 
+                ),
+                SizedBox(height:5.0),
+                Text(leyenda, style: TextStyle(fontFamily: 'CenturyGothic', fontSize:12.0, fontWeight: FontWeight.bold),),
+     ],
+   ),
+   onTap: (){
+     _selecionadoItem2(15, "CHATEAR");
+   },
+   );
+
+ }
 
   _chatAdmin(){
     return SingleChildScrollView(
@@ -1016,7 +1263,7 @@ Widget _botonesRedondeados(context) {
            ),
          ), onTap: (){
            cedularecidente=_numeroidentificacion;
-           _selecionadoItem(16, "CHAT ADMINITRADOR");
+           _selecionadoItem2(16, "CHAT ADMINITRADOR");
          });
 
 }
