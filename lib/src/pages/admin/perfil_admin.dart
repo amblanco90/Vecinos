@@ -32,7 +32,6 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
   ProgressDialog pr;
   @override
   Widget build(BuildContext context) {
-    
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[

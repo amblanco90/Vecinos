@@ -1,11 +1,16 @@
 import 'package:edificion247/src/bloc/provider_perfil_admin.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/models/listasubunidad.dart';
+import 'package:edificion247/src/models/perfilResidente.dart';
+import 'package:edificion247/src/models/unidadmodel.dart';
 import 'package:edificion247/src/models/noticia.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
+import 'package:edificion247/src/pages/residente/micasillero.dart';
+import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/pages/admin/junta_directiva.dart';
 import 'package:edificion247/src/pages/admin/lista_subunidad_admin.dart';
@@ -23,18 +28,20 @@ import 'package:edificion247/src/pages/residente/miperfil.dart';
 import 'package:edificion247/src/pages/residente/misfacturas.dart';
 import 'package:edificion247/src/pages/residente/miunidad.dart';
 import 'package:edificion247/src/pages/residente/pqr.dart';
+import 'package:edificion247/src/providers/listasubunidadProvider.dart';
 import 'package:edificion247/src/providers/noticiasProvider.dart';
+import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:edificion247/src/providers/push_notification_provider.dart';
 import 'package:edificion247/src/providers/subunidadProvider.dart';
+import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
-import 'package:edificion247/src/widgets/home_button_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-
-import '../../providers/reservas_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'dart:convert';
+import 'dart:io';
 import '../residente/misreservas.dart';
-import '../residente/misvisitas.dart';
 import '../residente/pqr.dart';
 
 class DrawerAdminItem extends StatefulWidget {
@@ -44,13 +51,22 @@ class DrawerAdminItem extends StatefulWidget {
 }
 
 class _DrawerAdminItemState extends State<DrawerAdminItem> {
-
+ final nombre = TextEditingController();
+  final apellido = TextEditingController();
+  final telefono = TextEditingController();
+  final email = TextEditingController();
+  final direccion = TextEditingController();
+  final perfilProvider = PerfilProvider();
+  var color = Colors.transparent;
+  ProgressDialog pr;
     String _nombre_appbar='';
     String _nombre_appbar_anterior="";
     int _posicion_appbar=0;
     int _posicion_appbar_anterior=0;
     String cedularecidente=null;
 
+ bool _estadolistasubunidad=true;
+ dynamic  _datoslistaSubUnidad;
     @override
     void initState() { 
     super.initState();
@@ -72,14 +88,16 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 8: return _notificaciones();
         case 9: return ZonasSocialesPages();
         case 12: return JuntaDirectivaPages();
-        case 11:return MiPerfilAdminPages();
+        case 11:return _vistaperfil();
         case 13:return TaxiPage();
-        case 14:return ListaSubUnidadesPage();
+        case 14:return _vistasubunidades();
         case 15:return _chatAdmin();
         case 16:return AdminChatAdministradorPages(cedulachatresidente:cedularecidente);
-        case 17:return VisitaPages();
+        case 17:return _vistaUnidad();
         case 18:return MyHomePage();
         case 19:return PqrPages();
+        case 20:return VisitaPages();
+        case 21:return MiCasillero();
                 
 
       }
@@ -143,7 +161,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                           setState(() {
                             _item = 17;
                             _nombre_appbar = 'MI UNIDAD';
-                            _posicion_appbar=17;
+                            _posicion_appbar=0;
                           });
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -391,23 +409,21 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
   }
 
 Widget drawerItem(){
-   return SizedBox(
-        width: 250.0,
-        child: Drawer(
-          
-          child: Container(
-            decoration: BoxDecoration(
-                   gradient: LinearGradient(
-                          begin: Alignment.topRight, 
-                          end: Alignment.bottomRight,
-                          colors: [
-                            //Color.fromRGBO(205, 105, 55,1.0),                           
-                              Color.fromRGBO(255, 135, 5,1.0),
-                              Color.fromRGBO(255, 114, 0,1.0),
-                              Color.fromRGBO(168, 86,0, 1.0),
-                          ])
-                 ),
-            child: ListView(
+   return  Drawer(
+          elevation: 5.0,
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomRight,
+                  colors: [
+                //Color.fromRGBO(205, 105, 55,1.0),
+                Color.fromRGBO(255, 135, 5, 1.0),
+                Color.fromRGBO(255, 114, 0, 1.0),
+                Color.fromRGBO(229, 80, 0, 1.0),
+              ])),
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+         child: ListView(
               children: <Widget>[
                 _cabeceradrawer(),
                 
@@ -420,9 +436,16 @@ Widget drawerItem(){
                 listTile('PERFIL',11),
                 
                 Divider(color: Colors.black,thickness: 0.7,),
-                    
+                listTile('UNIDAD',17),
                 
-                ExpansionTile(
+                Divider(color: Colors.black,thickness: 0.7,),    
+                listTile('UNIDADES',14),
+                
+                Divider(color: Colors.black,thickness: 0.7,),    
+                listTile('REGISTRAR UNIDADES',7),
+                
+                Divider(color: Colors.black,thickness: 0.7,),    
+              /*  ExpansionTile(
                   
 
                   title: Text('UNIDAD',style: TextStyle(
@@ -530,101 +553,110 @@ Widget drawerItem(){
                     ), 
                     ],
                   ),
+                  Divider(color: Colors.black,thickness: 0.7,),
+                  */
+                listTile('NOTIFICACIONES',8),
                 Divider(color: Colors.black,thickness: 0.7,),
-
-                listTile('SOPORTE 24/7', 3),
-                Divider(color: Colors.black,thickness: 0.7,),
+                
                 listTile('RESERVA', 18),
                 Divider(color: Colors.black,thickness: 0.7,),
-                listTile('FACTURA', 000),
+                listTile('FACTURA', 5),
                 Divider(color: Colors.black,thickness: 0.7,),
-                 listTile('VISITA', 17),
+                 listTile('VISITA', 20),
+                 Divider(color: Colors.black,thickness: 0.7,),
+                listTile('TAXI', 13),
                 Divider(color: Colors.black,thickness: 0.7,),
                  listTile('CHATEAR', 15),
-                Divider(color: Colors.black,thickness: 0.7,),
-                listTile('TAXI', 13),
                 
-                Divider(color: Colors.black,thickness: 0.7,),
-                listTile('NOTIFICACIONES',8),
                 
-                Divider(color: Colors.black,thickness: 0.7,),
-               
-                listTile('SEGURIDAD',5),
+                
+                
                 
                 Divider(color: Colors.black,thickness: 0.7,),
                 listTile('PQR', 19),
+                
                 Divider(color: Colors.black,thickness: 0.7,),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      
-                      
-                      Column(
-                        
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          GestureDetector(
-                            child: Icon(Icons.exit_to_app, color: Colors.white,),
-                            onTap:(){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(), maintainState: false));
-                            }
-                            ),
-                        ],
-                      ),
-                      
-
-
-                      Container(
-                          
-                          height: 80.0,
-                          width: 80.0,
-                          child: Image(
-                          image: AssetImage('recursos/imagenes/logoApp.png'),
-                        ),
-                      ),
-
-
-                      
-                      Icon(Icons.warning, color: Colors.white,),
-
-
-                     
-                     
-
-
-                    ],
-                  ),
-                   Divider(color: Colors.white,thickness: 4.0,),
-
+               
+               
+        
                    ],
                  ),
                ),
 
                Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: <Widget>[
-                   Container(
-                              
-                              height: 40.0,
-                              width: 185.0,
-                              child: Image(
-                              image: AssetImage('recursos/imagenes/LogoEmpresa.png'),
-                            ),
-
-                          ),
-                  Text('V.1.0', style: TextStyle(color: Colors.white),)        
-                 ],
-               ),
-
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      FlatButton(
+                          child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              child: Image.asset('recursos/imagenes/exit.png')),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                    maintainState: false));
+                          }),
+                    ],
+                  ),
+                  Container(
+                    height: 80.0,
+                    width: 80.0,
+                    child: Image(
+                      image: AssetImage('recursos/imagenes/logoApp.png'),
+                    ),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                     EmergenciaAlert(context);
+                    },
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: Image.asset('recursos/imagenes/warning.png')),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: 10.0, top: 5.0, left: 22.0, right: 22.0),
+                child: Container(
+                  height: 5.0,
+                  width: 150.0,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2.0)),
+                ),
+              ),
+             Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 40.0,
+                    width: 185.0,
+                    child: Image(
+                      image: AssetImage('recursos/imagenes/LogoEmpresa.png'),
+                    ),
+                  ),
+                  Text(
+                    'V.1.0',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              ),
 
               ],
 
 
             ),
           ),
-        ),
-   );
+        );
 
 }
   Widget _cabeceradrawer(){
@@ -634,32 +666,72 @@ Widget drawerItem(){
        child:Column(
        children: <Widget>[
          Row(
-           children: <Widget>[
-             Icon(Icons.home, color: Colors.white,size: 25.0,),
-             Expanded(
-               child: Container(),
-             ),
-             IconButton(
-               icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 25.0,),
-               onPressed: (){
-                 Navigator.of(context).pop();
-               },
-               )
-           ],
-         ),
+            children: <Widget>[
+              CircleAvatar(
+                radius: 40.0,
+                backgroundColor: Colors.transparent,
+                child: FlatButton(
+                  child: Image.asset('recursos/imagenes/home.png'),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => DrawerAdminItem()));
+                  },
+                ),
+              ),
+              Expanded(
+                child: Container(),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 40.0,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ),
          CircleAvatar(
-             backgroundColor: Color.fromRGBO(239, 103, 0, 1.0),
-             radius: 70.0,
-             child: CircleAvatar(
-             radius: 65.0,
-             backgroundColor: Colors.grey,
-             child: Text('J',style:TextStyle(fontSize: 40.0, color: Colors.white)),
-           ),
-         ),
-         SizedBox(height: 5.0,),
-         Text('Carlos Saumeth', style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold, fontFamily: 'Arial')),
-         Text('ADMINISTRADOR', style: TextStyle(color: Colors.white)),
-         DropdownWidget()
+              backgroundColor: Color.fromRGBO(239, 103, 0, 1.0),
+              radius: 70.0,
+              child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: appData.fotoPerfil != null
+                              ? Image.memory(appData.fotoPerfil).image
+                              : AssetImage("recursos/imagenes/profile.png"),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  ])),
+        SizedBox(
+            height: 5.0,
+          ),
+          Text(appData.nombre + ' ' + appData.apellido,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'CenturyGothic')),
+          Text('ADMINISTRADOR', style: TextStyle(color: Colors.white)),
+          //DropDownSidebar(),
+          Padding(
+            padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
+            child: Container(
+              height: 4.0,
+              width: 210.0,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(2.0)),
+            ),
+          ),DropdownWidget()
        ],
      ),
     
@@ -679,21 +751,21 @@ Widget _botonesRedondeados(context) {
                   Image.asset('recursos/imagenes/email.png'),
                   'CASILLERO',
                   context,
-                  7,
+                  21,
                   EdgeInsets.all(2.0)),
               _crearBotonRedondeado(
                   Color.fromRGBO(255, 153, 29, 1.0),
                   Image.asset('recursos/imagenes/calendar.png'),
                   'RESERVAS',
                   context,
-                  1,
+                  18,
                   EdgeInsets.all(8.0)),
               _crearBotonRedondeado(
                   Color.fromRGBO(255, 153, 29, 1.0),
                   Image.asset('recursos/imagenes/qr.png'),
                   'VISITAS',
                   context,
-                  2,
+                  20,
                   EdgeInsets.all(2.0)),
             ]),
           ],
@@ -1267,4 +1339,885 @@ Widget _botonesRedondeados(context) {
          });
 
 }
+Widget EmergenciaAlert(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                border: Border.all(
+                  color: Colors.orange,
+                  width: 4,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 3,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(Icons.close),
+                    )
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text('ESCOJA EL TIPO DE EMERGENCIA',
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.0)),
+                  ],
+                ),
+
+                DropdownWidgetEmergencia(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0),
+                  child: Container(
+                    height: 3.0,
+                    width: 240.0,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade400,
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    pqrGeneradaAlert(context);
+                    
+                 
+                  },
+                  child: Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    child: Center(
+                      child: Text(
+                        'ENVIAR',
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.orangeAccent.shade100,
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                )
+              ]),
+            ),
+          ),
+        );
+      });
+}
+
+Widget pqrGeneradaAlert(BuildContext context) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 40.0,
+                child: Image.asset('recursos/imagenes/logo.png'),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text('Registro generado con exito'),
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'Aceptar',
+                style: TextStyle(color: Color.fromRGBO(205, 105, 55, 1.0)),
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        );
+      });
+}
+_vistaUnidad() {
+    final unidadProvider  = SubUnidadProvider();
+    return FutureBuilder(
+      future: unidadProvider.getUnidad(),
+      builder: (BuildContext context, AsyncSnapshot<Unidad> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done)
+          return SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Container(
+                    width: 80.0,
+                    height: 80.0,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromRGBO(255, 114, 0, 1.0),
+                          style: BorderStyle.solid,
+                          width: 4.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    snapshot.data.nombre,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color.fromRGBO(255, 114, 0, 1.0),
+                        fontFamily: 'CenturyGothic',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 2.0),
+                    child: Container(
+                      height: 4.0,
+                      width: 280.0,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(2.0)),
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Column(children: <Widget>[
+                      _containerUnidad('RESIDENCIAL'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      _containerUnidad(snapshot.data.direccion),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                    /* _containerUnidad('BARRANQUILLA'),
+                      SizedBox(
+                        height: 5.0,
+                      ),*/
+                      _containerUnidad(snapshot.data.movil+'-'+snapshot.data.fijo),
+                    ]),
+                  ),
+                  Container(
+                    height: 6.0,
+                    width: 280.0,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 114, 0, 1.0),
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      _containerIcono2(Icons.people, 'JUNTA DIRECTIVA', null),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      _containerIcono2(Icons.security, 'VIGILANCIA', null),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      _containerIcono2(Icons.person, 'ADMINISTRADOR', 15),
+                    ],
+                  ),
+                  SizedBox(height: 20.0),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DrawerAdminItem()));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 80.0, vertical: 20.0),
+                        padding: EdgeInsets.symmetric(vertical: 7.0),
+                        child: Center(
+                          child: Text(
+                            'PRINCIPAL',
+                            style: TextStyle(
+                                color: Color.fromRGBO(255, 153, 29, 1.0),
+                                fontFamily: 'CenturyGothic',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(5.0)),
+                      )),
+                  SizedBox(height: 10.0),
+                ],
+              ),
+            ),
+          );
+        else
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
+          ));
+      },
+    );
+  }
+    _containerIcono2(IconData iconData, leyenda, int posicion) {
+    return GestureDetector(
+        onTap: () {
+          _selecionadoItem2(posicion, "CHATEAR");
+        },
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              width: 75.0,
+              height: 75.0,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color.fromRGBO(255, 114, 0, 1.0),
+                  style: BorderStyle.solid,
+                  width: 4.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Icon(
+                iconData,
+                size: 65.0,
+                color: Colors.grey.shade800,
+              ),
+            ),
+            SizedBox(width: 5.0),
+            Text(
+              leyenda,
+              style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ));
+  }
+  _containerUnidad(texto) {
+    
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      child: Center(
+        child: Text(
+          texto,
+          style: TextStyle(
+              color: Colors.grey.shade900,
+              fontFamily: 'CenturyGothic',
+              fontWeight: FontWeight.bold,
+              fontSize: 17.0),
+        ),
+      ),
+      decoration: BoxDecoration(
+          color: Color.fromRGBO(252, 71, 0, 0.2),
+          borderRadius: BorderRadius.circular(5.0)),
+    );
+  }
+
+  _vistaperfil(){
+   
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 2.0,
+                    ),
+                    botonEditEliminar('EDITAR', 1),
+                    SizedBox(
+                      height: 2.0,
+                    ),
+                    botonEditEliminar('GUARDAR', 0),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          FutureBuilder(
+            future: perfilProvider.getPerfilResidente(),   
+            builder: (BuildContext context,
+                AsyncSnapshot<PerfilResidente> snapshot) {
+              print(snapshot);
+              if (snapshot.connectionState == ConnectionState.done) {
+                appData.estado = snapshot.data.estado;
+                appData.cedula = snapshot.data.inputCed;
+                nombre.text = snapshot.data.inputName;
+                apellido.text = snapshot.data.inputApe;
+                email.text = snapshot.data.inputEmail;
+                telefono.text = snapshot.data.inputTel;
+                direccion.text = snapshot.data.inputDir;
+                return Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Center(
+                        child: fotoUsuario(),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      infoText(nombre,'Nombre'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      infoText(apellido,'Apellido'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      infoText(telefono,'Telefono'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      infoText(email, 'Email'),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      infoText(direccion,'Direccion'),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+
+                      Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 7.0,width: 310.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             
+             children: <Widget>[
+               _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS',5),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/iconreserva.png','RESERVAS',18,)
+                
+             ],),
+             
+             Padding(
+          padding: const EdgeInsets.symmetric(horizontal:30.0,vertical: 10.0),
+          child: Container(height: 7.0,width: 320.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+             SizedBox(height:10.0),
+            
+             
+                      botonPrincipal(context)
+                    ],
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(Colors.orange),
+                  )),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+   botonPrincipal(context){
+   return GestureDetector(
+       onTap: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DrawerAdminItem() ));
+       }, 
+       child: Container(
+       margin: EdgeInsets.symmetric(horizontal: 80.0 ),
+       padding: EdgeInsets.symmetric(vertical: 7.0),
+       child: Center(child: Text('PRINCIPAL', style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 20.0),),),
+       decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0)),
+     ),
+   );
+
+ }
+   Widget _fotoUsuario() {
+    return Container(
+      width: 150,
+      height: 150,
+      child: CircleAvatar(
+        backgroundColor: Color.fromRGBO(255, 114, 0, 0.2),
+        foregroundColor: Color.fromRGBO(255, 114, 0, 1.0),
+        child: CircleAvatar(
+            radius: 68.0,
+            backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
+            child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: <Widget>[
+                  Container(
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: new AssetImage(
+                                  "recursos/imagenes/profile.png")))),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                      ),
+                      GestureDetector(
+                        child: Icon(
+                          Icons.add_photo_alternate,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ])),
+      ),
+    );
+  }
+  containerIcono(IconData iconData, leyenda) {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          width: 100.0,
+          height: 100.0,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Color.fromRGBO(255, 114, 0, 1.0),
+              style: BorderStyle.solid,
+              width: 4.0,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Icon(
+            iconData,
+            size: 95.0,
+            color: Colors.grey.shade800,
+          ),
+        ),
+        SizedBox(height: 5.0),
+        Text(
+          leyenda,
+          style: TextStyle(
+              fontFamily: 'CenturyGothic',
+              fontSize: 15.0,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 10.0),
+      ],
+    );
+  }
+  botonEditEliminar(texto, n) {
+    pr = new ProgressDialog(context);
+    pr.style(
+        message: 'Guardando cambios...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
+        ),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 10.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600));
+
+    pr = new ProgressDialog(context);
+
+    return GestureDetector(
+        onTap: () {
+          if (n == 1) {
+          } else {
+            if (nombre.text.isEmpty ||
+                apellido.text.isEmpty ||
+                telefono.text.isEmpty ||
+                email.text.isEmpty ||
+                direccion.text.isEmpty) {
+              ValidacionLoginAlert(context);
+            } else {
+              pr.show();
+              perfilProvider
+                  .editarPerfilResidente(nombre.text, apellido.text,
+                      direccion.text, telefono.text, email.text) 
+                  .then((value) {
+                pr.dismiss();
+                EdicionCompleta(context);
+              });
+            }
+          }
+        },
+        child: Text(
+          texto,
+          style: TextStyle(
+              color: Color.fromRGBO(255, 114, 0, 1.0),
+              fontFamily: 'CenturyGothic',
+              fontWeight: FontWeight.bold,
+              fontSize: 17.0),
+          textAlign: TextAlign.right,
+        ));
+  }
+   Widget infoText(controller,nombre) {
+    return Container(
+      color: color,
+      margin: EdgeInsets.symmetric(horizontal: 30.0),
+      child: Center(
+        child: TextField(
+        
+          textAlign: TextAlign.center,
+          controller: controller,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: '',
+          ),
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontFamily: 'CenturyGothic',
+            fontWeight: FontWeight.bold,
+            fontSize: 15.0,
+            
+          ),
+        ),
+      ),
+    );
+  }
+
+  _containerIcono( iconData, leyenda,posicion){
+
+   return GestureDetector(child: Column(
+     children: <Widget>[
+       SizedBox(height: 10.0,),
+       Container( 
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(255, 114, 0, 1.0), style: BorderStyle.solid, width: 4.0, ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Image.asset(iconData),
+                  padding: EdgeInsets.all(5.0),
+                 
+                ),
+                SizedBox(height:5.0),
+                Text(leyenda, style: TextStyle(fontFamily: 'CenturyGothic', fontSize:16.0, fontWeight: FontWeight.bold),),
+     ],
+   ),
+   onTap: (){
+     _selecionadoItem2(posicion, leyenda);
+   },
+   );
+
+ }
+
+ _vistasubunidades(){
+   return SingleChildScrollView(
+      child: Column(
+      children: <Widget>[
+        Text('UNIDADES RESIDENCIALES',style: TextStyle(color: Colors.black,fontSize: 25.0,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold ),),
+        _listaSubunidad(),
+        //_formularioActualizar(),
+        SizedBox(height:30.0,),
+          Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 7.0,width: 310.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             
+             children: <Widget>[
+               _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS',5),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/iconreserva.png','RESERVAS',18),
+                
+             ],),
+             
+             Padding(
+          padding: const EdgeInsets.symmetric(horizontal:30.0,vertical: 10.0),
+          child: Container(height: 7.0,width: 320.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+        botonPrincipal(context)
+      ],
+    ),
+    );
+ }
+ _listaSubunidad(){
+    final _listarVisita=new ListaSubUnidadProvider();
+    if (_estadolistasubunidad){
+       return FutureBuilder(future: _listarVisita.getlistasubunidades(),
+        builder: (BuildContext context,
+                AsyncSnapshot<List<DatosListaSubunidades>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) { 
+                      _estadolistasubunidad=false;
+                      _datoslistaSubUnidad=snapshot;
+                      return     ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 270.0,
+    
+  ),
+
+  child: 
+      Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+        child: new ListView.builder(
+          itemCount: snapshot.data.length,
+          itemBuilder: (context, index) {
+            return  _cardMensajesListaSubunidad(snapshot.data[index].propietario.toString(),snapshot.data[index].residente.toString(),snapshot.data[index].tipoUnidad,snapshot.data[index].estadoCuenta,snapshot.data[index].nomenclatura,snapshot.data[index].estadoUnidad,snapshot.data[index].id.toString(),snapshot.data[index].total.toString(),index % 2 == 0 ? Color.fromRGBO(254, 215, 185, 1) :Color.fromRGBO(217, 218, 229  , 1) );
+            
+  },
+        ),
+        
+    ),
+  ),
+  
+  
+);
+                    }else{
+return  Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(Colors.orange),
+                  )),
+                );
+                    }
+                    }
+                    );
+    }else{
+      return     ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 270.0,
+    
+  ),
+
+  child: 
+      Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+        child: new ListView.builder(
+          itemCount: _datoslistaSubUnidad.data.length,
+          itemBuilder: (context, index) {
+            return  _cardMensajesListaSubunidad(_datoslistaSubUnidad.data[index].propietario.toString(),_datoslistaSubUnidad.data[index].residente.toString(),_datoslistaSubUnidad.data[index].tipoUnidad,_datoslistaSubUnidad.data[index].estadoCuenta,_datoslistaSubUnidad.data[index].nomenclatura,_datoslistaSubUnidad.data[index].estadoUnidad,_datoslistaSubUnidad.data[index].id.toString(),_datoslistaSubUnidad.data[index].total.toString(),index % 2 == 0 ? Color.fromRGBO(254, 215, 185, 1) :Color.fromRGBO(217, 218, 229  , 1)  );
+            
+  },
+        ),
+        
+    ),
+  ),
+  
+  
+);
+    }
+  }
+
+  Widget _cardMensajesListaSubunidad(String propietario ,String residente,String tipounida,String estadocuenta,String nomenclatura,String estadoUnidad,String id,String total,color){
+    
+  return  GestureDetector(  
+         child: Card(
+           color: color,
+           child: Container(
+             padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
+             margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 0.0),
+             child: Row(
+               children: <Widget>[
+                Text(propietario.length >10 ?propietario.substring(0,10)+"...":propietario, style: TextStyle(color: Colors.black, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 13.0),),
+                SizedBox(width: 15.0,),
+                 Text(tipounida, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                Expanded(
+                                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+
+                     Text('VER MAS', style: TextStyle(color: Color.fromRGBO(240, 75, 14 , 1),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+
+                    ],
+                  ),
+                )
+              ],
+             ),
+           ),
+         ), onTap: (){
+                 /*  _controllerPropietario.text=propietario;
+                   _controllerNombrenclatura.text=nomenclatura;
+                   _controllerResidente.text=residente;
+                   _tipoUnidad=tipounida;
+                   _tipoEstado=estadoUnidad;
+                   _controllerEstadoCuenta.text=estadocuenta;
+                   _controllerTotal.text=total;
+                   _estadoButton=true;
+                   _idactualizar=id;
+                   setState(() {
+                     
+                   });*/
+                  },
+                  );
+
+}
+}
+
+
+
+class fotoUsuario extends StatefulWidget {
+  fotoUsuario({Key key}) : super(key: key);
+
+  @override
+  _fotoUsuarioState createState() => _fotoUsuarioState();
+}
+
+class _fotoUsuarioState extends State<fotoUsuario> {
+  File _image;
+
+  
+  var imagenMostrada = appData.fotoPerfil!=null?Image.memory(appData.fotoPerfil).image:AssetImage(
+                                      "recursos/imagenes/profile.png");
+
+  Future getImageFromCam() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+   
+    setState(() {
+      _image = image;
+      List<int> imageBytes = image.readAsBytesSync();
+      print(imageBytes);
+      String base64Image = base64.encode(imageBytes);
+      appData.encodedFotoPerfil = base64Image;
+      imagenMostrada = Image.file(_image).image; 
+      
+        
+      
+     
+    });
+  }
+
+  Future getImageFromGallery() async {  
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+      List<int> imageBytes = image.readAsBytesSync();
+      print(imageBytes);
+      String base64Image = base64.encode(imageBytes);
+      appData.encodedFotoPerfil = base64Image; 
+      imagenMostrada = Image.file(_image).image;
+      print(base64Image); 
+    });
+  }
+
+  bool _isVisible = true;
+  
+
+  void showToast() {
+    setState(() {
+      _isVisible = !_isVisible;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      child: CircleAvatar(
+        backgroundColor: Color.fromRGBO(255, 114, 0, 0.2),
+        foregroundColor: Color.fromRGBO(255, 114, 0, 1.0),
+        child: CircleAvatar(
+            radius: 68.0,
+            backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
+            child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: <Widget>[
+Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage( 
+                              image: imagenMostrada,
+                              fit: BoxFit.fill,
+                            ), 
+                          ),
+                        ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: () {
+                          getImageFromCam();
+                        },
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          getImageFromGallery();
+                        },
+                        icon: Icon(
+                          Icons.add_photo_alternate,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ])),
+      ),
+    );
+  }
 }

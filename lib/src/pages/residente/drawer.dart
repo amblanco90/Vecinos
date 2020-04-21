@@ -700,7 +700,7 @@ class _DrawerItemState extends State<DrawerItem> {
       case 10:
         return PqrPages();
       case 11:
-        return _home();
+        return FC();
       case 12:
         return _notificaciones();
       case 13:
@@ -1011,7 +1011,7 @@ class _DrawerItemState extends State<DrawerItem> {
         ));
   }
 
-  Widget _home() {
+  Widget FC() {
     return Container(
       child: ListView(children: <Widget>[
         SizedBox(

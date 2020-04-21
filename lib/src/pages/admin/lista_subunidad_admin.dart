@@ -1,5 +1,6 @@
 import 'package:edificion247/src/models/listasubunidad.dart';
 import 'package:edificion247/src/models/sub-unidad.dart';
+import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 import 'package:edificion247/src/providers/listasubunidadProvider.dart';
 import 'package:edificion247/src/providers/subunidadProvider.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,31 @@ class _ListaSubUnidadesPageState extends State<ListaSubUnidadesPage> {
     return SingleChildScrollView(
       child: Column(
       children: <Widget>[
+        Text('UNIDADES RESIDENCIALES',style: TextStyle(color: Colors.black,fontSize: 25.0,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold ),),
         _listaSubunidad(),
-        _formularioActualizar(),
+        //_formularioActualizar(),
+        SizedBox(height:30.0,),
+          Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 7.0,width: 310.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             
+             children: <Widget>[
+               _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES'),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS'),
+               SizedBox(width: 10.0,),
+               _containerIcono('recursos/imagenes/iconreserva.png','RESERVAS'),
+                
+             ],),
+             
+             Padding(
+          padding: const EdgeInsets.symmetric(horizontal:30.0,vertical: 10.0),
+          child: Container(height: 7.0,width: 320.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
+        ),
+        botonPrincipal(context)
       ],
     ),
     )
@@ -36,7 +60,20 @@ class _ListaSubUnidadesPageState extends State<ListaSubUnidadesPage> {
    ;
    
   }
+botonPrincipal(context){
+   return GestureDetector(
+       onTap: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DrawerAdminItem() ));
+       }, 
+       child: Container(
+       margin: EdgeInsets.symmetric(horizontal: 80.0 ),
+       padding: EdgeInsets.symmetric(vertical: 7.0),
+       child: Center(child: Text('PRINCIPAL', style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 20.0),),),
+       decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0)),
+     ),
+   );
 
+ }
   _listaSubunidad(){
     if (_estadolistasubunidad){
        return FutureBuilder(future: _listarVisita.getlistasubunidades(),
@@ -47,7 +84,7 @@ class _ListaSubUnidadesPageState extends State<ListaSubUnidadesPage> {
                       _datoslistaSubUnidad=snapshot;
                       return     ConstrainedBox(
   constraints: new BoxConstraints(
-    maxHeight: 180.0,
+    maxHeight: 270.0,
     
   ),
 
@@ -60,7 +97,7 @@ class _ListaSubUnidadesPageState extends State<ListaSubUnidadesPage> {
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-            return  _cardMensajesListaSubunidad(snapshot.data[index].propietario.toString(),snapshot.data[index].residente.toString(),snapshot.data[index].tipoUnidad,snapshot.data[index].estadoCuenta,snapshot.data[index].nomenclatura,snapshot.data[index].estadoUnidad,snapshot.data[index].id.toString(),snapshot.data[index].total.toString());
+            return  _cardMensajesListaSubunidad(snapshot.data[index].propietario.toString(),snapshot.data[index].residente.toString(),snapshot.data[index].tipoUnidad,snapshot.data[index].estadoCuenta,snapshot.data[index].nomenclatura,snapshot.data[index].estadoUnidad,snapshot.data[index].id.toString(),snapshot.data[index].total.toString(),index % 2 == 0 ? Color.fromRGBO(254, 215, 185, 1) :Color.fromRGBO(217, 218, 229  , 1) );
             
   },
         ),
@@ -85,7 +122,7 @@ return  Padding(
     }else{
       return     ConstrainedBox(
   constraints: new BoxConstraints(
-    maxHeight: 180.0,
+    maxHeight: 270.0,
     
   ),
 
@@ -98,7 +135,7 @@ return  Padding(
         child: new ListView.builder(
           itemCount: _datoslistaSubUnidad.data.length,
           itemBuilder: (context, index) {
-            return  _cardMensajesListaSubunidad(_datoslistaSubUnidad.data[index].propietario.toString(),_datoslistaSubUnidad.data[index].residente.toString(),_datoslistaSubUnidad.data[index].tipoUnidad,_datoslistaSubUnidad.data[index].estadoCuenta,_datoslistaSubUnidad.data[index].nomenclatura,_datoslistaSubUnidad.data[index].estadoUnidad,_datoslistaSubUnidad.data[index].id.toString(),_datoslistaSubUnidad.data[index].total.toString());
+            return  _cardMensajesListaSubunidad(_datoslistaSubUnidad.data[index].propietario.toString(),_datoslistaSubUnidad.data[index].residente.toString(),_datoslistaSubUnidad.data[index].tipoUnidad,_datoslistaSubUnidad.data[index].estadoCuenta,_datoslistaSubUnidad.data[index].nomenclatura,_datoslistaSubUnidad.data[index].estadoUnidad,_datoslistaSubUnidad.data[index].id.toString(),_datoslistaSubUnidad.data[index].total.toString(),index % 2 == 0 ? Color.fromRGBO(254, 215, 185, 1) :Color.fromRGBO(217, 218, 229  , 1)  );
             
   },
         ),
@@ -266,26 +303,27 @@ Widget _dropdownButtonEstado(){
   );
 }
 
-  Widget _cardMensajesListaSubunidad(String propietario ,String residente,String tipounida,String estadocuenta,String nomenclatura,String estadoUnidad,String id,String total){
+  Widget _cardMensajesListaSubunidad(String propietario ,String residente,String tipounida,String estadocuenta,String nomenclatura,String estadoUnidad,String id,String total,color){
     
   return  GestureDetector(  
          child: Card(
-           color: Colors.red.shade100,
+           color: color,
            child: Container(
              padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
+             margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 0.0),
              child: Row(
                children: <Widget>[
                  
-                Text(propietario, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+                Text(propietario, style: TextStyle(color: Colors.black, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 13.0),),
                 SizedBox(width: 15.0,),
-                 Text(residente, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                 Text(tipounida, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
                 Expanded(
                                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
 
-                     Text(tipounida, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                     Text('VER MAS', style: TextStyle(color: Color.fromRGBO(240, 75, 14 , 1),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
 
                     ],
                   ),
@@ -376,6 +414,29 @@ Widget _botonActualizar(){
      }
 
 
+   );
+
+ }
+   _containerIcono( iconData, leyenda){
+
+   return GestureDetector(child: Column(
+     children: <Widget>[
+       SizedBox(height: 10.0,),
+       Container( 
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(255, 114, 0, 1.0), style: BorderStyle.solid, width: 4.0, ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Image.asset(iconData),
+                  padding: EdgeInsets.all(5.0),
+                 
+                ),
+                SizedBox(height:5.0),
+                Text(leyenda, style: TextStyle(fontFamily: 'CenturyGothic', fontSize:16.0, fontWeight: FontWeight.bold),),
+     ],
+   ),
    );
 
  }
