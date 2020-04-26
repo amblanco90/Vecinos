@@ -16,6 +16,7 @@ class NoticiasProvider {
     final Map<String, dynamic> authData = {
       "id_subunidad": appData.idSubunidad
     };
+    print(appData.idSubunidad.toString());
     final response = await client.post("$baseUrl/unidad/noticias/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
