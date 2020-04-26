@@ -273,7 +273,16 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     if(datos["resp"]=="ok"){ 
       print(response.body);
       appData.idUsuario = datos["id"];
-      appData.idSubunidad= datos["id_subunidad"];
+      appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
+      appData.unidadInicial = datos["lista_subunidades"][0];
+      for (var item in datos["lista_subunidades"]) {
+
+        appData.unidades.add(item);
+        
+      }
+      print(appData.unidades);
+
+      
       appData.cedula= datos["cedula"];
       if(datos["perfiles"].length==1){
 

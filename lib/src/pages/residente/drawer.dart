@@ -66,6 +66,12 @@ class _DrawerItemState extends State<DrawerItem> {
     pushProvider.initNotifications(fincion,context);
   }
 
+  funcion(){
+    setState(() {
+      
+    });
+  }
+
   fincion(){
     setState(() {
                         _item = 12;
@@ -877,7 +883,7 @@ class _DrawerItemState extends State<DrawerItem> {
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              cabeceradrawer(),
+              cabeceradrawer(data: funcion,),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
@@ -1304,8 +1310,7 @@ Widget _chatResidente(){
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Noticia>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
-                    return snapshot.data.length > 0
-                        ? ListView.builder(
+                    return snapshot.data!=null? ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -2379,7 +2384,9 @@ Widget _chatResidente(){
 }
 
 class cabeceradrawer extends StatefulWidget {
-  cabeceradrawer({Key key}) : super(key: key);
+   final  data;
+
+  const cabeceradrawer({ Key key, this.data }): super(key: key);
 
   @override
   _cabeceradrawerState createState() => _cabeceradrawerState();
@@ -2449,7 +2456,7 @@ class _cabeceradrawerState extends State<cabeceradrawer> {
                   fontWeight: FontWeight.bold,
                   fontFamily: 'CenturyGothic')),
           Text('RESIDENTE', style: TextStyle(color: Colors.white)),
-          //DropDownSidebar(),
+          DropDownSidebar(data: widget.data,),
           Padding(
             padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
             child: Container(

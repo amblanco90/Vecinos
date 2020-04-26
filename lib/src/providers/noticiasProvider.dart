@@ -21,8 +21,11 @@ class NoticiasProvider {
         headers: {"Content-Type": "application/json"});
     print(response.body);
     final decodedData = json.decode(response.body);
+   
+
     final entidades = new Noticias.fromJsonList(decodedData);
 
     return entidades.items.reversed.toList();
+
   }
-}
+  }
