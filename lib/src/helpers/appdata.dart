@@ -55,6 +55,9 @@ class AppData {
   String apellido;
   Uint8List fotoPerfil;
   String encodedFotoPerfil ='';
+  Map<dynamic,dynamic> unidadInicial = {};
+  List<Map<dynamic,dynamic>> unidades =[];
+  
 
   String rol;
   factory AppData() {

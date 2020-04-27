@@ -15,7 +15,7 @@ import 'package:toast/toast.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:flutter/material.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-
+import 'package:intl/intl.dart';
 
 class VisitaPages extends StatefulWidget {
 
@@ -23,7 +23,9 @@ class VisitaPages extends StatefulWidget {
   _VisitaPagesState createState() => _VisitaPagesState();
 }
 final Color colorApp2= Color.fromRGBO(0, 25, 68, 1);
-   String _selectedDate = '03/15/2020';
+DateTime now = DateTime.now();
+String formattedDate = DateFormat('yMd').format(now);
+   String _selectedDate = formattedDate;
 class _VisitaPagesState extends State<VisitaPages> {
    final _nombreController=TextEditingController();
     final _identificacionController=TextEditingController();
@@ -32,7 +34,9 @@ class _VisitaPagesState extends State<VisitaPages> {
     final horaController=TextEditingController();
     final _numeroContantoController=TextEditingController();
     String id,nombre,observacion,contacto;
-    List<dynamic> _listavisita=new List();
+    List<DatosVisita> _listavisita=new List();
+    bool _estadolistareserva=true;
+
     File _image;
     String estado="ADJUNTAR FOTO";
     final _solicitarVisitas = new VisitaProvider();
@@ -61,14 +65,8 @@ class _VisitaPagesState extends State<VisitaPages> {
            
            Container(
              margin: EdgeInsets.fromLTRB(10, 4, 10, 4),
-             child:Row(
-             children: <Widget>[
-              // camposFormulario2('FECHA',fechaController,TextInputType.datetime),
-              _calendario(),
-              // camposFormulario2('HORA',horaController,TextInputType.datetime),
-               
-             ]
-           )
+              child: _calendario()
+             
            ),
            Container(
              padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
@@ -95,16 +93,19 @@ class _VisitaPagesState extends State<VisitaPages> {
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
-            showSimpleCustomDialogpqr(context,"12345");
             if(_nombreController.text.length>1){
               if(_identificacionController.text.length<6){
                 _alertHijoMensajes(context,"Su numero de identificacion debe ser mayor a 5 digitos y menor a 10");
                     return;
               }
-              /*if(_selectedDate == 'Fecha de visita'){
-                 Toast.show("Selecione una fecha", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
-                   return;
-              }*/
+              if(_validarnumeros(_identificacionController.text)== false){
+                      _alertHijoMensajes(context, 'solo puede ingresas numeros en identificacion');
+                      return;
+                    }
+                    if(_validarnumeros(_numeroContantoController.text)== false){
+                      _alertHijoMensajes(context, 'solo puede ingresas numeros en numero contacto');
+                      return;
+                    }
               String base64Image=null;
               try{
                 List<int> imageBytes = _image.readAsBytesSync();
@@ -115,6 +116,7 @@ class _VisitaPagesState extends State<VisitaPages> {
               DatosVisitas datosVisitas=DatosVisitas(id_visitante: "",id_residente: appData.idUsuario.toString(),cedula_visitante: _identificacionController.text,nombre_visita: _nombreController.text,placa_auto: "agc-654",fecha_visita:_selectedDate,observaciones: _observacionvisitaController.text,username: "prueba",estado: "1",foto: base64Image.toString());
               ApiService _apiService=new ApiService();
               _apiService.createProfile(datosVisitas).then((isSuccess){
+                _estadolistareserva=true;
                   if(isSuccess){
                     setState(() {
                       _nombreController.text="";
@@ -124,7 +126,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                      _numeroContantoController.text="";
                      _image=null;
                     });
-                    showSimpleCustomDialogpqr(context,"12345");
+                    showSimpleCustomDialogpqr(context,_identificacionController.toString());
                      }else{
                        _alertHijoMensajes(context,"A ocurrido un error al guardar visita");
                       }
@@ -223,10 +225,14 @@ class _VisitaPagesState extends State<VisitaPages> {
 
  }
 _tablaVisita(BuildContext context){
-    return  FutureBuilder(future: _solicitarVisitas.getlistavisitas(),
+    if (_estadolistareserva==true){
+      return  FutureBuilder(future: _solicitarVisitas.getlistavisitas(),
         builder: (BuildContext context,
                 AsyncSnapshot<List<DatosVisita>> snapshot) {
+               
                     if (snapshot.connectionState == ConnectionState.done) { 
+                         _listavisita=snapshot.data;
+                         _estadolistareserva=false;
                       return     ConstrainedBox(
   constraints: new BoxConstraints(
     maxHeight: 180.0,
@@ -258,23 +264,36 @@ return  Padding(
                         new AlwaysStoppedAnimation<Color>(Colors.orange),
                   )),
                 );
-                    }})
+                    }});
+    }else{
+       return     ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 180.0,
     
-   ;
+  ),
+
+  child: Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+        child: new ListView.builder(
+          itemCount: _listavisita.length,
+          itemBuilder: (context, index) {
+            return  _cardMensajes(_listavisita[index].nombre_visitante.toString(),'ACTIVA',_listavisita[index].nombre,_listavisita[index].id.toString(), Colors.red.shade100, context,_listavisita[index].foto);
+            
+  },
+        ),
+        
+    ),
+  ),
+);
+    }
+    
    
   }
 
- _actualizarListaVisitas(){
-   ApiService api=new ApiService();
-                    api.listarVsitas(appData.idUsuario.toString()).then((onValue){
-                      if(onValue!=null){
-                        print(onValue);
-                      setState(() {
-                        _listavisita=onValue;
-                      });
-                      } 
-                });
- }
+
 
   Widget _camposFormulario(String texto,TextEditingController _controller,TextInputType type){
     return Container(
@@ -673,8 +692,8 @@ Widget _calendario(){
       
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2015),
-      lastDate: DateTime(2500),
+      firstDate: DateTime.now().subtract(Duration(days: 1)),
+      lastDate: DateTime(2100),
       locale: Locale('es','ES')
       
  
@@ -693,15 +712,16 @@ Widget _calendario(){
        setState(() {
         _selectedDate;
        });
-        
-       
-
-       
-      
   }
 
 
-
+bool _validarnumeros(String value){
+    final n = num.tryParse(value);
+  if(n == null) {
+    return false;
+  }
+  return true;
+ }
 
 
 

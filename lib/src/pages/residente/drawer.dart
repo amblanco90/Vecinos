@@ -66,6 +66,12 @@ class _DrawerItemState extends State<DrawerItem> {
     pushProvider.initNotifications(fincion,context);
   }
 
+  funcion(){
+    setState(() {
+      
+    });
+  }
+
   fincion(){
     setState(() {
                         _item = 12;
@@ -734,12 +740,14 @@ class _DrawerItemState extends State<DrawerItem> {
   }
 
   _selecionadoItem2(int posicion, String nombre) {
-    _posicionAnterior = _item;
+    if(posicion != null){
+      _posicionAnterior = _item;
     _nombreAnterion = nombre;
     setState(() {
       _item = posicion;
       nombre_appbar = nombre;
     });
+    }
   }
 
   _selecionadoItemAnterior(int posicion, String _nombre, int draweranerior) {
@@ -767,10 +775,12 @@ class _DrawerItemState extends State<DrawerItem> {
   }
 
   selecionadoItem4(int posicion) {
-    _draweanterior = i;
+    if(posicion!=null){
+      _draweanterior = i;
     setState(() {
       i = posicion;
     });
+    }
   }
 
   Future<bool> _onWillPop() async {
@@ -877,7 +887,7 @@ class _DrawerItemState extends State<DrawerItem> {
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              cabeceradrawer(),
+              cabeceradrawer(data: funcion,),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
@@ -1068,11 +1078,11 @@ Widget _chatResidente(){
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 00,00),
+                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', null,null),
                   SizedBox(
                     width: 10.0,
                   ),
-                  _containerIcono(Icons.security, 'VIGILANTE', 000,00),
+                  _containerIcono(Icons.security, 'VIGILANTE', null,null),
                   SizedBox(
                     width: 10.0,
                   ),
@@ -1304,8 +1314,7 @@ Widget _chatResidente(){
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Noticia>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
-                    return snapshot.data.length > 0
-                        ? ListView.builder(
+                    return snapshot.data!=null? ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -2379,7 +2388,9 @@ Widget _chatResidente(){
 }
 
 class cabeceradrawer extends StatefulWidget {
-  cabeceradrawer({Key key}) : super(key: key);
+   final  data;
+
+  const cabeceradrawer({ Key key, this.data }): super(key: key);
 
   @override
   _cabeceradrawerState createState() => _cabeceradrawerState();
@@ -2449,7 +2460,7 @@ class _cabeceradrawerState extends State<cabeceradrawer> {
                   fontWeight: FontWeight.bold,
                   fontFamily: 'CenturyGothic')),
           Text('RESIDENTE', style: TextStyle(color: Colors.white)),
-          //DropDownSidebar(),
+          DropDownSidebar(data: widget.data,),
           Padding(
             padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
             child: Container(

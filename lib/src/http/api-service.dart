@@ -197,7 +197,7 @@ Future<List<dynamic>> listarReserva(String id) async {
   }
 }
 
-Future<bool> guardarReserva(DatosReserva data) async {
+Future<String> guardarReserva(DatosReserva data) async {
   final response = await client.post(
     "$baseUrl/reserva/save",
     headers: {"content-type": "application/json"},
@@ -208,12 +208,12 @@ Future<bool> guardarReserva(DatosReserva data) async {
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){
-      return true;
+      return 'ok';
     }else{
-      return false;
+      return datos["msj"];
     }
   } else {
-    return false;
+    return 'a ocurrido un error';
   }
 }
 
@@ -273,7 +273,16 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     if(datos["resp"]=="ok"){ 
       print(response.body);
       appData.idUsuario = datos["id"];
-      appData.idSubunidad= datos["id_subunidad"];
+      appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
+      appData.unidadInicial = datos["lista_subunidades"][0];
+      for (var item in datos["lista_subunidades"]) {
+
+        appData.unidades.add(item);
+        
+      }
+      print(appData.unidades);
+
+      
       appData.cedula= datos["cedula"];
       if(datos["perfiles"].length==1){
 
