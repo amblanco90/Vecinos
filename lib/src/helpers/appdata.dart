@@ -55,8 +55,10 @@ class AppData {
   String apellido;
   Uint8List fotoPerfil;
   String encodedFotoPerfil ='';
+  int saldo;
   Map<dynamic,dynamic> unidadInicial = {};
   List<Map<dynamic,dynamic>> unidades =[];
+
   
 
   String rol;

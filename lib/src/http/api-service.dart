@@ -273,6 +273,7 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     if(datos["resp"]=="ok"){ 
       print(response.body);
       appData.idUsuario = datos["id"];
+      appData.saldo = datos["saldo"];
       appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
       appData.unidadInicial = datos["lista_subunidades"][0];
       for (var item in datos["lista_subunidades"]) {
