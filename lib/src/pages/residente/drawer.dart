@@ -1207,7 +1207,7 @@ Widget _chatResidente(){
                         color: Colors.white,
                         size: 55.0,
                       ),
-                      Text(' 123.000',
+                      Text(appData.saldo.toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 45.0,

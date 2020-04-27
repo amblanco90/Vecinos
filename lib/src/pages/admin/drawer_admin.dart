@@ -104,10 +104,16 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     
     }
 
+    funcion(){
+      setState(() {
+        
+      });
+    }
+
     fincion(){
     
     setState(() {
-                         _item = 16;
+                         _item = 8;
                         _nombre_appbar = 'NOTIFICACIONES';
                         _posicion_appbar=0;
                       });
@@ -425,7 +431,7 @@ Widget drawerItem(){
           padding: EdgeInsets.symmetric(horizontal: 10.0),
          child: ListView(
               children: <Widget>[
-                _cabeceradrawer(),
+                _cabeceradrawer(funcion),
                 
                 Container(
                   
@@ -659,7 +665,7 @@ Widget drawerItem(){
         );
 
 }
-  Widget _cabeceradrawer(){
+  Widget _cabeceradrawer(funcion){
   return Container(
        
        padding: EdgeInsets.symmetric(horizontal:10.0),
@@ -721,7 +727,7 @@ Widget drawerItem(){
                   fontWeight: FontWeight.bold,
                   fontFamily: 'CenturyGothic')),
           Text('ADMINISTRADOR', style: TextStyle(color: Colors.white)),
-          //DropDownSidebar(),
+          DropDownSidebar(data: funcion,),
           Padding(
             padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
             child: Container(
@@ -731,7 +737,7 @@ Widget drawerItem(){
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(2.0)),
             ),
-          ),DropdownWidget()
+          )
        ],
      ),
     
@@ -952,7 +958,7 @@ Widget _botonesRedondeados(context) {
                         color: Colors.white,
                         size: 55.0,
                       ),
-                      Text(' 123.000',
+                      Text(appData.saldo.toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 45.0,
