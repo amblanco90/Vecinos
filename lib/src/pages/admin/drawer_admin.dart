@@ -113,7 +113,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     fincion(){
     
     setState(() {
-                         _item = 16;
+                         _item = 8;
                         _nombre_appbar = 'NOTIFICACIONES';
                         _posicion_appbar=0;
                       });
