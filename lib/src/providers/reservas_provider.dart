@@ -25,7 +25,6 @@ class ReservasProvider{
 return entidades.items.reversed.toList();
     }catch(a){
       Future<List<Reserva>>  a;
-      print(a);
         return a;
     }
 

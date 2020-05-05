@@ -14,7 +14,6 @@ class Reservas{
   List<Reserva> items = new List();
   Reservas();
   Reservas.fromJsonList(List<dynamic> jsonList){
-    print(jsonList);
     if(jsonList == null) return;
 
     for(var item in jsonList){

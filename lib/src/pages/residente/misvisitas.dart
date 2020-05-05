@@ -48,7 +48,7 @@ class _VisitaPagesState extends State<VisitaPages> {
   }
   @override
   Widget build(BuildContext context) {
-    // _actualizarListaVisitas();
+    
    final size=MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Stack(
@@ -95,15 +95,15 @@ class _VisitaPagesState extends State<VisitaPages> {
           onPressed: () {
             if(_nombreController.text.length>1){
               if(_identificacionController.text.length<6){
-                _alertHijoMensajes(context,"Su numero de identificacion debe ser mayor a 5 digitos y menor a 10");
+                _alertVisitaMensajes(context,"Su numero de identificacion debe ser mayor a 5 digitos y menor a 10");
                     return;
               }
               if(_validarnumeros(_identificacionController.text)== false){
-                      _alertHijoMensajes(context, 'solo puede ingresas numeros en identificacion');
+                      _alertVisitaMensajes(context, 'solo puede ingresas numeros en identificacion');
                       return;
                     }
                     if(_validarnumeros(_numeroContantoController.text)== false){
-                      _alertHijoMensajes(context, 'solo puede ingresas numeros en numero contacto');
+                      _alertVisitaMensajes(context, 'solo puede ingresas numeros en numero contacto');
                       return;
                     }
               String base64Image=null;
@@ -128,11 +128,11 @@ class _VisitaPagesState extends State<VisitaPages> {
                     });
                     showSimpleCustomDialogpqr(context,_identificacionController.toString());
                      }else{
-                       _alertHijoMensajes(context,"A ocurrido un error al guardar visita");
+                       _alertVisitaMensajes(context,"A ocurrido un error al guardar visita");
                       }
               });
             }else{
-              _alertHijoMensajes(context,"No se puede dejar campos vacio");
+              _alertVisitaMensajes(context,"No se puede dejar campos vacio");
               }
           },
           child: const Text(
@@ -187,7 +187,7 @@ class _VisitaPagesState extends State<VisitaPages> {
     );
   }
 
- Widget _alertHijoMensajes (BuildContext context,String mensaje){
+ Widget _alertVisitaMensajes (BuildContext context,String mensaje){
 
    showDialog(
 
@@ -700,14 +700,14 @@ Widget _calendario(){
     );
     
     final DateTime d = await b;
-
  
     if (d != null)
-    if(d.month>=10){
-    _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
-    }else{
-      _selectedDate ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
-    }
+        if(d.month>=10){
+      _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+      }else{
+        _selectedDate ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+      }
+    
     // appData.fecha_inicial_reserva = _selectedDate;
        setState(() {
         _selectedDate;
