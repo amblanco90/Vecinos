@@ -1,4 +1,7 @@
+import 'package:edificion247/src/providers/emergenciaProvider.dart';
+import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 noticiaAlert(BuildContext context,texto,titulo,fecha) {
   
@@ -160,7 +163,41 @@ noticiaAlert(BuildContext context,texto,titulo,fecha) {
 
 
 
-emergenciaAlert(BuildContext context,texto,titulo,fecha,id) {
+emergenciaAlert(BuildContext context,texto,titulo,fecha,id,estado,funcion) {
+
+  final emergenciaProvider = EmergenciaProvider();
+
+  ProgressDialog pr;
+  pr = new ProgressDialog(context);
+    pr.style(
+        message: 'Guardando...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
+        ),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 10.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600));
+
+    pr = new ProgressDialog(context);
+
+  var estadoString;
+
+  if(estado==0){
+    estadoString="CANCELADA";
+  }
+  if(estado==30){
+    estadoString="ENVIADA CON EXITO";
+  }
+  if(estado ==31){
+    estadoString="NO ENVIADA";
+  }
 
   
 
@@ -292,11 +329,47 @@ emergenciaAlert(BuildContext context,texto,titulo,fecha,id) {
                                   
                                   maxLines: null,
                                 )),
+
+                               
+                 
+
+                                
                           ],
                         ),
                       ),
                     ),
                   ),
+
+                   SizedBox(
+                    height: 10.0,
+                  ),
+
+                   Container(
+                    width: 250.0,
+                                height: 40.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.0),
+                      color: Colors.grey.shade200,
+                      
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(estadoString!=null?estadoString:"", maxLines: null,
+
+                        style :TextStyle(
+                                            fontSize: 13.0,
+                                            color: Colors.orange,
+                                            fontFamily: 'CenturyGothic',
+                                            fontWeight: FontWeight.bold,
+                                            
+                                          )),
+                      ],
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0),
+                  ),
+
                   SizedBox(
                     height: 5.0,
                   ),
@@ -310,6 +383,19 @@ emergenciaAlert(BuildContext context,texto,titulo,fecha,id) {
                    FlatButton(
       color: Colors.grey.shade300,
       onPressed: () {
+
+        pr.show();
+
+        emergenciaProvider.cancelarEmergencia(context, texto, id).then((val){
+          pr.hide();
+          Navigator.pop(context);
+          GenericAlert(context, val["msj"]);
+          funcion();
+          
+          
+
+        });
+        
        
       },
       child: Center(

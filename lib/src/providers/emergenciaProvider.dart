@@ -14,11 +14,34 @@ import 'package:http/http.dart';
   Future generarEmergencia(BuildContext context, String mensaje) async {
 
   
-  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario,"id_subunidad":appData.idSubunidad, "mensaje":mensaje, "username": appData.nombre + " "+appData.apellido};
+  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario,"id_subunidad":appData.idSubunidad, "mensaje":mensaje, "username": appData.cedula};
   print(authData);
     Client client = Client();
     final response = await client.post(
         "$baseUrl/residente/panico/save",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    
+   final decodedData = json.decode(response.body);
+
+   print(decodedData);
+
+   return decodedData;
+
+
+
+    
+        
+}
+
+Future cancelarEmergencia(BuildContext context, String mensaje,id) async {
+
+  
+  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario,"id_casillero":id, "mensaje":mensaje, "username": appData.cedula};
+  print(authData);
+    Client client = Client();
+    final response = await client.post(
+        "$baseUrl/residente/panico/cancel",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
     

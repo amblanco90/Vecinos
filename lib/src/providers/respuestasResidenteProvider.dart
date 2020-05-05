@@ -56,7 +56,7 @@ Future<Map<String, dynamic>> respuestaResidente(descripcion,idresidente,idPqr,fo
   "id_residente":idresidente,
   "id_pqr":idPqr,
   "foto":foto==null?null:convertImage(foto),
-  "username":username 
+  "username": appData.cedula 
 
 };
 
@@ -114,7 +114,7 @@ Future<Map<String, dynamic>> respuestaAdmin(descripcion,idresidente,idPqr,foto,u
   "id_administrador":idresidente,
   "id_pqr":idPqr,
   "foto":foto==null?null:convertImage(foto),
-  "username":username 
+  "username":appData.cedula 
 
 };
 

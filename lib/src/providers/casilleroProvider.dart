@@ -46,7 +46,7 @@ Future<List<PedidoTaxi>> getAllCasillero() async {
 
 Future<List<PedidoTaxi>> getAllEmergencias() async {
     final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario,
-     "username": appData.nombre+ " "+ appData.apellido};
+     "username": appData.cedula};
     final response = await client.post(
         "$baseUrl/residente/panico/list",
         body: json.encode(authData),

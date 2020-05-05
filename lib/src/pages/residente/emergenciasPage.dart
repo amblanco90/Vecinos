@@ -8,11 +8,23 @@ import 'package:flutter/material.dart';
 
 import 'drawer.dart';
 
-class EmergenciasPage extends StatelessWidget {
+class EmergenciasPage extends StatefulWidget {
  
 
   @override
+  _EmergenciasPageState createState() => _EmergenciasPageState();
+}
+
+class _EmergenciasPageState extends State<EmergenciasPage> {
+  @override
   Widget build(BuildContext context) {
+
+
+    funcion(){
+      setState(() {
+        
+      });
+    }
 
     final emergenciaProvider = CasilleroProvider();
 
@@ -63,7 +75,7 @@ class EmergenciasPage extends StatelessWidget {
                                 : Colors.grey.shade300,
                             snapshot.data[index].estado,
                             context,
-                            snapshot.data[index].idCasillero);
+                            snapshot.data[index].idCasillero,funcion);
                       },
                     );
                   else
@@ -91,8 +103,6 @@ class EmergenciasPage extends StatelessWidget {
 
   }
 
-
-  
 _botonPrincipal(context) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
@@ -120,10 +130,8 @@ _botonPrincipal(context) {
   );
 }
 
-
-
 Widget cardMensajes(
-    texto, fecha, hora, color, estado, BuildContext context, id) {
+    texto, fecha, hora, color, estado, BuildContext context, id,funcion) {
   return GestureDetector(
       child: Card(
     color: color,
@@ -163,7 +171,7 @@ Widget cardMensajes(
                         fontSize: 10.0),
                   ),
                   onTap: () {
-                  emergenciaAlert(context, texto, 'DETALLES', fecha,id);
+                  emergenciaAlert(context, texto, 'DETALLES', fecha,id,estado,funcion);
                   },
                 ),
                 SizedBox(width: 30),
@@ -191,9 +199,4 @@ Widget cardMensajes(
     ),
   ));
 }
-
-
-
-
-
 }
