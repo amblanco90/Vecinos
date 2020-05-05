@@ -168,6 +168,7 @@ class _LoginPageState extends State<LoginPage> {
               fontFamily: 'CenturyGothic'),
         ),
         onPressed: () {
+          appData.unidades= [];
           ApiService apiService = new ApiService();
           DatosLogin datos = new DatosLogin(
               username: userController.text, password: passwordController.text);

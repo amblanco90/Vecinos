@@ -46,6 +46,8 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
 
   entrada(){
 
+    
+
     if(seleccionado=='a'){
       appData.rol ='Admin';
       Navigator.pushReplacement(context,

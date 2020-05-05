@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/pqr.dart';
 import 'package:edificion247/src/pages/residente/drawer.dart';
-import 'package:edificion247/src/pages/residente/lista_pqr.dart';
 import 'package:edificion247/src/providers/pqrProvider.dart';
 import 'package:edificion247/src/search/search_delegate_factura.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
