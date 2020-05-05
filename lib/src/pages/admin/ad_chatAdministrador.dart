@@ -31,11 +31,12 @@ class _AdminChatAdministradorPagesState extends State<AdminChatAdministradorPage
       await transaction.set(
         documentReference,
         {
-         "de":"ad"+appData.cedula.toString(),
+         "de":"admin",
         "texto":menssage,
         "nombre":appData.nombre,
         "para":"re"+widget.cedulachatresidente,
         'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
+        "uid_admin":appData.cedula.toString()
         },
       );
     });
@@ -72,7 +73,7 @@ class _AdminChatAdministradorPagesState extends State<AdminChatAdministradorPage
                     de: doc.data['de'],
                     text: doc.data['texto'],
                     nombre: doc.data['nombre'],
-                    me: "ad"+appData.cedula.toString() == doc.data['de'],
+                    me: "admin" == doc.data['de'],
                    )).toList();
                   return ListView(
                     controller: scrollController,

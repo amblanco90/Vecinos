@@ -211,13 +211,7 @@ return  Padding(
   Widget _barraArribaConyugue(){
    return  Container(
       child:Column(children: <Widget>[
-      GestureDetector(
-        child: Align( child:Container( child: Text('EDITAR',style:TextStyle(fontSize: 18.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),),alignment: Alignment.topRight,),
-        onTap: (){
-              _guardareditar(_idNucleo.toString(),_idfam.toString());
-        },
-      ),
-      Padding(padding: EdgeInsets.all(8.0),),
+      
      GestureDetector(
        child: Align( child:Container( child: Text('ELIMINAR',style:TextStyle(fontSize: 18.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),),alignment: Alignment.topRight,),
        onTap: (){
@@ -318,20 +312,20 @@ _botonGuardar(){
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
        child: RaisedButton(
-         color: _estadobuttonguardar ? Color.fromRGBO(255, 153, 29, 1.0) :Colors.black12 ,
+         color:  Color.fromRGBO(255, 153, 29, 1.0)  ,
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
             if(_estadobuttonguardar){
                  _guardareditar("","");
             }else{
-              _alertHijoMensajes(context, "Usted solo puede editar y eliminar");
+               _guardareditar(_idNucleo.toString(),_idfam.toString());
             }
            
           },
           child:  Text(
-            _estadobuttonguardar ?  "GUARDAR" : "DESHABILITADO",
-            style:TextStyle(fontSize: 18.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+            _estadobuttonguardar ?  "GUARDAR" : "ACTUALIZAR INFORMACION",
+            style:TextStyle(fontSize: _estadobuttonguardar ? 18.0 :16.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
           ),
           )
      ),
@@ -340,14 +334,22 @@ _botonGuardar(){
  }
 
 _guardareditar(String _idnucleo,String _idfamilia){
+   
     if(_controllerNombre.text.isEmpty || _controllerCorreo.text.isEmpty || _controllerIdentificacion.text.isEmpty || _controllerNumeroContacto.text.isEmpty){
               _alertHijoMensajes(context, "No se puede dejar campos vacio");
               return;
             }else{
                 if(_controllerIdentificacion.text.length <6 || _controllerIdentificacion.text.length >10){
                   _alertHijoMensajes(context, "Campo identificacion no puede tener mas de 10 y menos 6 digitos");
-                return;
               }else{
+                    if(_validarnumeros(_controllerIdentificacion.text)== false){
+                      _alertHijoMensajes(context, 'solo puede ingresas numeros en identificacion');
+                      return;
+                    }
+                    if(_validarnumeros(_controllerNumeroContacto.text)== false){
+                      _alertHijoMensajes(context, 'solo puede ingresas numeros en numero contacto');
+                      return;
+                    }
                     if(_validateEmail(_controllerCorreo.text) ==  false){
                       _alertHijoMensajes(context, "correo no valido");
                   return;
@@ -361,6 +363,7 @@ _guardareditar(String _idnucleo,String _idfamilia){
                     ApiService apiService=new ApiService();
                     apiService.guardarFamiliar(_idnucleo,"2",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
                       if(isSuccess){
+                        _idNucleo=null;
                           _alertHijoMensajes(context, "registro exito");
                         _controllerNombre.text="";
                         _controllerIdentificacion.text="";
@@ -379,6 +382,13 @@ _guardareditar(String _idnucleo,String _idfamilia){
             }
  }
 
+ bool _validarnumeros(String value){
+    final n = num.tryParse(value);
+  if(n == null) {
+    return false;
+  }
+  return true;
+ }
  bool _validateEmail(String value) {
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

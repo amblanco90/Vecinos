@@ -9,8 +9,7 @@ import 'package:edificion247/src/providers/reservas_provider.dart';
 import 'package:edificion247/src/widgets/calendar_widget.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
-import 'package:toast/toast.dart';
+import 'package:intl/intl.dart';
 
 
 
@@ -50,26 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
 
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(5.0),
-            child: Row(
-            children: <Widget>[
-              Expanded(
-                          child: Row(
-                  children: <Widget>[
-                   // Text('ZONA: ', style: TextStyle(color: Colors.orange.shade800,fontWeight: FontWeight.bold,fontSize: 15.0, fontFamily: 'CenturyGothic'),),
-                    //Container(child: DropDownLugarReservaWidget()),
-                    
-                  ],
-                ),
-              ),
-             // Icon(Icons.monetization_on, color: Colors.orange)
-            ],
-        ),
-          ),
-
-
-         // CalendarScreen(),
          
         _alertReserva(context),
 
@@ -116,7 +95,7 @@ ApiService _apiService=new ApiService();
 
   return  Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
+          children: <Widget>[ 
             Container(
               decoration: const BoxDecoration(
                   border: Border(
@@ -185,9 +164,9 @@ ApiService _apiService=new ApiService();
     final b = showDatePicker(
       
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2015),
-      lastDate: DateTime(2500),
+     initialDate: DateTime.now(),
+  firstDate: DateTime.now().subtract(Duration(days: 1)),
+  lastDate: DateTime(2100),
       locale: Locale('es','ES')
       
  
@@ -333,7 +312,7 @@ _botonGuardar(){
               }
               ApiService apiService=ApiService();
               apiService.guardarReserva(datosReserva).then((isSuccess){
-                  if(isSuccess){
+                  if(isSuccess == 'ok'){
                     _alertReservaMensajes(context,"Reserva exitosa");
                     _idreserva=" ";
                     _controllerObservaciones.text=" ";
@@ -343,7 +322,7 @@ _botonGuardar(){
                     });
                    
                   }else{
-                    _alertReservaMensajes(context,"Ocurrio un error");
+                    _alertReservaMensajes(context,isSuccess);
                   }
               });
             

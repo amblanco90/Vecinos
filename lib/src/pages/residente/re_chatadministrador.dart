@@ -49,7 +49,6 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
       );
     });
     
-    FocusScope.of(context).requestFocus(new FocusNode());
       messageController.clear();
       scrollController.animateTo(scrollController.position.maxScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
 
@@ -112,7 +111,7 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
                     color: Colors.orange,
                     child: Text('Enviar'), 
                     onPressed: callback,
-                    
+                      
                   )
                 ],
               ),

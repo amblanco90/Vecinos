@@ -114,13 +114,7 @@ return  Padding(
   Widget _barraArribaConyugue(){
    return  Container(
       child:Column(children: <Widget>[
-         GestureDetector(
-        child: Align( child:Container( child: Text('EDITAR',style:TextStyle(fontSize: 18.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),),alignment: Alignment.topRight,),
-        onTap: (){
-              _guardareditar(_idNucleo.toString(),_idfam.toString());
-        },
-      ),
-      Padding(padding: EdgeInsets.all(8.0),),
+        
       GestureDetector(
        child: Align( child:Container( child: Text('ELIMINAR',style:TextStyle(fontSize: 18.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),),alignment: Alignment.topRight,),
        onTap: (){
@@ -160,6 +154,14 @@ _guardareditar(String _idnucleo,String _idfamilia){
                   _alertConyugeMensajes(context, "Campo identificacion no puede tener mas de 10 y menos 6 digitos");
                 return;
               }else{
+                if(_validarnumeros(_controllerIdentificacion.text)== false){
+                      _alertConyugeMensajes(context, 'solo puede ingresas numeros en identificacion');
+                      return;
+                    }
+                    if(_validarnumeros(_controllerNumeroContacto.text)== false){
+                      _alertConyugeMensajes(context, 'solo puede ingresas numeros en numero contacto');
+                      return;
+                    }
                     if(_validateEmail(_controllerCorreo.text) ==  false){
                       _alertConyugeMensajes(context, "correo no valido");
                   return;
@@ -173,6 +175,7 @@ _guardareditar(String _idnucleo,String _idfamilia){
                     ApiService apiService=new ApiService();
                     apiService.guardarFamiliar(_idnucleo,"1",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
                       if(isSuccess){
+                        _idNucleo=null;
                           _alertConyugeMensajes(context, "registro exito");
                         _controllerNombre.text="";
                         _controllerIdentificacion.text="";
@@ -253,18 +256,18 @@ _botonGuardar(){
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
        child: RaisedButton(
-         color: _estadoButtonGuardar ? Color.fromRGBO(255, 153, 29, 1.0) :Colors.black12 ,
+         color:  Color.fromRGBO(255, 153, 29, 1.0) ,
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
            if(_estadoButtonGuardar){
              _guardareditar("","");
            }else{
-             _alertConyugeMensajes(context, "Usted solo puede editar y eliminar");
+            _guardareditar(_idNucleo.toString(),_idfam.toString());
            }
           },
           child:  Text(
-           _estadoButtonGuardar ?  "GUARDAR" : "DESHABILITADO",  style:TextStyle(fontSize: 18.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+           _estadoButtonGuardar ?  "GUARDAR" : "ACTUALIZAR INFORMACION",  style:TextStyle(fontSize: _estadoButtonGuardar ? 18.0 :16.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
           ),
           )
      );
@@ -306,6 +309,13 @@ Widget _alertConyugeMensajes (BuildContext context,String mensaje){
 
    );
 
+ }
+  bool _validarnumeros(String value){
+    final n = num.tryParse(value);
+  if(n == null) {
+    return false;
+  }
+  return true;
  }
  bool _validateEmail(String value) {
   Pattern pattern =

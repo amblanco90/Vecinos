@@ -755,12 +755,14 @@ class _DrawerItemState extends State<DrawerItem> {
   }
 
   _selecionadoItem2(int posicion, String nombre) {
-    _posicionAnterior = _item;
+    if(posicion != null){
+      _posicionAnterior = _item;
     _nombreAnterion = nombre;
     setState(() {
       _item = posicion;
       nombre_appbar = nombre;
     });
+    }
   }
 
   _selecionadoItemAnterior(int posicion, String _nombre, int draweranerior) {
@@ -788,10 +790,12 @@ class _DrawerItemState extends State<DrawerItem> {
   }
 
   selecionadoItem4(int posicion) {
-    _draweanterior = i;
+    if(posicion!=null){
+      _draweanterior = i;
     setState(() {
       i = posicion;
     });
+    }
   }
 
   Future<bool> _onWillPop() async {
@@ -1094,11 +1098,11 @@ Widget _chatResidente(){
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 00,00),
+                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', null,null),
                   SizedBox(
                     width: 10.0,
                   ),
-                  _containerIcono(Icons.security, 'VIGILANTE', 000,00),
+                  _containerIcono(Icons.security, 'VIGILANTE', null,null),
                   SizedBox(
                     width: 10.0,
                   ),
