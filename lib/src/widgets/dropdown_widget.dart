@@ -471,6 +471,7 @@ class _DropdownWidgetEmergenciaState extends State<DropdownWidgetEmergencia> {
               onChanged: (String newValue) {
                 setState(() {
                   dropdown = newValue;
+                  appData.emergencia = newValue;
                 });
               },
               items: <String>[

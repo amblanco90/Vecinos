@@ -9,6 +9,7 @@ import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
+import 'package:edificion247/src/pages/residente/emergenciasPage.dart';
 import 'package:edificion247/src/pages/residente/micasillero.dart';
 import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:edificion247/src/providers/casilleroProvider.dart';
@@ -98,14 +99,25 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 19:return PqrPages();
         case 20:return VisitaPages();
         case 21:return MiCasillero();
+        case 22:return EmergenciasPage();
                 
 
       }
-    
+  
     }
 
     funcion(){
       setState(() {
+        
+      });
+    }
+
+    emergencia(){
+      setState(() {
+
+         _item = 22;
+                        _nombre_appbar = 'EMERGENCIAS';
+                        _posicion_appbar=0;
         
       });
     }
@@ -388,7 +400,20 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                 backgroundColor: Color.fromRGBO(255, 114, 0, 1),
                 bottom: PreferredSize(
                     child: _opcionesDrawer(),
-                    preferredSize: Size.fromHeight(90.0))
+                    preferredSize: Size.fromHeight(90.0)),
+                 actions: <Widget>[
+                  FlatButton(
+                    color: Color.fromRGBO(255, 114, 0, 0.9),
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset('recursos/imagenes/warning.png'),
+                      ],
+                    ),
+                    onPressed: () {
+                      EmergenciaAlert(context,emergencia);
+                    },
+                  )
+                ],
                 
               ),
             ),
@@ -582,7 +607,11 @@ Widget drawerItem(){
                 listTile('PQR', 19),
                 
                 Divider(color: Colors.black,thickness: 0.7,),
-               
+               listTile('EMERGENCIAS', 22),
+                    Divider(
+                      color: Colors.black,
+                      thickness: 0.7,
+                    ),  
                
         
                    ],
@@ -620,7 +649,7 @@ Widget drawerItem(){
                   ),
                   FlatButton(
                     onPressed: () {
-                     EmergenciaAlert(context);
+                     EmergenciaAlert(context,emergencia);
                     },
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     child: CircleAvatar(
@@ -1345,98 +1374,6 @@ Widget _botonesRedondeados(context) {
          });
 
 }
-Widget EmergenciaAlert(BuildContext context) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                border: Border.all(
-                  color: Colors.orange,
-                  width: 4,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 3,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Column(children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.close),
-                    )
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text('ESCOJA EL TIPO DE EMERGENCIA',
-                        style: TextStyle(
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12.0)),
-                  ],
-                ),
-
-                DropdownWidgetEmergencia(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3.0),
-                  child: Container(
-                    height: 3.0,
-                    width: 240.0,
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    pqrGeneradaAlert(context);
-                    
-                 
-                  },
-                  child: Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
-                    child: Center(
-                      child: Text(
-                        'ENVIAR',
-                        style: TextStyle(
-                            color: Colors.grey.shade700,
-                            fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.0),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.orangeAccent.shade100,
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
-                )
-              ]),
-            ),
-          ),
-        );
-      });
-}
-
 Widget pqrGeneradaAlert(BuildContext context) {
   showDialog(
       context: context,

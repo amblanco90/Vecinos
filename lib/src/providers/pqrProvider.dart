@@ -26,7 +26,7 @@ class PqrProvider {
       "descripcion": descripcion,
       "dirigido_a": appData.dirigido_a,
       "id_tipo_pqr":appData.tipo_pqr,
-      "username": appData.nombre + ''+appData.apellido,
+      "username": appData.cedula,
       "foto": image != null ? convertImage(image) : '',
     };
 

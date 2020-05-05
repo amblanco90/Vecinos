@@ -56,6 +56,7 @@ class AppData {
   Uint8List fotoPerfil;
   String encodedFotoPerfil ='';
   int saldo;
+  String emergencia = 'Incendio';
   Map<dynamic,dynamic> unidadInicial = {};
   List<Map<dynamic,dynamic>> unidades =[];
 
@@ -67,4 +68,4 @@ class AppData {
   }
   AppData._internal();
 }
-final appData = AppData();
+final appData = AppData(); 

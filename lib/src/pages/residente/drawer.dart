@@ -10,6 +10,7 @@ import 'package:edificion247/src/models/unidadmodel.dart';
 import 'package:edificion247/src/pages/login/Login.dart';
 import 'package:edificion247/src/pages/residente/TaxiPage.dart';
 import 'package:edificion247/src/pages/residente/chat.dart';
+import 'package:edificion247/src/pages/residente/emergenciasPage.dart';
 import 'package:edificion247/src/pages/residente/home_pages.dart';
 import 'package:edificion247/src/pages/residente/junta-directiva.dart';
 import 'package:edificion247/src/pages/residente/mibuzon.dart';
@@ -726,8 +727,22 @@ class _DrawerItemState extends State<DrawerItem> {
       case 20:
         return ChatJuntaDirectivaPage();
       case 21:  return _chatResidente();
+      case 22: 
+       return EmergenciasPage();
     }
   }
+
+  emergencia(){
+
+    setState(() {
+      _item = 22;
+      nombre_appbar = 'EMERGENCIAS';
+    });
+
+  }
+
+   
+
 
   _selecionadoItem(int posicion, String nombre) {
     _posicionAnterior = _item;
@@ -823,7 +838,7 @@ class _DrawerItemState extends State<DrawerItem> {
                       ],
                     ),
                     onPressed: () {
-                      EmergenciaAlert(context);
+                      EmergenciaAlert(context,emergencia);
                     },
                   )
                 ],
@@ -922,6 +937,11 @@ class _DrawerItemState extends State<DrawerItem> {
                        color: Colors.black,
                        thickness: 0.7,
                        ),
+                    listTile('EMERGENCIAS', 22, 0),
+                    Divider(
+                      color: Colors.black,
+                      thickness: 0.7,
+                    ),   
                     listTile('CHAT', 21,13),
                     Divider(
                       color: Colors.black,
@@ -961,7 +981,7 @@ class _DrawerItemState extends State<DrawerItem> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      EmergenciaAlert(context);
+                      EmergenciaAlert(context,emergencia);
                     },
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     child: CircleAvatar(

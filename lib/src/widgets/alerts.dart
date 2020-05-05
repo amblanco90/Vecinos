@@ -1,5 +1,8 @@
+import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/providers/emergenciaProvider.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 Widget MensajeRecibido(BuildContext context) {
   showDialog(
@@ -146,9 +149,6 @@ Widget MensajeRecibido(BuildContext context) {
       });
 }
 
-
-
-
 Widget NuevoMensaje(BuildContext context) {
   showDialog(
       context: context,
@@ -293,7 +293,28 @@ Widget NuevoMensaje(BuildContext context) {
       });
 }
 
-Widget EmergenciaAlert(BuildContext context) {
+Widget EmergenciaAlert(BuildContext context,funcion) {
+  ProgressDialog pr;
+
+  pr = new ProgressDialog(context);
+  pr.style(
+      message: 'Guardando...',
+      borderRadius: 10.0,
+      backgroundColor: Colors.white,
+      progressWidget: CircularProgressIndicator(
+        valueColor: new AlwaysStoppedAnimation<Color>(Colors.orange),
+      ),
+      elevation: 10.0,
+      insetAnimCurve: Curves.easeInOut,
+      progress: 0.0,
+      maxProgress: 100.0,
+      progressTextStyle: TextStyle(
+          color: Colors.black, fontSize: 10.0, fontWeight: FontWeight.w400),
+      messageTextStyle: TextStyle(
+          color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600));
+
+  pr = new ProgressDialog(context);
+  final emergenciaProvider = EmergenciaProvider();
   showDialog(
       context: context,
       builder: (context) {
@@ -338,7 +359,6 @@ Widget EmergenciaAlert(BuildContext context) {
                             fontSize: 12.0)),
                   ],
                 ),
-
                 DropdownWidgetEmergencia(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -355,9 +375,19 @@ Widget EmergenciaAlert(BuildContext context) {
                 ),
                 GestureDetector(
                   onTap: () {
-                    pqrGeneradaAlert(context);
-                    
-                 
+                    pr.show();
+
+                    emergenciaProvider
+                        .generarEmergencia(context, appData.emergencia)
+                        .then((val) {
+                      pr.hide();
+                      Navigator.pop(context);
+                      GenericAlert(context, val["msj"]);
+                      funcion();
+                      
+                      
+
+                    });
                   },
                   child: Container(
                     margin:
@@ -682,7 +712,7 @@ Widget GenericAlert(BuildContext context, texto) {
               onPressed: () {
                 Navigator.pop(context);
               },
-              
+
               /* onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ListaPeticionesReservaPage() ),
@@ -692,4 +722,3 @@ Widget GenericAlert(BuildContext context, texto) {
         );
       });
 }
-

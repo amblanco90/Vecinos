@@ -12,7 +12,7 @@ class PedidoTaxiProvider{
    final String baseUrl = "http://18.191.213.12//api";
 
   Future<Map<String, dynamic>> pedirTaxi(BuildContext context, String observaciones) async {
-  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario, "id_subunidad": appData.idSubunidad, "observaciones": observaciones, "username": "default"};
+  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario, "id_subunidad": appData.idSubunidad, "observaciones": observaciones, "username": appData.cedula};
 
     Client client = Client();
     final response = await client.post(

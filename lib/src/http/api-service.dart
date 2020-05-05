@@ -233,7 +233,7 @@ Future<bool> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,ce
   "correo_familiar": correo_familiar,
   "movil_familiar": movil_familiar,
   "direccion_familiar": direccion_familiar,
-  "username": "rperez"
+  "username": appData.cedula
 }),
   );
   if (response.statusCode == 200) {
