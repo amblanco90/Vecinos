@@ -170,7 +170,7 @@ _guardareditar(String _idnucleo,String _idfamilia){
                     _alertConyugeMensajes(context, "Campo numero de contacto no puede tener mas de 10 y menos 7 digitos");
                     return;
                   }else{
-                    DatosFamilia datosFamilia=new DatosFamilia(id_nucleo:"216",id_parentesco:"3",id_residente:"153",cedula_familiar:"12639357",nombre_familiar:"afdsds",apellidos_familiar:"",correo_familiar:"aad@gmail.com",movil_familiar:"7436463",direccion_familiar:"asdas",username:appData.cedula);
+                    DatosFamilia datosFamilia=new DatosFamilia(id_nucleo:"216",id_parentesco:"3",id_residente:"153",cedula_familiar:"12639357",nombre_familiar:"afdsds",apellidos_familiar:"",correo_familiar:"aad@gmail.com",movil_familiar:"7436463",direccion_familiar:"asdas",username:appData.cedula.toString());
                     //DatosFamilia datosFamilia=DatosFamilia(id_parentesco: '3',id_residente:appData.idUsuario.toString(),cedula_familiar: _controllerIdentificacion.text,nombre_familiar: _controllerNombre.text,apellidos_familiar: '',correo_familiar:_controllerCorreo.text,movil_familiar: _controllerNumeroContacto.text,direccion_familiar: 'calle 1 # 45-25',username: 'rperz',id_nucleo: _idNucleo.toString(),id_familiar:_idfam.toString());
                     ApiService apiService=new ApiService();
                     apiService.guardarFamiliar(_idnucleo,"1",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){

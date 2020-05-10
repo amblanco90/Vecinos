@@ -202,7 +202,7 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                             ? ListView.builder(
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return cardRespuestaPqr(snapshot.data[index].residente!=null?'Tú':'Admin', snapshot.data[index].fechaCreacion, snapshot.data[index].mensaje, snapshot.data[index].foto);
+                                  return cardRespuestaPqr(snapshot.data[index].residente, snapshot.data[index].fechaCreacion, snapshot.data[index].mensaje, snapshot.data[index].foto);
                                 },
                               )
                             : Container();
