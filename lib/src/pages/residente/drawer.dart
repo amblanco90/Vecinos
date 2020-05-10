@@ -801,26 +801,7 @@ class _DrawerItemState extends State<DrawerItem> {
     }
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit an A'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No'),
-              ),
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Yes'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -1230,7 +1211,7 @@ Widget _chatResidente(){
                         color: Colors.white,
                         size: 55.0,
                       ),
-                      Text(appData.saldo.toString(),
+                      Text(' 123.000',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 45.0,

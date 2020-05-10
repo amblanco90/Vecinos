@@ -22,14 +22,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
+  final DateTime now = DateTime.now();
   bool _llamarzona=true;
   String _selectedDate = '17/03/2020';
     String _selectedDateBaseDato = '2020/03/17';
   String _idreserva = " ";
-   String _dropdownStrHoraInicio ="08:00am";
+   String _dropdownStrHoraInicio =" ";
+   List opcionesInicial=[" ",'08:00am','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
    List opcionesFinal=[' ','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
-   final List _datosFinal=[' ','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
-   String fecha_Selecionada='17/03/2020';
+    String fecha_Selecionada='17/03/2020';
    String _dropdownStrHoraFinal =" ";
    final _controllerHoraInicio=TextEditingController();
    final _controllerHorafin=TextEditingController();
@@ -43,8 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
   
  @override
   Widget build(BuildContext context) {
+  
    _solicitarListaZona();
-    //_actualizarLista();
     return SingleChildScrollView(
           child: Column(
 
@@ -173,15 +175,64 @@ ApiService _apiService=new ApiService();
     );
     
     final DateTime d = await b;
-
- 
+    int mes = int.parse(DateFormat('M').format(now));
+    int dia = int.parse(DateFormat('dd').format(now));
     if (d != null)
-    if(d.month>=10){
-    _selectedDate =d.day.toString()+'/'+ d.month.toString()+ '/' + d.year.toString();
-    _selectedDateBaseDato=d.year.toString()+'/'+ d.month.toString()+ '/' + d.day.toString();
+    if (d.month == mes || d.month == mes+1 || d.month == mes+2){
+       if (d.day == dia ){
+         String hora= DateFormat('j').format(now);
+          String hora_24= DateFormat('H').format(now);
+         int h=int.parse(hora.substring(0,2));
+         int h_24=int.parse(hora_24.substring(0,2));
+         String tipo_hora=hora.substring(2,4);
+         int horas_pm=1;
+         List  datos = List<String>();
+         if(h_24> 8){
+          for(int i =h_24+2;i<=19;i++){
+             if(tipo_hora == "AM"){
+          if(i<=12){
+            if(i<10){
+            datos.add("0"+i.toString()+":00am");
+          }else if (i==12){
+            datos.add(i.toString()+":00pm");
+          }else{
+            datos.add(i.toString()+":00am");
+          }
+      }else{
+        if(horas_pm<10){
+          datos.add("0"+horas_pm.toString()+":00pm");
+        }else{
+          datos.add(horas_pm.toString()+":00pm");
+        }
+        horas_pm++;
+      }
+          }
+           else{
+      if(i<=7 ){
+        datos.add(i.toString()+":00pm");
+      }else if (i>=13){
+        datos.add("0"+horas_pm.toString()+":00pm");
+        horas_pm++;
+      }else{
+        i=20;
+      }
+    }
+    }
+   datos.add(" ");
+      setState(() {
+        opcionesInicial=datos;
+      });
+         }
+       }else{
+         opcionesInicial=[" ",'08:00am','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
+       }
+      if(d.month>=10){
+      _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+      }else{
+        _selectedDate ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+      }
     }else{
-      _selectedDate =  d.day.toString()+'/0'+ d.month.toString()+ '/' + d.year.toString();
-      _selectedDateBaseDato=  d.year.toString()+'/'+ d.month.toString()+ '/' '0'+ d.day.toString();
+      _alertReservaMensajes(context, 'No se puede elegir a mas de 3 meses');
     }
        appData.fecha_inicial_reserva = _selectedDate;
         setState(() {
@@ -214,7 +265,7 @@ ApiService _apiService=new ApiService();
                });
                  
              },
-  items: <String>['08:00am','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',].map((String value) {
+  items: opcionesInicial.map(( value) {
     return new DropdownMenuItem<String>(
       value: value,
       child: new Text(value),
@@ -257,7 +308,6 @@ Widget _zonasHabilitadas(){
              icon: Icon(Icons.arrow_drop_down, color: Colors.orange),
              value: _zonaSelecionadad,
              onChanged: (String newValue){
-               print(newValue);
                setState(() {
                  _zonaSelecionadad = newValue;
                });
@@ -301,13 +351,10 @@ _botonGuardar(){
                       _posicionZona=_zona['id'];
                   }
               }
-              print(_idreserva.toString());
               DatosReserva datosReserva;
               if(_idreserva  !=" "){
-                print("1");
                    datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:_selectedDateBaseDato+" "+_dropdownStrHoraInicio,fecha_hora_fin:_selectedDateBaseDato+" "+_dropdownStrHoraFinal,username: "1",id_reserva: _idreserva.toString());
               }else{
-                print("2");
                  datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:_selectedDateBaseDato+" "+_dropdownStrHoraInicio,fecha_hora_fin:_selectedDateBaseDato+" "+_dropdownStrHoraFinal,username: "1",id_reserva: " ");
               }
               ApiService apiService=ApiService();
@@ -440,14 +487,11 @@ Widget _camposFormulario(String texto,TextEditingController controller,TextInput
     );
   }
 _colocarHoraDisponibles(){
+  
   var  fecha=_dropdownStrHoraInicio;
   var tipo_hora=fecha.substring(5,7);
-  var primerCaracter=fecha.substring(1,2);
-  var segundoCaracter=fecha.substring(1,2);
   var primeroSegundoCaracter=fecha.substring(0,2);
-  print(primeroSegundoCaracter);
   List  datos = List<String>();
-  print(tipo_hora);
   int horas_pm=1;
   for (int i=int.parse(primeroSegundoCaracter)+1;i<=19;i++){
     if(tipo_hora == "am"){
@@ -482,7 +526,6 @@ _colocarHoraDisponibles(){
   }
     
     datos.add(" ");
-       print(datos.toString());
       setState(() {
         opcionesFinal=datos;
       });
