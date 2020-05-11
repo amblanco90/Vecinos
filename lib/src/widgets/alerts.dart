@@ -1,4 +1,5 @@
 import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/providers/emergenciaProvider.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ Widget MensajeRecibido(BuildContext context) {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                    NuevoMensaje(context);
+                    
                   },
                   child: Container(
                     margin:
@@ -149,7 +150,10 @@ Widget MensajeRecibido(BuildContext context) {
       });
 }
 
-Widget NuevoMensaje(BuildContext context) {
+Widget NuevoMensaje(BuildContext context,id,funcion) {
+  final notificacionProvider = CasilleroProvider();
+  final textoController = TextEditingController();
+
   showDialog(
       context: context,
       builder: (context) {
@@ -159,9 +163,9 @@ Widget NuevoMensaje(BuildContext context) {
             child: Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: Colors.white,
                 border: Border.all(
-                  color: Colors.orange,
+                  color: Colors.orangeAccent.shade400,
                   width: 4,
                 ),
                 boxShadow: [
@@ -204,7 +208,8 @@ Widget NuevoMensaje(BuildContext context) {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            '19/02/2020',
+                            DateTime.now().day.toString()+"/"+DateTime.now().month.toString()+"/"+
+                            DateTime.now().year.toString(),
                             style: TextStyle(
                                 color: Colors.grey.shade700,
                                 fontFamily: 'CenturyGothic',
@@ -212,7 +217,7 @@ Widget NuevoMensaje(BuildContext context) {
                                 fontSize: 10.0),
                           ),
                           Text(
-                            '2:00 PM',
+                            DateTime.now().hour.toString()+":"+DateTime.now().minute.toString(),
                             style: TextStyle(
                                 color: Colors.grey.shade700,
                                 fontFamily: 'CenturyGothic',
@@ -242,7 +247,7 @@ Widget NuevoMensaje(BuildContext context) {
                     maxHeight: 190.0,
                   ),
                   child: Container(
-                    color: Colors.white,
+                    color: Colors.grey.withOpacity(0.2),
                     padding: EdgeInsets.all(10.0),
                     child: Scrollbar(
                       child: new ListView(
@@ -252,6 +257,7 @@ Widget NuevoMensaje(BuildContext context) {
                               width: 200.0,
                               height: 200.0,
                               child: TextField(
+                                controller: textoController,
                                 cursorColor: Colors.orange,
                                 decoration:
                                     InputDecoration.collapsed(hintText: ''),
@@ -265,7 +271,17 @@ Widget NuevoMensaje(BuildContext context) {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                  if(textoController.text.isNotEmpty){
+                    notificacionProvider.respuestaNotificacion(textoController.text, appData.idUsuario, id, null, appData.cedula, context).then((val){
+                  Navigator.pop(context);
+                    funcion();
+                    GenericAlert(context, val["respuesta"]);
+                  });
+                  }
+                  else{
+                    ValidacionLoginAlert(context);
+                  }
+                  
                   },
                   child: Container(
                     margin:
@@ -273,16 +289,16 @@ Widget NuevoMensaje(BuildContext context) {
                     padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: Center(
                       child: Text(
-                        'CERRAR',
+                        'ENVIAR',
                         style: TextStyle(
-                            color: Colors.grey.shade700,
+                            color: Colors.orangeAccent.shade400,
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold,
-                            fontSize: 14.0),
+                            fontSize: 16.0),
                       ),
                     ),
                     decoration: BoxDecoration(
-                        color: Colors.orangeAccent.shade100,
+                        color: Colors.grey.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
                 )

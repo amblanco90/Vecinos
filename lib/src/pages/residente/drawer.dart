@@ -30,6 +30,7 @@ import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:edificion247/src/providers/push_notification_provider.dart';
 import 'package:edificion247/src/providers/subunidadProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
+import 'package:edificion247/src/widgets/detalleNotificacion.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
@@ -729,6 +730,8 @@ class _DrawerItemState extends State<DrawerItem> {
       case 21:  return _chatResidente();
       case 22: 
        return EmergenciasPage();
+      case 23:
+      return _enviados();
     }
   }
 
@@ -1851,6 +1854,7 @@ Widget _chatResidente(){
 
   _botonPrincipal() {
     return Container(
+      color: Colors.grey.withOpacity(0.2),
       margin: EdgeInsets.symmetric(horizontal: 100.0, vertical: 5.0),
       child: FlatButton(
         onPressed: () {
@@ -2239,8 +2243,74 @@ Widget _chatResidente(){
       ],
 
     );
+ 
+ 
   }
 
+  _enviados(){
+    final notificacionesProvider = CasilleroProvider();
+    return ListView(
+
+      children: <Widget>[
+        SizedBox(height: 10.0,),
+         Text('ENVIADOS', style: TextStyle(color: Colors.orange.shade800,fontWeight: FontWeight.bold,fontSize: 18.0, fontFamily: 'CenturyGothic'),textAlign: TextAlign.center,),
+
+        SizedBox(height: 5.0,),
+       ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 250.0,
+    
+  ),
+
+  child: Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+       child: FutureBuilder(
+                    future: notificacionesProvider.getAllNotificacionesEnviadas(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<PedidoTaxi>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done)
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return cardMensajes(
+                                snapshot.data[index].descripcion,
+                                snapshot.data[index].fechaCreacion,
+                                '',
+                                snapshot.data[index].idCasillero.isEven
+                                    ? Colors.red.shade100
+                                    : Colors.grey.shade300,
+                                snapshot.data[index].estado,
+                                context,
+                                snapshot.data[index].idCasillero);
+                               
+                          },
+                        );
+                      else
+                        return Center(
+                            child: CircularProgressIndicator(
+                          valueColor:
+                              new AlwaysStoppedAnimation<Color>(Colors.orange),
+                        ));
+                    },
+                  ),
+    ),
+  ),
+),
+      
+          
+             SizedBox(height:20.0),
+             _botonPrincipal(),
+             SizedBox(height:10.0),
+      ],
+
+    );
+ 
+ 
+  }
+  
   
   cabecera(){
 
@@ -2270,8 +2340,8 @@ Widget _chatResidente(){
           child: GestureDetector(
             child: Text('ENVIADOS', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 14.0,),textAlign: TextAlign.end,),
             onTap: (){
-                _selecionadoItem2(19, "");
-                selecionadoItem4(12);
+                _selecionadoItem2(23, "ENVIADOS");
+                selecionadoItem4(2);
             },
            ),
         ),
@@ -2324,8 +2394,7 @@ Widget _chatResidente(){
                         ),
                         onTap: () {
 
-                          noticiaAlert(context, texto,
-                                    'DETALLES', fecha);
+                         detalleNotificacion(context, texto, null, estado, id, '', '', funcion);
                          
 
                          

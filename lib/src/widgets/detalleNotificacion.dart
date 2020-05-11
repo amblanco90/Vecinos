@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:edificion247/src/models/hiloNotificacion.dart';
 import 'package:edificion247/src/models/respuestaPqr.dart';
+import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/providers/pqrProvider.dart';
 import 'package:edificion247/src/providers/respuestasResidenteProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/cardRespuestaPqr.dart';
 import 'package:edificion247/src/widgets/responderPqrAlert.dart';
-import 'package:edificion247/src/widgets/respuestaPqrAdminAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
-  final respuestapqrProvider = RespuestaResidenteProvider();
+detalleNotificacion(BuildContext context, texto, foto,estado,id,destinatario,tipo,funcion) {
+  final respuestapqrProvider = CasilleroProvider();
   ProgressDialog pr;
 
   pr = new ProgressDialog(context);
@@ -79,9 +80,9 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(' ESTADO PQR ',
+                      Text(' DETALLE NOTIFICACION ',
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 18.0,
                             color: Colors.grey.shade700,
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold,
@@ -91,60 +92,8 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Container(
-                    width: 250.0,
-                                height: 40.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3.0),
-                      color: Colors.grey.shade200,
-                      
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(destinatario!=null?destinatario:'', style :TextStyle(
-                                            fontSize: 13.0,
-                                            color: Colors.grey.shade700,
-                                            fontFamily: 'CenturyGothic',
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                      ],
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0),
-                  ),
+                 
                   
-                 SizedBox(
-                    height: 10.0,
-                  ),
-                  
-                   Container(
-                    width: 250.0,
-                                height: 40.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3.0),
-                      color: Colors.grey.shade200,
-                      
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(tipo!=null?tipo:'', style :TextStyle(
-                                            fontSize: 13.0,
-                                            color: Colors.grey.shade700,
-                                            fontFamily: 'CenturyGothic',
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                      ],
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0),
-                  ),
-                  
-                  
-                  SizedBox(
-                    height: 10.0,
-                  ),
                   ConstrainedBox(
                   constraints: new BoxConstraints(
                     maxHeight: 80.0,
@@ -196,14 +145,14 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                       padding: EdgeInsets.all(10.0),
                       child: Scrollbar(
                         child: FutureBuilder(
-                    future: respuestapqrProvider.getHilo(id,context) ,
-                    builder: (BuildContext context, AsyncSnapshot<List<RespuestaPqr>> snapshot) {
+                    future: respuestapqrProvider.getAllHiloNotificaciones(id) ,
+                    builder: (BuildContext context, AsyncSnapshot<List<HiloNotificacion>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)
                         return snapshot.data != null
                             ? ListView.builder(
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return cardRespuestaPqr(snapshot.data[index].residente, snapshot.data[index].fechaCreacion, snapshot.data[index].mensaje, snapshot.data[index].foto);
+                                  return cardRespuestaNotificacion(snapshot.data[index].emisor, snapshot.data[index].fechaCreacion.toString(), snapshot.data[index].mensaje, snapshot.data[index].foto);
                                 },
                               )
                             : Container();
@@ -222,60 +171,14 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                         height: 8.0, 
                       ),
 
-               Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width: 80.0,
-                          height: 80.0,
-                          color: Colors.grey.shade200,
-                          child: foto == null
-                              ? Center(
-                                  child: Icon(Icons.camera),
-                                )
-                              : Image.memory(base64.decode(foto)),
-                        ),
-
-                        Expanded(child: Container()),
-                        
-                        
-                        Row(
-                          children: <Widget>[
-                            
-                            Text(
-                                      'ESTADO: ',
-                                      style: TextStyle(
-                                          color: Colors.grey.shade700,
-                                          fontFamily: 'CenturyGothic',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13.0),
-                                    ),
-
-                      Text(
-                                      estado!=null?estado:'',
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontFamily: 'CenturyGothic',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13.0),
-                                    ),
-
-
-                          ],
-                        ),
-                        
-                      ],
-                    ),
-                  ),
-                  Row(
+              Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
                          Navigator.pop(context);
-                         responderPqrAdmin(context, destinatario, tipo, id, estado);
+                         NuevoMensaje(context, id, funcion);
                         },
                         child: Container(
                           margin: EdgeInsets.only(top: 10.0),
@@ -338,8 +241,86 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
 }
 
 
+Widget cardMensajes(
+      texto, fecha, hora, color, estado, BuildContext context, id,foto,destinatario,tipo,funcion) {
+    var estadoString;
 
- 
+    if (estado == 0) {
+      estadoString = 'INACTIVO';
+    } else if (estado == 1) {
+      estadoString = 'ACTIVO';
+    } else if (estado == 30) {
+      estadoString = 'RESUELTO';
+    }
+
+    return GestureDetector(
+        onTap: () {
+         NuevoMensaje(context, id, funcion);
+        },
+        child: Card(
+          color: color,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+            child: Row(
+              children: <Widget>[
+                Container(
+                    height: 15.0,
+                    width: 120.0,
+                    child: Text(
+                      texto,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontFamily: 'CenturyGothic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10.0),
+                    )),
+                SizedBox(
+                  width: 15.0,
+                ),
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Text(
+                          '(LEER)' + estadoString,
+                          style: TextStyle(
+                              color: Color.fromRGBO(255, 114, 0, 1.0),
+                              fontFamily: 'CenturyGothic',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10.0),
+                        ),
+                        onTap: () {},
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        fecha,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                      Text(
+                        hora,
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.0),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
 
 
 

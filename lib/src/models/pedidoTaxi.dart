@@ -25,10 +25,13 @@ class PedidosTaxis {
         items.add(reserva);
 
       }
+
+    
      
       
     }
   }
+  
   PedidosTaxis.fromJsonListNotificaciones(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
@@ -37,6 +40,27 @@ class PedidosTaxis {
         final reserva = new PedidoTaxi.fromJson(item);
         items.add(reserva);
 
+      
+     
+      
+    }
+  }
+
+
+
+  PedidosTaxis.fromJsonListNotificacionesEnviadas(List<dynamic> jsonList) {
+    if (jsonList == null) return;
+
+    for (var item in jsonList) {
+
+        if(item["hilo"]!=0){
+          final reserva = new PedidoTaxi.fromJson(item);
+        items.add(reserva);
+
+
+        }
+
+        
       
      
       
@@ -54,6 +78,7 @@ class PedidoTaxi {
     int idTipoCasillero;
     int estado;
     String fechaCreacion;
+    int hilo;
 
     PedidoTaxi({
         this.idCasillero,
@@ -62,6 +87,7 @@ class PedidoTaxi {
         this.idTipoCasillero,
         this.estado,
         this.fechaCreacion,
+        this.hilo
     });
 
     factory PedidoTaxi.fromJson(Map<String, dynamic> json) => PedidoTaxi(
@@ -71,6 +97,7 @@ class PedidoTaxi {
         idTipoCasillero: json["id_tipo_casillero"],
         estado: json["estado"],
         fechaCreacion: json["fecha_creacion"],
+        hilo:json["hilo"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -80,5 +107,6 @@ class PedidoTaxi {
         "id_tipo_casillero": idTipoCasillero,
         "estado": estado,
         "fecha_creacion": fechaCreacion,
+        "hilo":hilo
     };
 }
