@@ -19,7 +19,7 @@ class _AdminChatAdministradorPagesState extends State<AdminChatAdministradorPage
   ScrollController scrollController= ScrollController();
 
   Future<void> callback() async{
-     var documentReference = Firestore.instance.collection('messagesChatAdmin')
+     var documentReference = Firestore.instance.collection('mensagesEdificio'+appData.idUnidad.toString())
         .document(widget.cedulachatresidente)
         .collection(widget.cedulachatresidente)
         .document(DateTime.now().millisecondsSinceEpoch.toString());
@@ -54,7 +54,7 @@ class _AdminChatAdministradorPagesState extends State<AdminChatAdministradorPage
         children: <Widget>[
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream:_firestore.collection('messagesChatAdmin')
+              stream:_firestore.collection('mensagesEdificio'+appData.idUnidad.toString())
       .document(widget.cedulachatresidente)
       .collection(widget.cedulachatresidente)
       .orderBy('timestamp', descending: true)

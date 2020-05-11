@@ -268,20 +268,20 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     headers: {"content-type": "application/json"},
     body:profileToJsonLogin(datosLogin),
   );
+  print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){ 
-      print(response.body);
       appData.idUsuario = datos["id"];
       appData.saldo = datos["saldo"];
       appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
       appData.unidadInicial = datos["lista_subunidades"][0];
+      appData.idUnidad=datos["id_unidad"];
       for (var item in datos["lista_subunidades"]) {
-
-        appData.unidades.add(item);
         
+        appData.unidades.add(item);
       }
-      print(appData.unidades);
+      //print(appData.unidades);
 
       
       appData.cedula= datos["cedula"];
@@ -293,7 +293,6 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
         appData.permisos='Administrador';
       }
       
-      print(appData.permisos);
       final prefs = await SharedPreferences.getInstance();
       if(estado == true){
         prefs.setString('usuario', usuario);

@@ -60,9 +60,6 @@ class _LoginPageState extends State<LoginPage> {
         messageTextStyle: TextStyle(
             color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600));
     final size = MediaQuery.of(context).size;
-    //recuperarDatos();
-    //userController.text=email;
-    //passwordController.text=contrasena;
     final logo = Container(
       height: size.height * 0.4,
       child: CircleAvatar(
@@ -294,28 +291,3 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 }
-/* guardarDatos(String email,String password) async {
-     final prefs = await SharedPreferences.getInstance();
-     prefs.setString('email', email);
-     prefs.setString('password', password);
-   }
-    recuperarDatos()  async{
-     final prefs = await  SharedPreferences.getInstance();
-       email=prefs.getString('email')?? '';
-       contrasena=prefs.getString('password') ?? '';
-   }
-   
-*/
-
-/*_obtenerUbicacion() async {
-  try{
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
-    setState(() {
-          pais=placemark[0].country;
-    });
-  }on PlatformException catch (e) {
-  if (e.code == 'PERMISSION_DENIED') {
-      print('Permission denied');
-  } 
-}*/

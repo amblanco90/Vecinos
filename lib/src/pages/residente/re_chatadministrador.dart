@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
+
 class ChatAdministradorPages extends StatefulWidget {
   @override
   _ChatAdministradorPagesState createState() => _ChatAdministradorPagesState();
@@ -16,11 +17,11 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
   ScrollController scrollController= ScrollController();
 
  Future<void> callback() async{
-     var documentReference = Firestore.instance.collection('messagesChatAdmin')
+     var documentReference = Firestore.instance.collection('mensagesEdificio'+appData.idUnidad.toString())
         .document(appData.cedula.toString())
         .collection(appData.cedula.toString())
         .document(DateTime.now().millisecondsSinceEpoch.toString());
-         var documentReference2 = Firestore.instance.collection('userChatAdmin')
+         var documentReference2 = Firestore.instance.collection('useredificio'+appData.idUnidad.toString())
         .document(appData.cedula.toString());
 
       String menssage=messageController.text;
@@ -63,7 +64,7 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
         children: <Widget>[
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream:_firestore.collection('messagesChatAdmin')
+              stream:_firestore.collection('mensagesEdificio'+appData.idUnidad.toString())
       .document(appData.cedula.toString())
       .collection(appData.cedula.toString())
       .orderBy('timestamp', descending: true)
