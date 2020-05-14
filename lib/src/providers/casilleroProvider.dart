@@ -49,7 +49,7 @@ Future<List<PedidoTaxi>> getAllCasillero() async {
 
 Future<List<PedidoTaxi>> getAllEmergencias() async {
     final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario,
-     "username": appData.cedula, "id_perfil":appData.rol=="Residente"?100:300};
+     "username": appData.cedula,"id_perfil":appData.rol=="Residente"?100:300};
     final response = await client.post(
         "$baseUrl/residente/panico/list",
         body: json.encode(authData),
@@ -66,7 +66,7 @@ Future<List<PedidoTaxi>> getAllEmergencias() async {
     }else{
 
       final entidades = new PedidosTaxis.fromJsonList(decodedData);
-      return entidades.items.reversed.toList();
+      return entidades.items;
 
     }
 
