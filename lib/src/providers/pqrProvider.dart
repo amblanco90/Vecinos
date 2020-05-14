@@ -57,4 +57,21 @@ class PqrProvider {
       return entidades.items.reversed.toList();
      
   }
+
+  Future<List<Pqr>> getAllPqrsAdmin() async {
+    final Map<String, dynamic> authData = {
+      "username":appData.cedula
+    };
+    final response = await client.post("$baseUrl/admin/pqr/list",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    print(response.body);
+    final decodedData = json.decode(response.body);
+    
+      final entidades = new Pqrs.fromJsonList(
+           decodedData);
+      
+      return entidades.items.reversed.toList();
+     
+  }
 }

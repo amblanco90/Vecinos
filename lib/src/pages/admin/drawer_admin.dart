@@ -989,7 +989,7 @@ Widget _botonesRedondeados(context) {
                         color: Colors.white,
                         size: 55.0,
                       ),
-                      Text(appData.saldo.toString(),
+                      Text(appData.saldo!=null?appData.saldo.toString():'0',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 45.0,
@@ -1555,7 +1555,11 @@ _vistaUnidad() {
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     child: Column(children: <Widget>[
-                      _containerUnidad('RESIDENCIAL'),
+                       _containerUnidad(appData.nombreSubUnidad),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      _containerUnidad(appData.tipoUnidad),
                       SizedBox(
                         height: 5.0,
                       ),
@@ -1563,10 +1567,7 @@ _vistaUnidad() {
                       SizedBox(
                         height: 5.0,
                       ),
-                    /* _containerUnidad('BARRANQUILLA'),
-                      SizedBox(
-                        height: 5.0,
-                      ),*/
+                    
                       _containerUnidad(snapshot.data.movil+'-'+snapshot.data.fijo),
                     ]),
                   ),

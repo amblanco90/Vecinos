@@ -14,7 +14,8 @@ class CasilleroProvider{
    final String baseUrl = "http://18.191.213.12//api";
 
 Future<List<PedidoTaxi>> getAllCasillero() async {
-    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, 
+    "id_residente":appData.idUsuario ,"id_perfil":appData.rol=='Residente'?100:300};
     final response = await client.post(
         "$baseUrl/subunidad/casillero/list",
         body: json.encode(authData),
@@ -48,7 +49,7 @@ Future<List<PedidoTaxi>> getAllCasillero() async {
 
 Future<List<PedidoTaxi>> getAllEmergencias() async {
     final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario,
-     "username": appData.cedula};
+     "username": appData.cedula, "id_perfil":appData.rol=="Residente"?100:300};
     final response = await client.post(
         "$baseUrl/residente/panico/list",
         body: json.encode(authData),
@@ -144,7 +145,7 @@ print(authData);
 
 
 Future<List<PedidoTaxi>> getAllNotificaciones() async {
-    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario,"id_perfil":appData.rol=='Residente'?100:300};
      print(authData);
     final response = await client.post(
         "$baseUrl/subunidad/casillero/list",
@@ -198,7 +199,7 @@ Future<List<HiloNotificacion>> getAllHiloNotificaciones(id) async {
 
 
 Future<List<PedidoTaxi>> getAllNotificacionesEnviadas() async {
-    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario,"id_perfil":appData.rol=='Residente'?100:300};
      print(authData);
     final response = await client.post(
         "$baseUrl/subunidad/casillero/list",

@@ -145,7 +145,7 @@ class _PqrUnidadesState extends State<PqrUnidades> {
                 padding: EdgeInsets.all(5.0),
                 child: Scrollbar(
                   child: FutureBuilder(
-                    future: pqrProvider.getAllPqrs(),
+                    future: pqrProvider.getAllPqrsAdmin(),
                     builder: (BuildContext context,
                         AsyncSnapshot<List<Pqr>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)

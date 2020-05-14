@@ -89,7 +89,7 @@ class _DropDownSidebarState extends State<DropDownSidebar> {
             isExpanded: true,
             hint:Center(
               child: Text(
-                       appData.unidadInicial["nombre_subunidad"],
+                       appData.nombreSubUnidad,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17.0,
@@ -109,10 +109,24 @@ class _DropDownSidebarState extends State<DropDownSidebar> {
               color: Colors.white,
             ),
             onChanged: (String newValue) {
+              
              
                setState(() {
                 _mySelection = newValue;
                 appData.idSubunidad=int.parse(newValue);
+                for (var item in appData.unidades) {
+
+                  if(appData.idSubunidad==item["id_subunidad"]){
+                    appData.saldo=item["saldo"];
+                    appData.nombreSubUnidad= item["nombre_subunidad"];
+                    appData.tipoUnidad=item["nombre_tipo_unidad"];
+                    print(appData.saldo);
+                    print(appData.tipoUnidad);
+                  }
+                  
+                }
+                
+
                 print(newValue);
                 
               });

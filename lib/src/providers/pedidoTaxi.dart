@@ -12,7 +12,7 @@ class PedidoTaxiProvider{
    final String baseUrl = "http://18.191.213.12//api";
 
   Future<Map<String, dynamic>> pedirTaxi(BuildContext context, String observaciones) async {
-  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario, "id_subunidad": appData.idSubunidad, "observaciones": observaciones, "username": appData.cedula};
+  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario, "id_subunidad": appData.idSubunidad, "observaciones": observaciones, "username": appData.cedula, "id_perfil":appData.rol=='Residente'?100:300};
 
     Client client = Client();
     final response = await client.post(
@@ -43,7 +43,8 @@ Future<Map<String, dynamic>> eliminarPedidoTaxi(BuildContext context, id) async 
 }
 
 Future<List<PedidoTaxi>> getAllPedidosTaxi() async {
-    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "id_residente":appData.idUsuario};
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad,
+                                           "id_residente":appData.idUsuario, "id_perfil":appData.rol=='Residente'?100:300};
     final response = await client.post(
         "$baseUrl/residente/taxi/list",
         body: json.encode(authData),
