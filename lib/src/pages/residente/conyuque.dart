@@ -1,10 +1,10 @@
+
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/http/api-service.dart';
 import 'package:edificion247/src/http/datos-familia.dart';
 import 'package:edificion247/src/models/conyugue.dart';
 import 'package:edificion247/src/providers/conyugeProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 
 class ConyuguePage extends StatefulWidget {
   @override

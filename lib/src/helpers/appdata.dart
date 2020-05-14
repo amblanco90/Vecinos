@@ -49,6 +49,7 @@ class AppData {
 
   int idUsuario;
   int idSubunidad;
+  int idUnidad;
   int estado;
   int cedula;
   String nombre;

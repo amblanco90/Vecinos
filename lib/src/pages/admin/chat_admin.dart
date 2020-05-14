@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:flutter/material.dart';
 
 class ChatPageAdmin extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ChatPageAdminState extends State<ChatPageAdmin> {
                 width: 400,
                 height: 400,
   child: StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('userChatAdmin').snapshots(),
+    stream: Firestore.instance.collection('useredificio'+appData.idUnidad.toString()).snapshots(),
     builder: (context, snapshot) {
 
       if (!snapshot.hasData) {
