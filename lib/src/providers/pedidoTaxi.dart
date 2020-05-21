@@ -53,7 +53,7 @@ Future<List<PedidoTaxi>> getAllPedidosTaxi() async {
     final decodedData = json.decode(response.body);
     final entidades = new PedidosTaxis.fromJsonList(decodedData);
 
-    return entidades.items.reversed.toList().take(15).toList();
+    return entidades.items;
   }
 
 
