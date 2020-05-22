@@ -375,6 +375,7 @@ Widget EmergenciaAlert(BuildContext context,funcion) {
                             fontSize: 12.0)),
                   ],
                 ),
+                SizedBox(height: 10.0,),
                 DropdownWidgetEmergencia(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -391,7 +392,8 @@ Widget EmergenciaAlert(BuildContext context,funcion) {
                 ),
                 GestureDetector(
                   onTap: () {
-                    pr.show();
+                    if(appData.emergencia!=null){
+                                          pr.show();
 
                     emergenciaProvider
                         .generarEmergencia(context, appData.emergencia)
@@ -404,6 +406,11 @@ Widget EmergenciaAlert(BuildContext context,funcion) {
                       
 
                     });
+
+                    }
+                    else{
+                      ValidacionLoginAlert(context);
+                    }
                   },
                   child: Container(
                     margin:

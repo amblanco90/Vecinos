@@ -1,4 +1,5 @@
 import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/widgets/textFormField.dart';
 import 'package:flutter/material.dart';
 
 class DropdownWidget extends StatefulWidget {
@@ -464,52 +465,51 @@ class DropdownWidgetEmergencia extends StatefulWidget {
 String dropdown = 'Incendio';
 
 class _DropdownWidgetEmergenciaState extends State<DropdownWidgetEmergencia> {
+  var b = 'd';
+   String value = 'Incendio';
+  final control = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 20.0,
-      child: DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          layoutBehavior: ButtonBarLayoutBehavior.constrained,
-          child: DropdownButton(
-              isExpanded: true,
-              isDense: true,
-              focusColor: Colors.white,
-              iconDisabledColor: Colors.white,
-              iconEnabledColor: Color.fromRGBO(177, 79, 0, 1.0),
-              icon: Icon(
-                Icons.arrow_drop_down,
-                size: 30.0,
-              ),
-              value: dropdown,
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdown = newValue;
+   
+    return b=='d'?SizedBox(
+      height: 40.0,
+      child: DropdownButton(
+            value: value ,
+       
+            onChanged: (String newValue) {
+              setState(() {
+                value = newValue;
+                if(newValue=='Otro'){
+                  b ='f';
+                  appData.emergencia=null;
+                }
+                else{
                   appData.emergencia = newValue;
-                });
-              },
-              items: <String>[
-                'Incendio',
-                'Inundación',
-                'Emergencia familiar',
-                'Fuga de gas',
-                'Robo',
-                'Otro'
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Container(
-                    child: Text(
-                      value,
-                      style: TextStyle(
-                          fontSize: 16.0, fontFamily: 'CenturyGothic'),
-                      textAlign: TextAlign.center,
-                    ),
+                }
+                
+              });
+            },
+            items: <String>[
+              'Incendio',
+              'Inundación',
+              'Emergencia familiar',
+              'Fuga de gas',
+              'Robo',
+              'Otro'
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Container(
+                  child: Text(
+                    value,
+                    style: TextStyle(
+                        fontSize: 16.0, fontFamily: 'CenturyGothic'),
+                    textAlign: TextAlign.center,
                   ),
-                );
-              }).toList()),
-        ),
-      ),
-    );
+                ),
+              );
+            }).toList()),
+      
+    ):NormalForm("Escriba aquí", control);
   }
 }
