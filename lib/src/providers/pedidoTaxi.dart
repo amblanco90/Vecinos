@@ -43,7 +43,7 @@ Future<Map<String, dynamic>> eliminarPedidoTaxi(BuildContext context, id) async 
 }
 
 Future<List<PedidoTaxi>> getAllPedidosTaxi() async {
-    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad,
+    final Map<String, dynamic> authData = {"id_subunidad": appData.idSubunidad, "username": appData.cedula,
                                            "id_residente":appData.idUsuario, "id_perfil":appData.rol=='Residente'?100:300};
     final response = await client.post(
         "$baseUrl/residente/taxi/list",
@@ -53,7 +53,7 @@ Future<List<PedidoTaxi>> getAllPedidosTaxi() async {
     final decodedData = json.decode(response.body);
     final entidades = new PedidosTaxis.fromJsonList(decodedData);
 
-    return entidades.items.reversed.toList().take(15).toList();
+    return entidades.items;
   }
 
 
