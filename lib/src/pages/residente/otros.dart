@@ -389,7 +389,8 @@ _botonGuardar(){
           },
           child:  Text(
             _estadobuttonguardar ?  "GUARDAR" : "ACTUALIZAR INFORMACION",
-            style:TextStyle(fontSize: _estadobuttonguardar ? 18.0 :16.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+            textAlign: TextAlign.center,
+            style:TextStyle(fontSize: _estadobuttonguardar ? 18.0 :14.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
           ),
           )
      ),

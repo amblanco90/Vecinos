@@ -38,7 +38,7 @@ class DatosSubUnidad{
 Map<String, dynamic> toJson() {
     return {"InputId": inputId, "InputNomen": inputNomen,
     "TipoUnidad":tipoUnidad,"InputEstado":inputEstado,
-    "InputIdProp":inputIdProp,"InputNameProp":inputNameProp,
+    "InputCedProp":inputIdProp,"InputNameProp":inputNameProp,
     "InputApeProp":inputApeProp,"InputCel":inputCel,
     "InputEmail":inputEmail,"InputTel":inputTel};
   }

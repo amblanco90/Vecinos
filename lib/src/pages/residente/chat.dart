@@ -28,14 +28,14 @@ class _ChatPagesState extends State<ChatPages> {
                     Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("CON QUIEN",
                         style: TextStyle(
-                            fontSize: 23.0,
+                            fontSize: 18.0,
                             color: Color.fromRGBO(255, 153, 29, 1.0),
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold)),
                             Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
-                    Text("DESEA HABLAR?",
+                    Text("DESEA HABLAR",
                         style: TextStyle(
-                            fontSize: 23.0,
+                            fontSize: 18.0,
                             color:Color.fromRGBO(167, 164, 164, 1),
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold)),

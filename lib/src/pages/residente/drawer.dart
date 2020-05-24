@@ -1051,14 +1051,14 @@ Widget _chatResidente(){
                     Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("CON QUIEN",
                         style: TextStyle(
-                            fontSize: 23.0,
+                            fontSize: 21.0,
                             color: Color.fromRGBO(255, 153, 29, 1.0),
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold)),
                             Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("DESEA HABLAR?",
                         style: TextStyle(
-                            fontSize: 23.0,
+                            fontSize: 21.0,
                             color:Color.fromRGBO(167, 164, 164, 1),
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold)),
@@ -1643,7 +1643,7 @@ Widget _chatResidente(){
             leyenda,
             style: TextStyle(
                 fontFamily: 'CenturyGothic',
-                fontSize: 15.0,
+                fontSize: 13.0,
                 fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10.0),

@@ -267,7 +267,8 @@ _botonGuardar(){
            }
           },
           child:  Text(
-           _estadoButtonGuardar ?  "GUARDAR" : "ACTUALIZAR INFORMACION",  style:TextStyle(fontSize: _estadoButtonGuardar ? 18.0 :16.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+           _estadoButtonGuardar ?  "GUARDAR" : "ACTUALIZAR INFORMACION",
+           textAlign: TextAlign.center,  style:TextStyle(fontSize: _estadoButtonGuardar ? 18.0 :14.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold,)
           ),
           )
      );
