@@ -620,7 +620,7 @@ class _TaxiPageState extends State<TaxiPage> {
                         pr.dismiss();
 
                         Navigator.pop(context);
-                        GenericAlert(context, value["respuesta"]);
+                        GenericAlert(context, value["respuesta"],null);
                       });
                     },
                     child: Container(

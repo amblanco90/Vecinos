@@ -230,7 +230,7 @@ responderPqrAdmin(BuildContext context,destinatario,tipo,id,estado) {
                                 observaciones.clear();
                                 _image =null;
                                 pr.dismiss();
-                                GenericAlert(context, val["respuesta"]);
+                                GenericAlert(context, val["respuesta"],null);
 
                               });
                              

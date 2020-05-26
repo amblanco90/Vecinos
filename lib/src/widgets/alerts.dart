@@ -1,4 +1,6 @@
 import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/pages/admin/drawer_admin.dart';
+import 'package:edificion247/src/pages/residente/drawer.dart';
 import 'package:edificion247/src/providers/casilleroProvider.dart';
 import 'package:edificion247/src/providers/emergenciaProvider.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
@@ -122,7 +124,6 @@ Widget MensajeRecibido(BuildContext context) {
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
-                    
                   },
                   child: Container(
                     margin:
@@ -150,7 +151,7 @@ Widget MensajeRecibido(BuildContext context) {
       });
 }
 
-Widget NuevoMensaje(BuildContext context,id,funcion) {
+Widget NuevoMensaje(BuildContext context, id, funcion) {
   final notificacionProvider = CasilleroProvider();
   final textoController = TextEditingController();
 
@@ -208,8 +209,11 @@ Widget NuevoMensaje(BuildContext context,id,funcion) {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            DateTime.now().day.toString()+"/"+DateTime.now().month.toString()+"/"+
-                            DateTime.now().year.toString(),
+                            DateTime.now().day.toString() +
+                                "/" +
+                                DateTime.now().month.toString() +
+                                "/" +
+                                DateTime.now().year.toString(),
                             style: TextStyle(
                                 color: Colors.grey.shade700,
                                 fontFamily: 'CenturyGothic',
@@ -217,7 +221,9 @@ Widget NuevoMensaje(BuildContext context,id,funcion) {
                                 fontSize: 10.0),
                           ),
                           Text(
-                            DateTime.now().hour.toString()+":"+DateTime.now().minute.toString(),
+                            DateTime.now().hour.toString() +
+                                ":" +
+                                DateTime.now().minute.toString(),
                             style: TextStyle(
                                 color: Colors.grey.shade700,
                                 fontFamily: 'CenturyGothic',
@@ -271,17 +277,23 @@ Widget NuevoMensaje(BuildContext context,id,funcion) {
                 ),
                 GestureDetector(
                   onTap: () {
-                  if(textoController.text.isNotEmpty){
-                    notificacionProvider.respuestaNotificacion(textoController.text, appData.idUsuario, id, null, appData.cedula, context).then((val){
-                  Navigator.pop(context);
-                    funcion();
-                    GenericAlert(context, val["respuesta"]);
-                  });
-                  }
-                  else{
-                    ValidacionLoginAlert(context);
-                  }
-                  
+                    if (textoController.text.isNotEmpty) {
+                      notificacionProvider
+                          .respuestaNotificacion(
+                              textoController.text,
+                              appData.idUsuario,
+                              id,
+                              null,
+                              appData.cedula,
+                              context)
+                          .then((val) {
+                        Navigator.pop(context);
+                        funcion();
+                        GenericAlert(context, val["respuesta"], null);
+                      });
+                    } else {
+                      ValidacionLoginAlert(context);
+                    }
                   },
                   child: Container(
                     margin:
@@ -309,7 +321,7 @@ Widget NuevoMensaje(BuildContext context,id,funcion) {
       });
 }
 
-Widget EmergenciaAlert(BuildContext context,funcion) {
+Widget EmergenciaAlert(BuildContext context, funcion) {
   ProgressDialog pr;
 
   pr = new ProgressDialog(context);
@@ -375,7 +387,9 @@ Widget EmergenciaAlert(BuildContext context,funcion) {
                             fontSize: 12.0)),
                   ],
                 ),
-                SizedBox(height: 10.0,),
+                SizedBox(
+                  height: 10.0,
+                ),
                 DropdownWidgetEmergencia(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -392,23 +406,18 @@ Widget EmergenciaAlert(BuildContext context,funcion) {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if(appData.emergencia!=null){
-                                          pr.show();
+                    if (appData.emergencia != null) {
+                      pr.show();
 
-                    emergenciaProvider
-                        .generarEmergencia(context, appData.emergencia)
-                        .then((val) {
-                      pr.hide();
-                      Navigator.pop(context);
-                      GenericAlert(context, val["msj"]);
-                      funcion();
-                      
-                      
-
-                    });
-
-                    }
-                    else{
+                      emergenciaProvider
+                          .generarEmergencia(context, appData.emergencia)
+                          .then((val) {
+                        pr.hide();
+                        Navigator.pop(context);
+                        GenericAlert(context, val["msj"], null);
+                        funcion();
+                      });
+                    } else {
                       ValidacionLoginAlert(context);
                     }
                   },
@@ -706,7 +715,7 @@ Widget RegistroZonaAlert(BuildContext context) {
       });
 }
 
-Widget GenericAlert(BuildContext context, texto) {
+Widget GenericAlert(BuildContext context, texto, rol) {
   showDialog(
       context: context,
       barrierDismissible: false,
@@ -727,13 +736,35 @@ Widget GenericAlert(BuildContext context, texto) {
             ],
           ),
           actions: <Widget>[
+            rol != null
+                ? FlatButton(
+                    child: Text(
+                      'Cancelar',
+                      style:
+                          TextStyle(color: Color.fromRGBO(205, 105, 55, 1.0)),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+
+                    /* onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListaPeticionesReservaPage() ),
+              )*/
+                  )
+                : null,
             FlatButton(
               child: Text(
                 'Aceptar',
                 style: TextStyle(color: Color.fromRGBO(205, 105, 55, 1.0)),
               ),
               onPressed: () {
-                Navigator.pop(context);
+                rol!=null?Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => rol == "Residente"
+                            ? DrawerItem()
+                            : DrawerAdminItem())): Navigator.pop(context);
               },
 
               /* onPressed: () => Navigator.push(
