@@ -10,6 +10,7 @@ import 'package:edificion247/src/widgets/calendar_widget.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 
 
@@ -33,27 +34,34 @@ class _MyHomePageState extends State<MyHomePage> {
    List opcionesFinal=[' ','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
     String fecha_Selecionada='17/03/2020';
    String _dropdownStrHoraFinal =" ";
-   final _controllerHoraInicio=TextEditingController();
-   final _controllerHorafin=TextEditingController();
    final _controllerObservaciones=TextEditingController();
    List<dynamic> _listareserva=new List();
    List<dynamic> _listaZonas=new List();
    String _zonaSelecionadad='Piscina';
    int _posicionZona=1;
    final reservaProvider=new ReservasProvider();
-
-  
+   CalendarController _calendarController=CalendarController();
+   List<dynamic> _listaocupada=[];
+   Map<DateTime, List<dynamic>> _events= {};
+   TextEditingController _eventsController=new TextEditingController();
+   List<Reserva> todasReserva=new List();
+   bool _estadotablecale=true;
  @override
   Widget build(BuildContext context) {
+    
   
+  if(_estadotablecale){
+    _listaocupada.clear();
+    _events.clear();
+   _solicitarTodasReserva();
+  }
    _solicitarListaZona();
     return SingleChildScrollView(
           child: Column(
 
         children: <Widget>[
-         
-        _alertReserva(context),
-
+         _calendarTable(),
+        
           SizedBox(height:10.0),
 
           Padding(
@@ -92,6 +100,26 @@ ApiService _apiService=new ApiService();
   });
   }
   
+}
+
+_solicitarTodasReserva(){
+  reservaProvider.getreservatodas().then((onValue){
+    if(onValue!= null ){
+      _listaocupada=new List();
+      
+      for (int i=0;i<onValue.length;i++){
+        if (_events[corregir_fecha(onValue[i].fecha_hora_inicio)] != null) {
+                      _events[corregir_fecha(onValue[i].fecha_hora_inicio)]
+                          .add(onValue[i].nombre_zona +" \n F. inicio  "+onValue[i].fecha_hora_inicio+"    F. fin  "+onValue[i].fecha_hora_inicio);
+                    } else {
+                      _events[corregir_fecha(onValue[i].fecha_hora_inicio)] = [
+                        onValue[i].nombre_zona +" \n F. inicio  "+onValue[i].fecha_hora_inicio+"    F. fin  "+onValue[i].fecha_hora_inicio
+                      ];
+                    }
+      }
+        
+    }
+  });
 }
   Widget _calendario(){
 
@@ -229,14 +257,14 @@ ApiService _apiService=new ApiService();
       if(d.month>=10){
       _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
       }else{
-        _selectedDate ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+        fecha_Selecionada ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
       }
     }else{
       _alertReservaMensajes(context, 'No se puede elegir a mas de 3 meses');
     }
-       appData.fecha_inicial_reserva = _selectedDate;
+       appData.fecha_inicial_reserva = fecha_Selecionada;
         setState(() {
-          fecha_Selecionada=_selectedDate;
+          fecha_Selecionada=fecha_Selecionada;
         });
       
   }
@@ -294,8 +322,6 @@ ApiService _apiService=new ApiService();
             _camposFormulario3("", _controllerObservaciones, TextInputType.text),
             Divider(height: 20,),
             _botonGuardar()],
-            
-            
           ),
         ),
       );
@@ -333,13 +359,13 @@ _botonGuardar(){
 
    return GestureDetector(
        onTap: (){ 
+         
        }, 
        child: Container(
        child: RaisedButton(
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
-            
             
               if(_dropdownStrHoraFinal ==" "){
                 _alertReservaMensajes(context,"Tiene que elegir una hora final");
@@ -353,9 +379,9 @@ _botonGuardar(){
               }
               DatosReserva datosReserva;
               if(_idreserva  !=" "){
-                   datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:_selectedDateBaseDato+" "+_dropdownStrHoraInicio,fecha_hora_fin:_selectedDateBaseDato+" "+_dropdownStrHoraFinal,username: "1",id_reserva: _idreserva.toString());
+                   datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: _idreserva.toString());
               }else{
-                 datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:_selectedDateBaseDato+" "+_dropdownStrHoraInicio,fecha_hora_fin:_selectedDateBaseDato+" "+_dropdownStrHoraFinal,username: "1",id_reserva: " ");
+                 datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: " ");
               }
               ApiService apiService=ApiService();
               apiService.guardarReserva(datosReserva).then((isSuccess){
@@ -555,7 +581,7 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),/*_datoslista['fecha_hora_inicio']*/snapshot.data[index].fecha_hora_inicio,snapshot.data[index].fecha_hora_fin,'ACTIVA',snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString());
+             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,snapshot.data[index].fecha_hora_fin,'ACTIVA',snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString());
 
             
   },
@@ -578,7 +604,25 @@ _reservas(BuildContext context){
    
   }
   
+Widget _cardMensajestodareserva(texto, color){
+ 
+  return  GestureDetector(child: Card(
+           color: color,
+           child: Container(
+             height: 30.0,
+             padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
+             child: Row(
+               children: <Widget>[
+                 
+                Text(texto, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+              
+              ],
+             ),
+           ),
+         )
+         ) ;
 
+}
 
 
   Widget _cardMensajes(texto, fecha, hora, estado,id_reserva,color, BuildContext context,String observacion){
@@ -657,7 +701,7 @@ Widget _alertLista(String tipo ,  String fecha,String observacion,String hora,id
                String _year=fecha.substring(6,10);
                String _month=fecha.substring(3,5);
                 String _day=fecha.substring(0,2);
-                _selectedDate=_day+"/"+_month+"/"+_year;
+                _selectedDate=_day+"-"+_month+"-"+_year;
                 _selectedDateBaseDato=_year+"-"+_month+"-"+_day;
                   _idreserva=id_reserva.toString();
                    _selectedDate=fecha;
@@ -727,5 +771,117 @@ botonPrincipal(context){
 
  }
 
+ _calendarTable(){
+   return Column(children: <Widget>[
+     TableCalendar(
+              events: _events,
+              initialCalendarFormat: CalendarFormat.week,
+              calendarStyle: CalendarStyle(
+                  canEventMarkersOverflow: true,
+                  todayColor: Colors.orange,
+                  selectedColor: Theme.of(context).primaryColor,
+                  todayStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                      color: Colors.white)),
+              headerStyle: HeaderStyle(
+                centerHeaderTitle: true,
+                formatButtonDecoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                formatButtonTextStyle: TextStyle(color: Colors.white),
+                formatButtonShowsNext: false,
+              ),
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              onDaySelected: (date, events) {
+                  _estadotablecale=false;
+                  setState(() {
+                  
+                  _listaocupada = events;
+                });
+              },
+              builders: CalendarBuilders(
+                selectedDayBuilder: (context, date, events) => Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+                todayDayBuilder: (context, date, events) => Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ),
+              calendarController: _calendarController,
+            ),
+            
+             ConstrainedBox(
+               constraints: new BoxConstraints(
+                 maxHeight: 180.0,
+               ) ,
+               child: Container(
+                 padding:  EdgeInsets.all(10.0),
+                 child: Scrollbar(
+                   child: ListView.builder(
+                     itemCount: _listaocupada.length,
+                     itemBuilder: (context,index){
+                       return _cardMensajestodareserva(_listaocupada[index],  Colors.red.shade100);
+                     },
+                     )
+                   ),
+               ),
+               ),
+               
+        _alertReserva(context),
+           
+   ],);
+ }
+ _showAddDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: TextField(
+                controller: _eventsController,
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Save"),
+                  onPressed: () {
+                    if (_eventsController.text.isEmpty) return;
+                    if (_events[_calendarController.selectedDay] != null) {
+                      _events[_calendarController.selectedDay]
+                          .add(_eventsController.text);
+                    } else {
+                      _events[_calendarController.selectedDay] = [
+                        _eventsController.text
+                      ];
+                    }
+                   // prefs.setString("events", json.encode(encodeMap(_events)));
+                    _eventsController.clear();
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ));
+  }
+DateTime corregir_fecha(String fecha){
+    var dia=fecha.substring(0,2);
+    var mes=fecha.substring(3,5);
+    var anos=fecha.substring(6,10);
+    var fechar_corregida="${anos}-${mes}-${dia}";
+    return DateTime.parse(fechar_corregida);
+
+  }
  
 }
