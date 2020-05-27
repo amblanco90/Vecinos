@@ -10,6 +10,7 @@ class VisitaProvider{
     final Map<String, dynamic> authData = {
       "id_residente": appData.idUsuario
     };
+    print(appData.idUsuario);
     final response = await client.post("$baseUrl/visita/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});

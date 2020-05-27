@@ -12,8 +12,16 @@ class FacturaProvider{
     final response = await client.post("$baseUrl/factura/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
+       if (response.hashCode ==200){
+          try{
     List<dynamic>decodedData = json.decode(response.body);
     final entidades=new ListaFacturas.fromJsonList(decodedData);
     return entidades.items.reversed.toList();
+
+     }catch(a){
+      Future<List<dynamic>>  a;
+    return null;
+    }
+       }
    }
 }

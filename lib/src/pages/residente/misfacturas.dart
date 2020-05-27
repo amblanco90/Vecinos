@@ -17,7 +17,8 @@ class MisFacturas extends StatelessWidget {
     builder: (BuildContext context,
     AsyncSnapshot<List<DatosFacturas>> snapshot){
       if(snapshot.connectionState == ConnectionState.done){
-          return     ConstrainedBox(
+        if(snapshot.data != null){
+             return     ConstrainedBox(
   constraints: new BoxConstraints(
     maxHeight: 280.0,
     
@@ -42,6 +43,10 @@ class MisFacturas extends StatelessWidget {
   
   
 );
+        }else{
+          return Center(child: Text('En estos momentos no tiene facturas disponibles',style: TextStyle(fontSize: 20.0),),);
+        }
+         
       }else{
         return Padding(
                   padding: const EdgeInsets.all(8.0),

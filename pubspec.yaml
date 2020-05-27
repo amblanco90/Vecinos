@@ -38,7 +38,7 @@ dependencies:
   firebase_core: ^0.4.4
   cloud_firestore: ^0.13.4+2 
   firebase_messaging: ^6.0.13
-  flushbar: ^1.10.4
+  flushbar: 1.9.1
 
   
   

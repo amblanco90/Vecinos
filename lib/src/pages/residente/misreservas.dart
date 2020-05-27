@@ -51,8 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
     
   
   if(_estadotablecale){
-    _listaocupada.clear();
-    _events.clear();
    _solicitarTodasReserva();
   }
    _solicitarListaZona();
@@ -62,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
          _calendarTable(),
         
-          SizedBox(height:10.0),
 
           Padding(
           padding: const EdgeInsets.symmetric(horizontal:25.0),
@@ -106,14 +103,15 @@ _solicitarTodasReserva(){
   reservaProvider.getreservatodas().then((onValue){
     if(onValue!= null ){
       _listaocupada=new List();
-      
+      _events.clear();
+      _eventsController.clear();
       for (int i=0;i<onValue.length;i++){
         if (_events[corregir_fecha(onValue[i].fecha_hora_inicio)] != null) {
                       _events[corregir_fecha(onValue[i].fecha_hora_inicio)]
-                          .add(onValue[i].nombre_zona +" \n F. inicio  "+onValue[i].fecha_hora_inicio+"    F. fin  "+onValue[i].fecha_hora_inicio);
+                          .add(onValue[i].nombre_zona +" \n F. inicio  "+onValue[i].fecha_hora_inicio+"    F. fin  "+onValue[i].fecha_hora_fin);
                     } else {
                       _events[corregir_fecha(onValue[i].fecha_hora_inicio)] = [
-                        onValue[i].nombre_zona +" \n F. inicio  "+onValue[i].fecha_hora_inicio+"    F. fin  "+onValue[i].fecha_hora_inicio
+                        onValue[i].nombre_zona +" \n F. inicio  "+onValue[i].fecha_hora_inicio+"    F. fin  "+onValue[i].fecha_hora_fin
                       ];
                     }
       }
@@ -265,6 +263,7 @@ _solicitarTodasReserva(){
        appData.fecha_inicial_reserva = fecha_Selecionada;
         setState(() {
           fecha_Selecionada=fecha_Selecionada;
+          _selectedDate=fecha_Selecionada;
         });
       
   }
@@ -377,6 +376,8 @@ _botonGuardar(){
                       _posicionZona=_zona['id'];
                   }
               }
+              print(_dropdownStrHoraFinal);
+              print(_dropdownStrHoraInicio);
               DatosReserva datosReserva;
               if(_idreserva  !=" "){
                    datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: _idreserva.toString());
@@ -389,7 +390,7 @@ _botonGuardar(){
                     _alertReservaMensajes(context,"Reserva exitosa");
                     _idreserva=" ";
                     _controllerObservaciones.text=" ";
-                    
+                    _estadotablecale=true;
                     setState(() {
                       
                     });
@@ -701,7 +702,7 @@ Widget _alertLista(String tipo ,  String fecha,String observacion,String hora,id
                String _year=fecha.substring(6,10);
                String _month=fecha.substring(3,5);
                 String _day=fecha.substring(0,2);
-                _selectedDate=_day+"-"+_month+"-"+_year;
+                _selectedDate=_day+"/"+_month+"/"+_year;
                 _selectedDateBaseDato=_year+"-"+_month+"-"+_day;
                   _idreserva=id_reserva.toString();
                    _selectedDate=fecha;
@@ -775,7 +776,7 @@ botonPrincipal(context){
    return Column(children: <Widget>[
      TableCalendar(
               events: _events,
-              initialCalendarFormat: CalendarFormat.week,
+              initialCalendarFormat: CalendarFormat.month,
               calendarStyle: CalendarStyle(
                   canEventMarkersOverflow: true,
                   todayColor: Colors.orange,
@@ -828,7 +829,7 @@ botonPrincipal(context){
             
              ConstrainedBox(
                constraints: new BoxConstraints(
-                 maxHeight: 180.0,
+                 maxHeight: 100.0,
                ) ,
                child: Container(
                  padding:  EdgeInsets.all(10.0),

@@ -68,14 +68,16 @@ class _VisitaPagesState extends State<VisitaPages> {
               child: _calendario()
              
            ),
-           Container(
+           GestureDetector(onTap: (){
+                 getImageFromGallery();
+               },
+            child :Container(
              padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
              child:Row(
              children: <Widget>[
                Icon(Icons.attach_file),
-               GestureDetector(onTap: (){
-                 getImageFromGallery();
-               }, child: Text('ADJUNTAR FOTO',style: TextStyle(fontSize: 13.0, color: Color.fromRGBO(189, 186, 186, 1),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),),),
+               Text('ADJUNTAR FOTO',style: TextStyle(fontSize: 13.0, color: Color.fromRGBO(189, 186, 186, 1),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),),
+               
                Container(
                             width: 100.0,
                             height: 100.0,
@@ -118,6 +120,7 @@ class _VisitaPagesState extends State<VisitaPages> {
               _apiService.createProfile(datosVisitas).then((isSuccess){
                 _estadolistareserva=true;
                   if(isSuccess){
+                    showSimpleCustomDialogpqr(context,_identificacionController.text.toString());
                     setState(() {
                       _nombreController.text="";
                       _identificacionController.text="";
@@ -126,7 +129,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                      _numeroContantoController.text="";
                      _image=null;
                     });
-                    showSimpleCustomDialogpqr(context,_identificacionController.toString());
+                    
                      }else{
                        _alertVisitaMensajes(context,"A ocurrido un error al guardar visita");
                       }
@@ -143,7 +146,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                )
              ]
            )
-           ),
+           ),),
            _tablaVisita(context),
            
            Padding(
@@ -504,8 +507,8 @@ Widget _campoAlert(String texto){
         color: Color.fromRGBO(255, 153, 29, 1.0)
       )
          ),
-        width: 500,
-        height: 500,
+        width: size.width * 0.8,
+        height: size.width * 1.3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -518,7 +521,7 @@ Widget _campoAlert(String texto){
               _campoAlert(id),
               Row(children: <Widget>[
                 Container(
-                height: 150,
+                height: size.height * 0.3,
                 width: size.width * 0.3,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
@@ -527,7 +530,7 @@ Widget _campoAlert(String texto){
                   )
                 ),
                 margin:EdgeInsets.all(10),),
-                _qr(id+"/"+fecha)
+                _qr(id)
                  //_qr(),
               ],),
               Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),)
@@ -678,7 +681,7 @@ Widget _calendario(){
             },
             child: const Text('COMPARTIR CODIGO',
                 style: TextStyle(
-                    fontSize: 24.0,
+                    fontSize: 18.0,
                     color: Color.fromRGBO(255, 153, 29, 1.0),
                     fontFamily: 'CenturyGothic',
                     fontWeight: FontWeight.bold)),
