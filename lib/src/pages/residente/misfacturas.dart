@@ -44,7 +44,7 @@ class MisFacturas extends StatelessWidget {
   
 );
         }else{
-          return Center(child: Text('En estos momentos no tiene facturas disponibles',style: TextStyle(fontSize: 20.0),),);
+          return Center(child: Text('En estos momentos no tiene facturas disponibles',style: TextStyle(fontSize: 20.0),textAlign: TextAlign.center,),);
         }
          
       }else{

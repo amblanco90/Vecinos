@@ -250,7 +250,7 @@ _tablaVisita(BuildContext context){
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-            return  _cardMensajes(snapshot.data[index].nombre_visitante.toString(),'ACTIVA',snapshot.data[index].nombre,snapshot.data[index].id.toString(), Colors.red.shade100, context,snapshot.data[index].foto);
+            return  _cardMensajes(snapshot.data[index].nombre_visitante.toString(),'ACTIVA',snapshot.data[index].fecha,snapshot.data[index].identificacion.toString(), Colors.red.shade100, context,snapshot.data[index].foto);
             
   },
         ),
@@ -283,7 +283,7 @@ return  Padding(
         child: new ListView.builder(
           itemCount: _listavisita.length,
           itemBuilder: (context, index) {
-            return  _cardMensajes(_listavisita[index].nombre_visitante.toString(),'ACTIVA',_listavisita[index].nombre,_listavisita[index].id.toString(), Colors.red.shade100, context,_listavisita[index].foto);
+            return  _cardMensajes(_listavisita[index].nombre_visitante.toString(),'ACTIVA',_listavisita[index].fecha,_listavisita[index].identificacion.toString(), Colors.red.shade100, context,_listavisita[index].foto);
             
   },
         ),
@@ -435,7 +435,7 @@ return  Padding(
 }
 
 Widget _qr(String _codigo){
-  
+   final size=MediaQuery.of(context).size;
   return Container(
     padding: const EdgeInsets.all(2.0),
     decoration: BoxDecoration( 
@@ -443,11 +443,11 @@ Widget _qr(String _codigo){
         width: 8,
         color: Color.fromRGBO(255, 153, 29, 1.0)
       )
-    ), //       <--- BoxDecoration here
+    ), 
     child: QrImage(
   data: _codigo,
   version: QrVersions.auto,
-  size: 150,
+  size: size.width * 0.315,
   gapless: false,
   embeddedImageStyle: QrEmbeddedImageStyle(
     size: Size(80, 80),
@@ -507,7 +507,7 @@ Widget _campoAlert(String texto){
         color: Color.fromRGBO(255, 153, 29, 1.0)
       )
          ),
-        width: size.width * 0.8,
+        width: size.width * 1,
         height: size.width * 1.3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -531,7 +531,6 @@ Widget _campoAlert(String texto){
                 ),
                 margin:EdgeInsets.all(10),),
                 _qr(id)
-                 //_qr(),
               ],),
               Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),)
               ,botonCompartir()
