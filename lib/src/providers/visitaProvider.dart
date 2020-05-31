@@ -20,7 +20,7 @@ class VisitaProvider{
       final entidades = new ListaVisitante.fromJsonList(decodedData);
 return entidades.items.reversed.toList();
     }catch(a){
-      Future<List<DatosVisita>>  a;
+      List<DatosVisita>  a=new List();
         return a;
     }
   

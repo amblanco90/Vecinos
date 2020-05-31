@@ -42,7 +42,7 @@ class _AdminChatAdministradorPagesState extends State<AdminChatAdministradorPage
     });
     
       messageController.clear();
-      scrollController.animateTo(scrollController.position.maxScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
+      scrollController.animateTo(scrollController.position.minScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
 
     }
   }
@@ -125,6 +125,7 @@ class Mensaje extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.fromLTRB(0, 3.5, 0, 0),
       child: Container( 
         child:Column(
           crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,

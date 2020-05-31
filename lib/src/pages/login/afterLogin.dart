@@ -17,56 +17,6 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
   var color2 = Colors.transparent;
   var seleccionado = 'Ninguno';
 
-  boton1() {
-    if (color1 == Colors.transparent) {
-      setState(() {
-        color1 = Colors.orangeAccent.shade700;
-        seleccionado = 'r';
-        color2 = Colors.transparent;
-      });
-    } else {
-      color1 = Colors.transparent;
-      seleccionado = 'Ninguno';
-      setState(() {});
-    }
-  }
-
-  boton2() {
-    if (color2 == Colors.transparent) {
-      color2 = Colors.orangeAccent.shade700;
-      seleccionado = 'a';
-      color1 = Colors.transparent;
-      setState(() {});
-    } else {
-      color2 = Colors.transparent;
-      seleccionado = 'Ninguno';
-      setState(() {});
-    }
-  }
-
-  entrada(){
-
-    
-
-    if(seleccionado=='a'){
-      appData.rol ='Admin';
-      Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => DrawerAdminItem()));
-
-    }
-    if(seleccionado=='r'){
-      appData.rol = 'Residente';
-      Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => DrawerItem()));
-    }
-    if(seleccionado=='Ninguno'){
-      GenericAlert(context, 'Por favor seleccione un rol.');
-    }
-
-
-
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -91,7 +41,10 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
               children: <Widget>[
                 FlatButton(
                     color: color1,
-                    onPressed: boton1,
+                    onPressed: (){
+                     appData.rol="Residente";
+                     GenericAlert(context, "¿Está seguro de que desea entrar con el rol de "+appData.rol+"?", appData.rol);
+                    },
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -120,7 +73,10 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
               children: <Widget>[
                 FlatButton(
                     color: color2,
-                    onPressed: boton2,
+                    onPressed: (){
+                     appData.rol="Admin";
+                     GenericAlert(context, "¿Está seguro de que desea entrar con el rol de "+appData.rol+"?", appData.rol);
+                    },
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -148,24 +104,6 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
           ],
         ),
       ],
-    );
-
-    final loginButton = Padding(
-      padding: EdgeInsets.all(10),
-      child: RaisedButton(
-        padding: EdgeInsets.all(8.0),
-        textColor: Colors.orange.shade800,
-        color: Colors.white,
-        child: Text(
-          "INGRESAR",
-          style: TextStyle(
-              letterSpacing: 3.0,
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'CenturyGothic'),
-        ),
-        onPressed: entrada,
-      ),
     );
 
     final leyenda = Row(
@@ -229,8 +167,8 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
                       ),
                     ),
                     SizedBox(height: 50.0),
-                    loginButton,
-                    SizedBox(height: 50.0),
+                 
+                   
                     SizedBox(
                       height: 20.0,
                     ),

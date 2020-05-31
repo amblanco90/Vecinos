@@ -5,23 +5,24 @@ import 'package:http/http.dart' as client;
 class FacturaProvider{
    final String baseUrl = "http://18.191.213.12//api";
 
-   Future<List<DatosFacturas>> getlistafactura() async{
+   Future<DatosFacturas> getlistafactura() async{
      final Map<String, dynamic> authData = {
       "id_subunidad": appData.idSubunidad
     };
-    final response = await client.post("$baseUrl/factura/list",
+    final response = await client.post("$baseUrl/factura/get/actual",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
-       if (response.hashCode ==200){
+       if (response.statusCode ==200){
           try{
-    List<dynamic>decodedData = json.decode(response.body);
-    final entidades=new ListaFacturas.fromJsonList(decodedData);
-    return entidades.items.reversed.toList();
+    final decodedData = json.decode(response.body);
+    final entidades=new DatosFacturas.fromJson(decodedData);
+    return entidades;  
 
      }catch(a){
-      Future<List<dynamic>>  a;
     return null;
     }
+       }else{
+         return null;
        }
    }
 }

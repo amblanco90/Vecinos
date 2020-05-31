@@ -279,7 +279,7 @@ responderPqr(BuildContext context,destinatario,tipo,id,estado) {
                                 _image =null;
                                 pr.dismiss();
                                 Navigator.pop(context);
-                                GenericAlert(context, val["respuesta"]);
+                                GenericAlert(context, val["respuesta"],null);
 
                               });
                              

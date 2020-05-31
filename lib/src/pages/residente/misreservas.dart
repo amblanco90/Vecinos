@@ -771,6 +771,7 @@ botonPrincipal(context){
  }
 
  _calendarTable(){
+   double _medidaslist=100.0;
    return Column(children: <Widget>[
      TableCalendar(
               events: _events,
@@ -827,17 +828,18 @@ botonPrincipal(context){
             
              ConstrainedBox(
                constraints: new BoxConstraints(
-                 maxHeight: 100.0,
+                 maxHeight: _medidaslist,
                ) ,
                child: Container(
                  padding:  EdgeInsets.all(10.0),
                  child: Scrollbar(
-                   child: ListView.builder(
+                   child: _listaocupada.length != 0 ? ListView.builder(
                      itemCount: _listaocupada.length,
                      itemBuilder: (context,index){
-                       return _cardMensajestodareserva(_listaocupada[index],  Colors.red.shade100);
-                     },
-                     )
+                         return _cardMensajestodareserva(_listaocupada[index],  Colors.red.shade100);
+                       
+                     }
+                     ) :Text('Esta fecha no se a echo reserva'),
                    ),
                ),
                ),

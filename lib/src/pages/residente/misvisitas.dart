@@ -1,6 +1,8 @@
 
+import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:edificion247/src/bloc/provider_visitas.dart';
 import 'package:edificion247/src/bloc/visita_bloc.dart';
 import 'package:edificion247/src/http/api-service.dart';
@@ -9,6 +11,9 @@ import 'package:edificion247/src/models/visita.dart';
 import 'package:edificion247/src/pages/residente/drawer.dart';
 import 'package:edificion247/src/providers/visitaProvider.dart';
 import 'package:edificion247/src/widgets/date_picker_widget.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:toast/toast.dart';
@@ -16,6 +21,7 @@ import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:flutter/material.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:intl/intl.dart';
+import 'dart:ui' as ui;
 
 class VisitaPages extends StatefulWidget {
 
@@ -36,6 +42,7 @@ class _VisitaPagesState extends State<VisitaPages> {
     String id,nombre,observacion,contacto;
     List<DatosVisita> _listavisita=new List();
     bool _estadolistareserva=true;
+    GlobalKey _globalKey = new GlobalKey();
 
     File _image;
     String estado="ADJUNTAR FOTO";
@@ -95,6 +102,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
+            _hacercap();
             if(_nombreController.text.length>1){
               if(_identificacionController.text.length<6){
                 _alertVisitaMensajes(context,"Su numero de identificacion debe ser mayor a 5 digitos y menor a 10");
@@ -120,7 +128,7 @@ class _VisitaPagesState extends State<VisitaPages> {
               _apiService.createProfile(datosVisitas).then((isSuccess){
                 _estadolistareserva=true;
                   if(isSuccess){
-                    showSimpleCustomDialogpqr(context,_identificacionController.text.toString());
+                    showSimpleCustomDialogpqr(context,_identificacionController.text.toString()+"&"+_selectedDate);
                     setState(() {
                       _nombreController.text="";
                       _identificacionController.text="";
@@ -129,7 +137,6 @@ class _VisitaPagesState extends State<VisitaPages> {
                      _numeroContantoController.text="";
                      _image=null;
                     });
-                    
                      }else{
                        _alertVisitaMensajes(context,"A ocurrido un error al guardar visita");
                       }
@@ -148,7 +155,6 @@ class _VisitaPagesState extends State<VisitaPages> {
            )
            ),),
            _tablaVisita(context),
-           
            Padding(
           padding: const EdgeInsets.symmetric(horizontal:25.0),
           child: Container(height: 4.0,width: size.width * 0.9 , decoration: BoxDecoration( color: Color.fromRGBO(203, 197, 197, 1), borderRadius: BorderRadius.circular(5.0)),),
@@ -232,8 +238,9 @@ _tablaVisita(BuildContext context){
       return  FutureBuilder(future: _solicitarVisitas.getlistavisitas(),
         builder: (BuildContext context,
                 AsyncSnapshot<List<DatosVisita>> snapshot) {
-               
-                    if (snapshot.connectionState == ConnectionState.done) { 
+
+                    if(snapshot.data.length !=0){
+                        if (snapshot.connectionState == ConnectionState.done) { 
                          _listavisita=snapshot.data;
                          _estadolistareserva=false;
                       return     ConstrainedBox(
@@ -267,7 +274,13 @@ return  Padding(
                         new AlwaysStoppedAnimation<Color>(Colors.orange),
                   )),
                 );
-                    }});
+                    }
+                    }else{
+                      return Text("No tiene visitas");
+                    }
+                    
+                    }
+                    );
     }else{
        return     ConstrainedBox(
   constraints: new BoxConstraints(
@@ -312,11 +325,8 @@ return  Padding(
                     textAlign: TextAlign.justify,
                 decoration: new InputDecoration(
                   filled: true,
-                  //hintStyle: TextStyle(color: Colors.white54, fontFamily: 'CenturyGothic'),
                   fillColor: Color.fromRGBO(233, 233, 233, 1),
                   hintText: texto,
-                 // hoverColor: Colors.black,
-                 // focusColor: Colors.black,
                   contentPadding: const EdgeInsets.only(
                       left: 14.0, bottom: 8.0, top: 8.0),
                   focusedBorder: OutlineInputBorder(
@@ -437,6 +447,7 @@ return  Padding(
 Widget _qr(String _codigo){
    final size=MediaQuery.of(context).size;
   return Container(
+   
     padding: const EdgeInsets.all(2.0),
     decoration: BoxDecoration( 
       border: Border.all(
@@ -445,6 +456,7 @@ Widget _qr(String _codigo){
       )
     ), 
     child: QrImage(
+    backgroundColor: Colors.white,
   data: _codigo,
   version: QrVersions.auto,
   size: size.width * 0.315,
@@ -500,12 +512,16 @@ Widget _campoAlert(String texto){
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      child: Container(
+      child: RepaintBoundary(
+        key:_globalKey ,
+        child: Container(
+          
         decoration: BoxDecoration(
           border: Border.all(
         width: 8,
         color: Color.fromRGBO(255, 153, 29, 1.0)
-      )
+      ),
+      color: Colors.white
          ),
         width: size.width * 1,
         height: size.width * 1.3,
@@ -520,8 +536,8 @@ Widget _campoAlert(String texto){
               _campoAlert(fecha),
               _campoAlert(id),
               Row(children: <Widget>[
-                Container(
-                height: size.height * 0.3,
+               Container(
+                height: 150,
                 width: size.width * 0.3,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
@@ -529,14 +545,15 @@ Widget _campoAlert(String texto){
                     image:  Image.memory(imagenvisita).image,
                   )
                 ),
-                margin:EdgeInsets.all(10),),
-                _qr(id)
+               ),
+                _qr(id+"&"+fecha)
               ],),
               Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),)
               ,botonCompartir()
             
           ],
         ),
+      )
       ),
     );
     showDialog(
@@ -545,18 +562,22 @@ Widget _campoAlert(String texto){
 void showSimpleCustomDialogpqr(BuildContext context,String code) {
 
     Dialog simpleDialog = Dialog(
+      
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      child: Container(
-       
+      child: RepaintBoundary(
+        key:_globalKey ,
+        child: Container(
+          color: Colors.white,
+          margin: EdgeInsets.all(3.0),
         width: 500,
         height: 500,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(child: Text("VISITA GENERADA CORRECTAMENTE",style:
-                     TextStyle(fontSize: 16.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,)),),
+                     TextStyle(fontSize: 15.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),textAlign: TextAlign.center,),),
             Padding(padding:EdgeInsets.fromLTRB(0, 0, 0, 10)),
             Icon(
               Icons.check_circle_outline,
@@ -591,6 +612,7 @@ void showSimpleCustomDialogpqr(BuildContext context,String code) {
             
           ],
         ),
+      ),
       ),
     );
     showDialog(
@@ -676,55 +698,75 @@ Widget _calendario(){
               borderRadius: new BorderRadius.circular(5),
             ),
             onPressed: () {
-             
+             _capturePng();
             },
-            child: const Text('COMPARTIR CODIGO',
+            child:  Text('COMPARTIR CODIGO',
                 style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 15.0,
                     color: Color.fromRGBO(255, 153, 29, 1.0),
                     fontFamily: 'CenturyGothic',
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
           )),
     );
   }
- Future<void> _selectDate(BuildContext context) async {
+ 
+   _capturePng() async {
+    try{
+    RenderRepaintBoundary boundary = _globalKey.currentContext.findRenderObject();
+    if (boundary.debugNeedsPaint ) {
+      Timer(Duration(seconds: 1), () => _capturePng());
+            return [];
+          }
+    ui.Image image = await boundary.toImage();
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+    Share.file("Codigo qr", "qr.png", pngBytes, "image/png");
+    }catch(a){
+      _alertVisitaMensajes(context, a.toString());
+    }
+  }
 
+  
+       Future<void> _selectDate(BuildContext context) async {
       
-    final b = showDatePicker(
+            
+          final b = showDatePicker(
+            
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now().subtract(Duration(days: 1)),
+            lastDate: DateTime(2100),
+            locale: Locale('es','ES')
+            
+       
+          );
+          
+          final DateTime d = await b;
+       
+          if (d != null)
+              if(d.month>=10){
+            _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+            }else{
+              _selectedDate ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+            }
+          
+          // appData.fecha_inicial_reserva = _selectedDate;
+             setState(() {
+              _selectedDate;
+             });
+        }
       
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(Duration(days: 1)),
-      lastDate: DateTime(2100),
-      locale: Locale('es','ES')
       
- 
-    );
-    
-    final DateTime d = await b;
- 
-    if (d != null)
-        if(d.month>=10){
-      _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
-      }else{
-        _selectedDate ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+      bool _validarnumeros(String value){
+          final n = num.tryParse(value);
+        if(n == null) {
+          return false;
+        }
+        return true;
+       }
+      
+      
+      
       }
-    
-    // appData.fecha_inicial_reserva = _selectedDate;
-       setState(() {
-        _selectedDate;
-       });
-  }
-
-
-bool _validarnumeros(String value){
-    final n = num.tryParse(value);
-  if(n == null) {
-    return false;
-  }
-  return true;
- }
-
-
-
-}
+      
+      

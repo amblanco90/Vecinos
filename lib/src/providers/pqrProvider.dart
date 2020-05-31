@@ -54,7 +54,7 @@ class PqrProvider {
       final entidades = new Pqrs.fromJsonList(
            decodedData);
       
-      return entidades.items.reversed.toList();
+      return entidades.items;
      
   }
 

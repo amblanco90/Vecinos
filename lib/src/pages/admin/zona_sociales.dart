@@ -378,7 +378,7 @@ class _ZonasSocialesPagesState extends State<ZonasSocialesPages> {
                                       nomenclaturaController.text = '';
                                     });
                                     pr.dismiss();
-                                    GenericAlert(context, value["respuesta"]);
+                                    GenericAlert(context, value["respuesta"],null);
                                   });
                                 }
                               },

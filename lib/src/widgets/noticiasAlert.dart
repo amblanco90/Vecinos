@@ -389,7 +389,7 @@ emergenciaAlert(BuildContext context,texto,titulo,fecha,id,estado,funcion) {
         emergenciaProvider.cancelarEmergencia(context, texto, id).then((val){
           pr.hide();
           Navigator.pop(context);
-          GenericAlert(context, val["msj"]);
+          GenericAlert(context, val["msj"],null);
           funcion();
           
           

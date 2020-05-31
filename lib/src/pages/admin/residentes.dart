@@ -313,7 +313,7 @@ class _ResidentesPState extends State<ResidentesP> {
                                   direccionController.text ='';
                                   emailController.text='';
                                   telefonoController.text='';
-                                  GenericAlert(context, val["respuesta"]);
+                                  GenericAlert(context, val["respuesta"],null);
                                   
 
 
