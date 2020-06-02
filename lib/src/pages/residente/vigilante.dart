@@ -87,7 +87,6 @@ void _sendMsg(String msg, String messageDirection, String date) {
           msg: "Escriba su mensaje aquí",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 1,
           backgroundColor:  Color.fromRGBO(255, 153, 29, 0.9) ,);
     } else {
       _textController.clear();

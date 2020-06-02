@@ -29,6 +29,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     
+    
     compileSdkVersion 28
  defaultConfig { multiDexEnabled true }
     sourceSets {
@@ -42,7 +43,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.vecinos.edificion247"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -61,7 +62,6 @@ android {
 flutter {
     source '../..'
 }
-
 
 
 dependencies {

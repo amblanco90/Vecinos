@@ -89,8 +89,7 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
                     reverse: true,
                     controller: scrollController,
                     children: <Widget>[
-                      ...mensajes,
-
+                     ...mensajes,
                     ],
                   );  
                 }
