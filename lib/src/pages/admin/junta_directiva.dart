@@ -1,12 +1,13 @@
 import 'package:edificion247/src/pages/residente/chat.dart';
 import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix;
 
 class JuntaDirectivaPages extends StatelessWidget {
   const JuntaDirectivaPages({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
      final size=MediaQuery.of(context).size;
     return Center(
           child: Container(

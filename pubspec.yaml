@@ -14,11 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1  
 
 environment:
-<<<<<<< HEAD
   sdk: ">=2.7.0 <3.0.0" 
-=======
-  sdk: ">=2.5.0 <3.0.0" 
->>>>>>> 4663e53763ecaf25f417c346167cf31c290d0434
  
 dependencies:  
   flutter: 
@@ -31,6 +27,7 @@ dependencies:
   geolocator: 
   usage: 
   toast:
+  fluttertoast: ^4.0.1
   page_transition: 
   flutter_icons: ^1.0.0
   http: ^0.12.0+4
@@ -42,18 +39,12 @@ dependencies:
   firebase_core: ^0.4.4
   cloud_firestore: ^0.13.4+2 
   firebase_messaging: ^6.0.13
-<<<<<<< HEAD
   flushbar: 
   esys_flutter_share: ^1.0.2
   path_provider:
 
 
   
-=======
-  esys_flutter_share: ^1.0.2
-  fluttertoast: ^4.0.0
-  flushbar: ^1.10.4
->>>>>>> 4663e53763ecaf25f417c346167cf31c290d0434
   
 
  

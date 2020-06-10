@@ -11,6 +11,7 @@ import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix ;
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -29,21 +30,21 @@ class _MiPerfilState extends State<MiPerfil> {
   var color = Colors.transparent;
   ProgressDialog pr;
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
      
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
+              children: <prefix.Widget>[
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
+                  children: <prefix.Widget>[
                     SizedBox(
                       height: 2.0,
                     ),
@@ -74,7 +75,7 @@ class _MiPerfilState extends State<MiPerfil> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       Center(
                         child: fotoUsuario(),
                       ),
@@ -111,7 +112,7 @@ class _MiPerfilState extends State<MiPerfil> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
+                        children: <prefix.Widget>[
                           containerIcono(Icons.people, 'MI FAMILIA'),
                           SizedBox(
                             width: 10.0,
@@ -153,7 +154,7 @@ class _MiPerfilState extends State<MiPerfil> {
     );
   }
 
-  Widget _fotoUsuario() {
+  prefix.Widget _fotoUsuario() {
     return Container(
       width: 150,
       height: 150,
@@ -165,7 +166,7 @@ class _MiPerfilState extends State<MiPerfil> {
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Container(
                       decoration: new BoxDecoration(
                           shape: BoxShape.circle,
@@ -176,7 +177,7 @@ class _MiPerfilState extends State<MiPerfil> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       GestureDetector(
                         onTap: () {},
                         child: Icon(
@@ -199,7 +200,7 @@ class _MiPerfilState extends State<MiPerfil> {
 
   containerIcono(IconData iconData, leyenda) {
     return Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(
           height: 10.0,
         ),
@@ -302,7 +303,7 @@ class _MiPerfilState extends State<MiPerfil> {
 
  }
 
-  Widget infoText(controller,nombre) {
+  prefix.Widget infoText(controller,nombre) {
     return Container(
       color: color,
       margin: EdgeInsets.symmetric(horizontal: 30.0),
@@ -383,7 +384,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     return Container(
       width: 150,
       height: 150,
@@ -395,7 +396,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
 Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -408,7 +409,7 @@ Container(
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       IconButton(
                         onPressed: () {
                           getImageFromCam();

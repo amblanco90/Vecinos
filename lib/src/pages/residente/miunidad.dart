@@ -3,6 +3,7 @@ import 'package:edificion247/src/bloc/unidad_bloc.dart';
 import 'package:edificion247/src/pages/residente/drawer.dart';
 import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix ;
 import 'package:flutter_icons/flutter_icons.dart';
 
 class MiUnidad extends StatefulWidget {
@@ -12,13 +13,13 @@ class MiUnidad extends StatefulWidget {
 
 class _MiUnidadState extends State<MiUnidad> {
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
 
     return SingleChildScrollView(
           child: Center(
         child: Column(
           
-          children: <Widget>[
+          children: <prefix.Widget>[
             SizedBox(height: 20.0,),
             Container(
               width: 80.0,
@@ -38,7 +39,7 @@ class _MiUnidadState extends State<MiUnidad> {
            Container(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
             child: Column(
-              children: <Widget>[
+              children: <prefix.Widget>[
                  containerUnidad('RESIDENCIAL'),
                  SizedBox(height: 5.0,),
                  containerUnidad('CALLE 123 # 456 - 456'),
@@ -56,7 +57,7 @@ class _MiUnidadState extends State<MiUnidad> {
            Row(
              mainAxisAlignment: MainAxisAlignment.center,
              crossAxisAlignment: CrossAxisAlignment.center,
-             children: <Widget>[
+             children: <prefix.Widget>[
                containerIcono(Icons.people, 'JUNTA DIRECTIVA'),
                SizedBox(width: 10.0,),
                containerIcono(Icons.security, 'VIGILANCIA'),
@@ -93,7 +94,7 @@ class _MiUnidadState extends State<MiUnidad> {
  containerIcono(IconData iconData, leyenda){
 
    return Column(
-     children: <Widget>[
+     children: <prefix.Widget>[
        SizedBox(height: 10.0,),
        Container(
                   width: 75.0,

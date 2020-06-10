@@ -1,8 +1,7 @@
 import 'package:edificion247/src/helpers/message.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-
+import 'package:fluttertoast/fluttertoast.dart' as prefix;
 class ChatJuntaDirectivaPage extends StatefulWidget {
   @override
   _ChatJuntaDirectivaPageState createState() => _ChatJuntaDirectivaPageState();
@@ -81,10 +80,10 @@ class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
   }
 void _sendMsg(String msg, String messageDirection, String date) {
     if (msg.length == 0) {
-      Fluttertoast.showToast(
+      prefix.Fluttertoast.showToast(
           msg: "Escriba su mensaje aquí",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
+          toastLength: prefix.Toast.LENGTH_SHORT,
+          gravity: prefix.ToastGravity.BOTTOM,
           backgroundColor:  Color.fromRGBO(255, 153, 29, 0.9) ,);
     } else {
       _textController.clear();
