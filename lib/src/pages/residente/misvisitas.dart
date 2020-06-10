@@ -6,26 +6,19 @@ import 'dart:typed_data';
 
 
 
-import 'package:edificion247/src/bloc/provider_visitas.dart';
-import 'package:edificion247/src/bloc/visita_bloc.dart';
 import 'package:edificion247/src/http/api-service.dart';
 import 'package:edificion247/src/http/datos-visitas.dart';
 import 'package:edificion247/src/models/visita.dart';
 import 'package:edificion247/src/pages/residente/drawer.dart';
 import 'package:edificion247/src/providers/visitaProvider.dart';
-import 'package:edificion247/src/widgets/date_picker_widget.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:qr_utils/qr_utils.dart';
-import 'package:toast/toast.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:flutter/material.dart';
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'dart:ui' as ui;
 
 class VisitaPages extends StatefulWidget {
@@ -489,11 +482,7 @@ Widget _qr(String _codigo){
   )  ;
 }
 
-Future<ImageProvider> _imagegr(dato) async {
-   Image image = await QrUtils.generateQR(dato);
-   return image.image;
 
-}
 Widget _campoAlert(String label, String texto){
     return Container(
       width: double.infinity,

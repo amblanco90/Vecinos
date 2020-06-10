@@ -27,6 +27,5 @@ class NoticiasProvider {
     final entidades = new Noticias.fromJsonList(decodedData);
 
     return entidades.items.reversed.toList();
-
-  }
+  }   
   }

@@ -1037,6 +1037,7 @@ class _DrawerItemState extends State<DrawerItem> {
     );
   }
 Widget _chatResidente(){
+  final size=MediaQuery.of(context).size;
     return  SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -1048,20 +1049,20 @@ Widget _chatResidente(){
               Container(
                   margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
                   child: Row(children: <Widget>[
-                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                    Padding(padding: EdgeInsets.fromLTRB(size.width * 0.15, 0, 0, 0),),
                     Text("CON QUIEN",
                         style: TextStyle(
                             fontSize: 21.0,
                             color: Color.fromRGBO(255, 153, 29, 1.0),
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                             Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("DESEA HABLAR?",
                         style: TextStyle(
                             fontSize: 21.0,
                             color:Color.fromRGBO(167, 164, 164, 1),
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                   ])),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -1483,15 +1484,15 @@ Widget _chatResidente(){
             Container(
                 margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
                 child: Column(children: <Widget>[
-                  Text("ADMINISTRA LOS MIEMBROS ",
+                  Text("ADMINISTRA LOS MIEMBROS  ",
                       style: TextStyle(
-                          fontSize: 23.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(255, 153, 29, 1.0),
                           fontFamily: 'CenturyGothic',
                           fontWeight: FontWeight.bold)),
                   Text("DE TU NUCLEO FAMILIAR",
                       style: TextStyle(
-                          fontSize: 23.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(255, 153, 29, 1.0),
                           fontFamily: 'CenturyGothic',
                           fontWeight: FontWeight.bold)),

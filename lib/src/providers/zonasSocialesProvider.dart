@@ -21,12 +21,14 @@ Future<List<ZonaSocial>> getAllZonasSociales() async {
         "$baseUrl/admin/zonas/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
-    print(response.body);
     final decodedData = json.decode(response.body);
     final entidades = new ZonasSociales.fromJsonList(decodedData);
 
     return entidades.items.reversed.toList();
   }
+
+  
+
 
   Future crearZonaSocial(inputNomen,inputValor,) async {
     final Map<String, dynamic> authData = {"InputId": appData.idZonaSocial!=null?appData.idZonaSocial:null,"InputNomen":inputNomen,"InputTipoZona":appData.tipo_zona,"InputValor":inputValor,"UnidadTiempo":1,"Estado":appData.estado_zona,
