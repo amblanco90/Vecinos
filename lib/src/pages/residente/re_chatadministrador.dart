@@ -49,8 +49,7 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
         },
       );
     });
-    
-      messageController.clear();
+     messageController.clear();
       scrollController.animateTo(scrollController.position.minScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
       
 

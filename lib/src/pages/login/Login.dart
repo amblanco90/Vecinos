@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget  {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 String pais = ' ';
 
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>  {
    bool _colocar=false;
   bool _obscureText = true;
  
@@ -41,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     _obtenerdatos();
     pr = new ProgressDialog(context);
     

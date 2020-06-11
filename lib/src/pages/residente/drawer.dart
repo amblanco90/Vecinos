@@ -34,7 +34,6 @@ import 'package:edificion247/src/widgets/detalleNotificacion.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix;
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -86,14 +85,14 @@ class _DrawerItemState extends State<DrawerItem> {
     switch (i) {
       case 0:
         return Column(
-          children: <prefix.Widget>[
+          children: <Widget>[
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -114,7 +113,7 @@ class _DrawerItemState extends State<DrawerItem> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <prefix.Widget>[
+                          children: <Widget>[
                             Text(
                               'PRINCIPAL',
                               overflow: TextOverflow.ellipsis,
@@ -163,7 +162,7 @@ class _DrawerItemState extends State<DrawerItem> {
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
-                          children: <prefix.Widget>[
+                          children: <Widget>[
                             Text(
                               'FACTURACION',
                               overflow: TextOverflow.ellipsis,
@@ -213,7 +212,7 @@ class _DrawerItemState extends State<DrawerItem> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: <prefix.Widget>[
+                          children: <Widget>[
                             Text(
                               'SOPORTE',
                               overflow: TextOverflow.ellipsis,
@@ -251,10 +250,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 1:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'VISITAS',
                     overflow: TextOverflow.ellipsis,
@@ -284,10 +283,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 2:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'NOTIFICACIONES',
                     overflow: TextOverflow.ellipsis,
@@ -317,10 +316,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 3:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'FACTURAS',
                     overflow: TextOverflow.ellipsis,
@@ -350,10 +349,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 4:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'TAXI',
                     overflow: TextOverflow.ellipsis,
@@ -383,10 +382,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 5:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'PQR',
                     overflow: TextOverflow.ellipsis,
@@ -416,10 +415,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 6:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'PERFIL',
                     overflow: TextOverflow.ellipsis,
@@ -449,10 +448,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 7:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'RESERVAS',
                     overflow: TextOverflow.ellipsis,
@@ -482,10 +481,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 8:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'UNIDAD',
                     overflow: TextOverflow.ellipsis,
@@ -515,10 +514,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 9:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'FAMILIA',
                     overflow: TextOverflow.ellipsis,
@@ -548,10 +547,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 10:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'JUNTA DIRECTIVA',
                     overflow: TextOverflow.ellipsis,
@@ -581,10 +580,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 11:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'VIGILANCIA',
                     overflow: TextOverflow.ellipsis,
@@ -614,10 +613,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
       case 12:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'ADMINISTRACION',
                     overflow: TextOverflow.ellipsis,
@@ -647,10 +646,10 @@ class _DrawerItemState extends State<DrawerItem> {
         );
         case 13:
         return Row(
-          children: <prefix.Widget>[
+          children: <Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Text(
                     'CHAT',
                     overflow: TextOverflow.ellipsis,
@@ -805,7 +804,7 @@ class _DrawerItemState extends State<DrawerItem> {
   
 
   @override
-  prefix.Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
 
 
 
@@ -818,7 +817,7 @@ class _DrawerItemState extends State<DrawerItem> {
               child: AppBar(
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: <prefix.Widget>[
+                  children: <Widget>[
                     SizedBox(
                       height: 5.0,
                     ),
@@ -833,11 +832,11 @@ class _DrawerItemState extends State<DrawerItem> {
                 bottom: PreferredSize(
                     child: _opcionesDrawer(),
                     preferredSize: Size.fromHeight(90.0)),
-                actions: <prefix.Widget>[
+                actions: <Widget>[
                   FlatButton(
                     color: Color.fromRGBO(255, 114, 0, 0.9),
                     child: Row(
-                      children: <prefix.Widget>[
+                      children: <Widget>[
                         Image.asset('recursos/imagenes/warning.png'),
                       ],
                     ),
@@ -852,7 +851,7 @@ class _DrawerItemState extends State<DrawerItem> {
             body: _itemSelecionado()));
   }
 
-  prefix.Widget listTile(texto, numero, drawer) {
+  Widget listTile(texto, numero, drawer) {
     final textoDrawer = TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
@@ -869,7 +868,7 @@ class _DrawerItemState extends State<DrawerItem> {
     );
   }
 
-  prefix.Widget drawerItem() {
+  Widget drawerItem() {
     return Drawer(
         elevation: 5.0,
         child: Container(
@@ -886,12 +885,12 @@ class _DrawerItemState extends State<DrawerItem> {
           padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: ListView(
             shrinkWrap: true,
-            children: <prefix.Widget>[
+            children: <Widget>[
               cabeceradrawer(data: funcion,),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
-                  children: <prefix.Widget>[
+                  children: <Widget>[
                     Divider(
                       color: Colors.black,
                       thickness: 0.7,
@@ -957,10 +956,10 @@ class _DrawerItemState extends State<DrawerItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       FlatButton(
                           child: CircleAvatar(
                               backgroundColor: Colors.transparent,
@@ -1007,7 +1006,7 @@ class _DrawerItemState extends State<DrawerItem> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Container(
                     height: 40.0,
                     width: 185.0,
@@ -1026,9 +1025,9 @@ class _DrawerItemState extends State<DrawerItem> {
         ));
   }
 
-  prefix.Widget FC() {
+  Widget FC() {
     return Container(
-      child: ListView(children: <prefix.Widget>[
+      child: ListView(children: <Widget>[
         SizedBox(
           height: 10.0,
         ),
@@ -1037,32 +1036,33 @@ class _DrawerItemState extends State<DrawerItem> {
       ]),
     );
   }
-prefix.Widget _chatResidente(){
+Widget _chatResidente(){
+  final size=MediaQuery.of(context).size;
     return  SingleChildScrollView(
         child: Stack(
-          children: <prefix.Widget>[
-            Column(children: <prefix.Widget>[
+          children: <Widget>[
+            Column(children: <Widget>[
               Divider(
                 height: 30,
                 color: Colors.white,
               ),
               Container(
                   margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
-                  child: Row(children: <prefix.Widget>[
-                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                  child: Row(children: <Widget>[
+                    Padding(padding: EdgeInsets.fromLTRB(size.width * 0.15, 0, 0, 0),),
                     Text("CON QUIEN",
                         style: TextStyle(
                             fontSize: 21.0,
                             color: Color.fromRGBO(255, 153, 29, 1.0),
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                             Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("DESEA HABLAR?",
                         style: TextStyle(
                             fontSize: 21.0,
                             color:Color.fromRGBO(167, 164, 164, 1),
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                   ])),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -1082,7 +1082,7 @@ prefix.Widget _chatResidente(){
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   _containerIcono(Icons.people, 'JUNTA DIRECTIVA', null,null),
                   SizedBox(
                     width: 10.0,
@@ -1116,9 +1116,9 @@ prefix.Widget _chatResidente(){
         ),
       );
   }
-  prefix.Widget _contactos() {
+  Widget _contactos() {
     return ListView(
-      children: <prefix.Widget>[
+      children: <Widget>[
         Divider(),
         ListTile(
           leading: CircleAvatar(
@@ -1152,7 +1152,7 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget cardBienvenida(context) {
+  Widget cardBienvenida(context) {
     final head = TextStyle(color: Colors.grey.shade700, fontSize: 12.0);
 
     final head2 = TextStyle(
@@ -1183,13 +1183,13 @@ prefix.Widget _chatResidente(){
             ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <prefix.Widget>[
+          children: <Widget>[
             Container(
               child: Column(
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       Text(
                         'SU DEUDA ACTUAL ES :',
                         style: TextStyle(
@@ -1203,7 +1203,7 @@ prefix.Widget _chatResidente(){
                     height: 10.0,
                   ),
                   Row(
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       SizedBox(
                         width: 40.0,
                       ),
@@ -1237,10 +1237,10 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget _botonesRedondeados(context) {
+  Widget _botonesRedondeados(context) {
     final noticiasProvider = NoticiasProvider();
     return Column(
-      children: <prefix.Widget>[
+      children: <Widget>[
         Table(
           children: [
             TableRow(children: [
@@ -1338,7 +1338,7 @@ prefix.Widget _chatResidente(){
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: <prefix.Widget>[
+                                      children: <Widget>[
                                         Text(
                                           snapshot.data[index].fechaCreacion,
                                           style: TextStyle(
@@ -1378,10 +1378,10 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget _crearBotonRedondeado(Color color, Image image, String texto,
+  Widget _crearBotonRedondeado(Color color, Image image, String texto,
       BuildContext context, int posicion, padding) {
     return Column(
-      children: <prefix.Widget>[
+      children: <Widget>[
         Container(
           width: 100.0,
           height: 90.0,
@@ -1421,8 +1421,8 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget _crearBotonRedondeado2(Color color, IconData icon, String texto,
-      BuildContext context, prefix.Widget route) {
+  Widget _crearBotonRedondeado2(Color color, IconData icon, String texto,
+      BuildContext context, Widget route) {
     return Container(
       width: double.infinity,
       height: 140,
@@ -1441,7 +1441,7 @@ prefix.Widget _chatResidente(){
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <prefix.Widget>[
+        children: <Widget>[
           SizedBox(height: 5.0),
           CircleAvatar(
             backgroundColor: color,
@@ -1472,27 +1472,27 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget _familia() {
+  Widget _familia() {
     return SingleChildScrollView(
       child: Stack(
-        children: <prefix.Widget>[
-          Column(children: <prefix.Widget>[
+        children: <Widget>[
+          Column(children: <Widget>[
             Divider(
               height: 30,
               color: Colors.white,
             ),
             Container(
                 margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
-                child: Column(children: <prefix.Widget>[
-                  Text("ADMINISTRA LOS MIEMBROS ",
+                child: Column(children: <Widget>[
+                  Text("ADMINISTRA LOS MIEMBROS  ",
                       style: TextStyle(
-                          fontSize: 23.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(255, 153, 29, 1.0),
                           fontFamily: 'CenturyGothic',
                           fontWeight: FontWeight.bold)),
                   Text("DE TU NUCLEO FAMILIAR",
                       style: TextStyle(
-                          fontSize: 23.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(255, 153, 29, 1.0),
                           fontFamily: 'CenturyGothic',
                           fontWeight: FontWeight.bold)),
@@ -1524,7 +1524,7 @@ prefix.Widget _chatResidente(){
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <prefix.Widget>[
+              children: <Widget>[
                 _containerIcono(Icons.favorite, 'CONYUGE', 15,9),
                 SizedBox(
                   width: 10.0,
@@ -1565,7 +1565,7 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget _fotoUsuario() {
+  Widget _fotoUsuario() {
     return Container(
       width: 150,
       height: 150,
@@ -1577,7 +1577,7 @@ prefix.Widget _chatResidente(){
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <prefix.Widget>[
+                children: <Widget>[
                   Container(
                       decoration: new BoxDecoration(
                           shape: BoxShape.circle,
@@ -1588,7 +1588,7 @@ prefix.Widget _chatResidente(){
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       GestureDetector(
                         onTap: () {},
                         child: Icon(
@@ -1618,7 +1618,7 @@ prefix.Widget _chatResidente(){
       
       },
       child: Column(
-        children: <prefix.Widget>[
+        children: <Widget>[
           SizedBox(
             height: 10.0,
           ),
@@ -1656,17 +1656,17 @@ prefix.Widget _chatResidente(){
   _vistaPerfil() {
     return SingleChildScrollView(
       child: Column(
-        children: <prefix.Widget>[
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: <prefix.Widget>[
+              children: <Widget>[
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <prefix.Widget>[
+                  children: <Widget>[
                     SizedBox(
                       height: 2.0,
                     ),
@@ -1697,7 +1697,7 @@ prefix.Widget _chatResidente(){
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       Center(
                         child: fotoUsuario(),
                       ),
@@ -1734,7 +1734,7 @@ prefix.Widget _chatResidente(){
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <prefix.Widget>[
+                        children: <Widget>[
                           _containerIcono3(Icons.people, 'MI FAMILIA', 14, 9),
                           SizedBox(
                             width: 10.0,
@@ -1882,7 +1882,7 @@ prefix.Widget _chatResidente(){
     );
   }
 
-  prefix.Widget _infoText(controller, nombre) {
+  Widget _infoText(controller, nombre) {
     return Container(
       color: color,
       margin: EdgeInsets.symmetric(horizontal: 30.0),
@@ -1944,7 +1944,7 @@ prefix.Widget _chatResidente(){
           selecionadoItem4(drawer);
         },
         child: Column(
-          children: <prefix.Widget>[
+          children: <Widget>[
             SizedBox(
               height: 10.0,
             ),
@@ -1984,7 +1984,7 @@ prefix.Widget _chatResidente(){
           selecionadoItem4(drawer);
         },
         child: Column(
-          children: <prefix.Widget>[
+          children: <Widget>[
             SizedBox(
               height: 10.0,
             ),
@@ -2026,7 +2026,7 @@ prefix.Widget _chatResidente(){
           return SingleChildScrollView(
             child: Center(
               child: Column(
-                children: <prefix.Widget>[
+                children: <Widget>[
                   SizedBox(
                     height: 20.0,
                   ),
@@ -2066,7 +2066,7 @@ prefix.Widget _chatResidente(){
                   Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                    child: Column(children: <prefix.Widget>[
+                    child: Column(children: <Widget>[
                       _containerUnidad(appData.nombreSubUnidad),
                       SizedBox(
                         height: 5.0,
@@ -2096,7 +2096,7 @@ prefix.Widget _chatResidente(){
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       _containerIcono2(Icons.people, 'JUNTA DIRECTIVA', 20, 10),
                       SizedBox(
                         width: 10.0,
@@ -2172,7 +2172,7 @@ prefix.Widget _chatResidente(){
     final notificacionesProvider = CasilleroProvider();
     return ListView(
 
-      children: <prefix.Widget>[
+      children: <Widget>[
         SizedBox(height: 10.0,),
         cabecera(),
        ConstrainedBox(
@@ -2235,7 +2235,7 @@ prefix.Widget _chatResidente(){
            Row(
              mainAxisAlignment: MainAxisAlignment.center,
              crossAxisAlignment: CrossAxisAlignment.center,
-             children: <prefix.Widget>[
+             children: <Widget>[
                _containerIconoNotficaciones('recursos/imagenes/personas.png', 'JUNTA DIRECTIVA',00,00),
                SizedBox(width: 10.0,),
                _containerIconoNotficaciones('recursos/imagenes/junta.png', 'VIGILANCIA',00,00),
@@ -2256,7 +2256,7 @@ prefix.Widget _chatResidente(){
     final notificacionesProvider = CasilleroProvider();
     return ListView(
 
-      children: <prefix.Widget>[
+      children: <Widget>[
         SizedBox(height: 10.0,),
          Text('ENVIADOS', style: TextStyle(color: Colors.orange.shade800,fontWeight: FontWeight.bold,fontSize: 18.0, fontFamily: 'CenturyGothic'),textAlign: TextAlign.center,),
 
@@ -2321,24 +2321,24 @@ prefix.Widget _chatResidente(){
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <prefix.Widget>[
+      children: <Widget>[
         Column(
-          children: <prefix.Widget>[
-            Row(children: <prefix.Widget>[
+          children: <Widget>[
+            Row(children: <Widget>[
               Icon(Icons.mail_outline, color: Colors.transparent ),
               SizedBox(width: 5.0,),
               Text('INBOX', style: TextStyle(color: Colors.transparent,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
             ],)
           ],),
-        Column(children: <prefix.Widget>[
-            Row(children: <prefix.Widget>[
+        Column(children: <Widget>[
+            Row(children: <Widget>[
               Icon(Icons.mail_outline, color: Color.fromRGBO(255, 114, 0, 1.0), ),
               SizedBox(width: 5.0,),
               Text('INBOX', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
             ],)
         ],),
         Column(
-          children: <prefix.Widget>[
+          children: <Widget>[
             
               Padding(
           padding: const EdgeInsets.all(8.0),
@@ -2361,7 +2361,7 @@ prefix.Widget _chatResidente(){
 
 
   
- prefix.Widget cardMensajes(
+ Widget cardMensajes(
       texto, fecha, hora, color, estado, BuildContext context, id) {
   
     return GestureDetector(
@@ -2371,7 +2371,7 @@ prefix.Widget _chatResidente(){
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
             child: Row(
-              children: <prefix.Widget>[
+              children: <Widget>[
                 Text(
                   texto,
                   style: TextStyle(
@@ -2387,7 +2387,7 @@ prefix.Widget _chatResidente(){
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: <prefix.Widget>[
+                    children: <Widget>[
                       GestureDetector(
                         child: Text(
                           '(LEER)' ,
@@ -2435,7 +2435,7 @@ prefix.Widget _chatResidente(){
  _containerIconoNotficaciones( iconData, leyenda,int posicion,int drawer){
 
    return GestureDetector(child: Column(
-     children: <prefix.Widget>[
+     children: <Widget>[
        SizedBox(height: 10.0,),
        Container( 
                   width: 75.0,
@@ -2473,14 +2473,14 @@ class cabeceradrawer extends StatefulWidget {
 
 class _cabeceradrawerState extends State<cabeceradrawer> {
   @override
-  prefix.Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     final perfilProvider = new PerfilProvider();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
-        children: <prefix.Widget>[
+        children: <Widget>[
           Row(
-            children: <prefix.Widget>[
+            children: <Widget>[
               CircleAvatar(
                 radius: 40.0,
                 backgroundColor: Colors.transparent,
@@ -2512,7 +2512,7 @@ class _cabeceradrawerState extends State<cabeceradrawer> {
               radius: 70.0,
               child: Stack(
                   alignment: AlignmentDirectional.center,
-                  children: <prefix.Widget>[
+                  children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,

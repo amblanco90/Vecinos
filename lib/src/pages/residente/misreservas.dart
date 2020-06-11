@@ -26,13 +26,13 @@ class _MyHomePageState extends State<MyHomePage> {
   
   final DateTime now = DateTime.now();
   bool _llamarzona=true;
-  String _selectedDate = '17/03/2020';
-    String _selectedDateBaseDato = '2020/03/17';
+  String _selectedDate = '2020-06-09';
+    String _selectedDateBaseDato = '2020-06-09';
   String _idreserva = " ";
    String _dropdownStrHoraInicio =" ";
-   List opcionesInicial=[" ",'08:00am','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
-   List opcionesFinal=[' ','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
-    String fecha_Selecionada='17/03/2020';
+   List opcionesInicial=[" "];
+   List opcionesFinal=[' '];
+    String fecha_Selecionada='2020-06-09';
    String _dropdownStrHoraFinal =" ";
    final _controllerObservaciones=TextEditingController();
    List<dynamic> _listareserva=new List();
@@ -46,9 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
    TextEditingController _eventsController=new TextEditingController();
    List<Reserva> todasReserva=new List();
    bool _estadotablecale=true;
+   bool _estadoDisponibilidadZonas=true;
+   List<Reserva> _datoslistareserva=new List();
  @override
   Widget build(BuildContext context) {
-    
+  
   
   if(_estadotablecale){
    _solicitarTodasReserva();
@@ -66,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Container(height: 4.0,width: 350.0 , decoration: BoxDecoration( color: Colors.grey, borderRadius: BorderRadius.circular(5.0)),),
         ),
 
+          
           _reservas(context),
 
           Padding(
@@ -97,6 +100,46 @@ ApiService _apiService=new ApiService();
   });
   }
   
+}
+
+_solicitarDisponibilidadZonas(String id_zona,String fecha){
+  if(_estadoDisponibilidadZonas){
+      ApiService _apiService=new ApiService();
+      _apiService.getDisponibilidadZona(id_zona, fecha).then((value){
+        try{
+           if(value == "error"){
+             opcionesInicial.clear();
+             opcionesInicial.add(" ");
+             opcionesFinal.clear();
+             opcionesFinal.add(" ");
+             _dropdownStrHoraInicio=" ";
+             _dropdownStrHoraFinal=" ";
+             _estadoDisponibilidadZonas=false;
+             setState(() {
+               
+             });
+             _alertReservaMensajes(context, "No hay horarios disponibles para esta fecha");
+           }else{
+            opcionesInicial.clear();
+            opcionesInicial.add(" ");
+            opcionesFinal.clear();
+            opcionesFinal.add(" ");
+            _dropdownStrHoraInicio=" ";
+             _dropdownStrHoraFinal=" ";
+           for(int i=0;i<value.length;i++){
+             opcionesInicial.add(value[i]);
+          }
+          _estadoDisponibilidadZonas=false;
+              setState(() {
+                
+              });
+           }
+        }catch(e){
+          
+        }
+       
+      });
+  }
 }
 
 _solicitarTodasReserva(){
@@ -205,57 +248,11 @@ _solicitarTodasReserva(){
     int dia = int.parse(DateFormat('dd').format(now));
     if (d != null)
     if (d.month == mes || d.month == mes+1 || d.month == mes+2){
-       if (d.day == dia ){
-         String hora= DateFormat('j').format(now);
-          String hora_24= DateFormat('H').format(now);
-         int h=int.parse(hora.substring(0,2));
-         int h_24=int.parse(hora_24.substring(0,2));
-         String tipo_hora=hora.substring(2,4);
-         int horas_pm=1;
-         List  datos = List<String>();
-         if(h_24> 8){
-          for(int i =h_24+2;i<=19;i++){
-             if(tipo_hora == "AM"){
-          if(i<=12){
-            if(i<10){
-            datos.add("0"+i.toString()+":00am");
-          }else if (i==12){
-            datos.add(i.toString()+":00pm");
-          }else{
-            datos.add(i.toString()+":00am");
-          }
-      }else{
-        if(horas_pm<10){
-          datos.add("0"+horas_pm.toString()+":00pm");
-        }else{
-          datos.add(horas_pm.toString()+":00pm");
-        }
-        horas_pm++;
-      }
-          }
-           else{
-      if(i<=7 ){
-        datos.add(i.toString()+":00pm");
-      }else if (i>=13){
-        datos.add("0"+horas_pm.toString()+":00pm");
-        horas_pm++;
-      }else{
-        i=20;
-      }
-    }
-    }
-   datos.add(" ");
-      setState(() {
-        opcionesInicial=datos;
-      });
-         }
-       }else{
-         opcionesInicial=[" ",'08:00am','09:00am','10:00am','11:00am','12:00pm','01:00pm','02:00pm','03:00pm','04:00pm','05:00pm','06:00pm','07:00pm',];
-       }
+       
       if(d.month>=10){
-      _selectedDate =d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+      _selectedDate =d.year.toString()+'-'+ d.month.toString()+ '-' + d.day.toString();
       }else{
-        fecha_Selecionada ='0' + d.month.toString()+'/'+ d.day.toString()+ '/' + d.year.toString();
+        fecha_Selecionada =  d.year.toString()+'-0'+ d.month.toString()+ '-'+ d.day.toString();
       }
     }else{
       _alertReservaMensajes(context, 'No se puede elegir a mas de 3 meses');
@@ -265,6 +262,14 @@ _solicitarTodasReserva(){
           fecha_Selecionada=fecha_Selecionada;
           _selectedDate=fecha_Selecionada;
         });
+        _estadoDisponibilidadZonas=true;
+        for(int e=0;e<_listaZonas.length;e++){
+                  dynamic _zona=_listaZonas[e];
+                  if(_zona['zonaSocial'] == _zonaSelecionadad){
+                      _posicionZona=_zona['id'];
+                  }
+              }
+        _solicitarDisponibilidadZonas(_posicionZona.toString(),fecha_Selecionada);
       
   }
 
@@ -316,7 +321,7 @@ _solicitarTodasReserva(){
       child: new Text(value),
     );
   }).toList(),
-),],),
+)],),
              Text('OBSERVACIONES',style: TextStyle(fontFamily: 'CenturyGothic', color: Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
             _camposFormulario3("", _controllerObservaciones, TextInputType.text),
             Divider(height: 20,),
@@ -514,42 +519,12 @@ Widget _camposFormulario(String texto,TextEditingController controller,TextInput
 _colocarHoraDisponibles(){
   
   var  fecha=_dropdownStrHoraInicio;
-  var tipo_hora=fecha.substring(5,7);
   var primeroSegundoCaracter=fecha.substring(0,2);
   List  datos = List<String>();
-  int horas_pm=1;
-  for (int i=int.parse(primeroSegundoCaracter)+1;i<=19;i++){
-    if(tipo_hora == "am"){
-          if(i<=12){
-            if(i<10){
-            datos.add("0"+i.toString()+":00am");
-          }else if (i==12){
-            datos.add(i.toString()+":00pm");
-          }else{
-            datos.add(i.toString()+":00am");
-          }
-      }else{
-        if(horas_pm<10){
-          datos.add("0"+horas_pm.toString()+":00pm");
-        }else{
-          datos.add(horas_pm.toString()+":00pm");
-        }
-        horas_pm++;
-      }
-    }
-    else{
-      if(i<=7 ){
-        datos.add(i.toString()+":00pm");
-      }else if (i>=13){
-        datos.add("0"+horas_pm.toString()+":00pm");
-        horas_pm++;
-      }else{
-        i=20;
-      }
-    }
-    
+
+  for(int i=2;i<opcionesInicial.length;i++){
+    datos.add(opcionesInicial[i]);
   }
-    
     datos.add(" ");
       setState(() {
         opcionesFinal=datos;
@@ -557,15 +532,13 @@ _colocarHoraDisponibles(){
      
 
 }
-
- 
-
-
 _reservas(BuildContext context){
+  if(_estadotablecale){
     return  FutureBuilder(future: reservaProvider.getAllReservas(),
     builder: (BuildContext context,
      AsyncSnapshot<List<Reserva>> snapshot) {
       if (snapshot.connectionState == ConnectionState.done){ 
+        _datoslistareserva=snapshot.data;
           return ConstrainedBox(
   constraints: new BoxConstraints(
     maxHeight: 180.0,
@@ -600,6 +573,33 @@ _reservas(BuildContext context){
                 );
        }
        } );
+  }else{
+    return ConstrainedBox(
+  constraints: new BoxConstraints(
+    maxHeight: 180.0,
+    
+  ),
+
+  child: Container(
+ 
+    padding:  EdgeInsets.all(10.0),
+    child: Scrollbar(
+        
+        child: new ListView.builder(
+          itemCount: _datoslistareserva.length,
+          itemBuilder: (context, index) {
+             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,'ACTIVA',_datoslistareserva[index].id_reserva, Colors.red.shade100, context ,_datoslistareserva[index].observaciones.toString());
+
+            
+  },
+        ),
+        
+    ),
+  ),
+);
+  }
+
+    
    
   }
   

@@ -33,8 +33,9 @@ void main(){
       ],
     
   ));
-
     });
+  
+
 
   
 }
@@ -45,7 +46,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => new _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp>  {
 
   startTime() async {
     var _duration = new Duration(seconds: 5);

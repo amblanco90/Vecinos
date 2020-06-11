@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ffb7ce61-b92e-4fc7-8d22-494b86bdd6da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/edificion247_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/edificion247_android.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/junta-directiva.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/junta-directiva.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/misvisitas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/misvisitas.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/re_chatadministrador.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/re_chatadministrador.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/vigilante.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/vigilante.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/providers/perfilProvider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/providers/perfilProvider.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +31,10 @@
   <component name="ProjectId" id="1chxiyNNK6dAIiFwRqho3mjIzgD" />
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../android studio/Cov19" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>

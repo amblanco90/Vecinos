@@ -175,6 +175,29 @@ Future<List<dynamic>> listarVsitas(String id) async {
   }
 } 
 
+Future<dynamic> getDisponibilidadZona(String id_zona,String fecha) async {
+    final Map<String, dynamic> authData = {"id_zona":id_zona,"fecha":fecha};
+    
+    final response = await client.post(
+        "$baseUrl/zonas/disponibilidad",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+        if (response.statusCode == 200) {
+    final datos = json.decode(response.body);
+    try{
+         if(datos['resp'] == "error"){
+      return datos['resp'];
+    }
+    }catch(Exeption){
+      return datos;
+    }
+   
+  } else {
+    return null;
+  }
+    return json.decode(response.body);
+  }
+
 Future<List<dynamic>> listarReserva(String id) async {
   final response = await client.post(
     "$baseUrl/reserva/list",
@@ -204,7 +227,6 @@ Future<String> guardarReserva(DatosReserva data) async {
     body: reservaToJson(data),
   );
   
-    print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){
