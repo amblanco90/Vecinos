@@ -1,7 +1,5 @@
 
 import 'dart:async';
-
-import 'package:edificion247/src/providers/push_notification_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'src/pages/login/Login.dart';
 
 void main(){
-
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) {
@@ -39,6 +36,8 @@ void main(){
     });
   
 
+
+  
 }
 
 
