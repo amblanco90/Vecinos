@@ -9,6 +9,7 @@ import 'package:edificion247/src/search/search_delegate_factura.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix ;
 
 class MiBuzonPages extends StatefulWidget {
   @override
@@ -19,9 +20,9 @@ class _MiBuzonPagesState extends State<MiBuzonPages> {
   final notificacionesProvider = CasilleroProvider();
 
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     return ListView(
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(
           height: 10.0,
         ),
@@ -102,7 +103,7 @@ class _MiBuzonPagesState extends State<MiBuzonPages> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: <prefix.Widget>[
             _containerIcono(
                 'recursos/imagenes/personas.png', 'JUNTA DIRECTIVA'),
             SizedBox(
@@ -126,11 +127,11 @@ class _MiBuzonPagesState extends State<MiBuzonPages> {
 cabecera() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
+    children: <prefix.Widget>[
       Column(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Row(
-            children: <Widget>[
+            children: <prefix.Widget>[
               Icon(Icons.mail_outline, color: Colors.transparent),
               SizedBox(
                 width: 5.0,
@@ -148,9 +149,9 @@ cabecera() {
         ],
       ),
       Column(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Row(
-            children: <Widget>[
+            children: <prefix.Widget>[
               Icon(
                 Icons.mail_outline,
                 color: Color.fromRGBO(255, 114, 0, 1.0),
@@ -171,7 +172,7 @@ cabecera() {
         ],
       ),
       Column(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -191,7 +192,7 @@ cabecera() {
   );
 }
 
-Widget cardMensajes(
+prefix.Widget cardMensajes(
     texto, fecha, hora, color, estado, BuildContext context, id) {
   return GestureDetector(
       child: Card(
@@ -199,7 +200,7 @@ Widget cardMensajes(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
       child: Row(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Container(
             width: 160.0,
             child: Text(
@@ -221,7 +222,7 @@ Widget cardMensajes(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
+              children: <prefix.Widget>[
                 GestureDetector(
                   child: Text(
                     '(LEER)',
@@ -264,7 +265,7 @@ Widget cardMensajes(
 _containerIcono(iconData, leyenda) {
   return GestureDetector(
     child: Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(
           height: 10.0,
         ),

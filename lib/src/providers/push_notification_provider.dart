@@ -62,7 +62,15 @@ class PushNotificationProvider {
           _colorfullAlert(argumento,funcion);
          
 
+        }else{
+
+          argumento = message['notification']['body'];
+
+          _colorfullAlert(argumento,funcion);
+         
+
         }
+
         _mensajesStreamController.sink.add(argumento); 
         print("onMessage: $message");
         

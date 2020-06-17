@@ -39,6 +39,7 @@ import 'package:edificion247/src/widgets/detalleNotificacion.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix;
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'dart:convert';
@@ -158,14 +159,14 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
       _opcionesDrawer(){
         if(_posicion_appbar==0){
           return Column(
-          children: <Widget>[
+          children: <prefix.Widget>[
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -188,7 +189,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
+                          children: <prefix.Widget>[
                             Text(
                               'MI UNIDAD',
                               overflow: TextOverflow.ellipsis,
@@ -239,7 +240,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
-                          children: <Widget>[
+                          children: <prefix.Widget>[
                             Text(
                               'FACTURACION',
                               overflow: TextOverflow.ellipsis,
@@ -291,7 +292,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
+                          children: <prefix.Widget>[
                             Text(
                               'PQR SOPORTE',
                               overflow: TextOverflow.ellipsis,
@@ -330,10 +331,10 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         );
         }else{
           return Row(
-          children: <Widget>[
+          children: <prefix.Widget>[
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Text(
                     _nombre_appbar,
                     overflow: TextOverflow.ellipsis,
@@ -378,7 +379,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     
       }
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async =>
             _selecionadoItemAnterior(_posicion_appbar_anterior, _nombre_appbar_anterior),
@@ -388,7 +389,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
               child: AppBar(
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
+                  children:<prefix.Widget>[
                     SizedBox(
                       height: 5.0,
                     ),
@@ -403,11 +404,11 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                 bottom: PreferredSize(
                     child: _opcionesDrawer(),
                     preferredSize: Size.fromHeight(90.0)),
-                 actions: <Widget>[
+                 actions: <prefix.Widget>[
                   FlatButton(
                     color: Color.fromRGBO(255, 114, 0, 0.9),
                     child: Row(
-                      children: <Widget>[
+                      children: <prefix.Widget>[
                         Image.asset('recursos/imagenes/warning.png'),
                       ],
                     ),
@@ -424,7 +425,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
      
     ));
   }
- Widget listTile(texto, numero){
+ prefix.Widget listTile(texto, numero){
     final textoDrawer = TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
@@ -441,7 +442,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     );
   }
 
-Widget drawerItem(){
+prefix.Widget drawerItem(){
    return  Drawer(
           elevation: 5.0,
         child: Container(
@@ -457,14 +458,14 @@ Widget drawerItem(){
               ])),
           padding: EdgeInsets.symmetric(horizontal: 10.0),
          child: ListView(
-              children: <Widget>[
+              children: <prefix.Widget>[
                 _cabeceradrawer(funcion),
                 
                 Container(
                   
                  padding: EdgeInsets.symmetric(horizontal: 20.0),
                  child: Column(
-                 children: <Widget>[
+                 children: <prefix.Widget>[
                 Divider(color: Colors.black,thickness: 0.7,),
                 listTile('PERFIL',11),
                 
@@ -514,10 +515,10 @@ Widget drawerItem(){
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       FlatButton(
                           child: CircleAvatar(
                               backgroundColor: Colors.transparent,
@@ -564,7 +565,7 @@ Widget drawerItem(){
               ),
              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Container(
                     height: 40.0,
                     width: 185.0,
@@ -587,14 +588,14 @@ Widget drawerItem(){
         );
 
 }
-  Widget _cabeceradrawer(funcion){
+  prefix.Widget _cabeceradrawer(funcion){
   return Container(
        
        padding: EdgeInsets.symmetric(horizontal:10.0),
        child:Column(
-       children: <Widget>[
+       children: <prefix.Widget>[
          Row(
-            children: <Widget>[
+            children: <prefix.Widget>[
               CircleAvatar(
                 radius: 40.0,
                 backgroundColor: Colors.transparent,
@@ -626,7 +627,7 @@ Widget drawerItem(){
               radius: 70.0,
               child: Stack(
                   alignment: AlignmentDirectional.center,
-                  children: <Widget>[
+                  children: <prefix.Widget>[
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -667,10 +668,10 @@ Widget drawerItem(){
   );
 }
 
-Widget _botonesRedondeados(context) {
+prefix.Widget _botonesRedondeados(context) {
     final noticiasProvider = NoticiasProvider();
     return Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         Table(
           children: [
             TableRow(children: [
@@ -769,7 +770,7 @@ Widget _botonesRedondeados(context) {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: <Widget>[
+                                      children: <prefix.Widget>[
                                         Text(
                                     snapshot.data[index].fechaCreacion, 
                                     style: TextStyle(
@@ -807,9 +808,9 @@ Widget _botonesRedondeados(context) {
       ],
     );
   }
- Widget _homeAdmin(){
+ prefix.Widget _homeAdmin(){
    return Container(
-      child: ListView(children: <Widget>[
+      child: ListView(children: <prefix.Widget>[
         SizedBox(
           height: 10.0,
         ),
@@ -820,7 +821,7 @@ Widget _botonesRedondeados(context) {
  }
 
  
-  Widget cardBienvenida(context) {
+  prefix.Widget cardBienvenida(context) {
     final head = TextStyle(color: Colors.grey.shade700, fontSize: 12.0);
 
     final head2 = TextStyle(
@@ -851,13 +852,13 @@ Widget _botonesRedondeados(context) {
             ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: <prefix.Widget>[
             Container(
               child: Column(
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       Text(
                         'SU DEUDA ACTUAL ES :',
                         style: TextStyle(
@@ -871,7 +872,7 @@ Widget _botonesRedondeados(context) {
                     height: 10.0,
                   ),
                   Row(
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       SizedBox(
                         width: 40.0,
                       ),
@@ -907,10 +908,10 @@ Widget _botonesRedondeados(context) {
 
  
 
- Widget _crearBotonRedondeado(Color color, Image image, String texto,
+ prefix.Widget _crearBotonRedondeado(Color color, Image image, String texto,
       BuildContext context, int posicion, padding) {
     return Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         Container(
           width: 100.0,
           height: 90.0,
@@ -953,7 +954,7 @@ Widget _botonesRedondeados(context) {
     final notificacionesProvider = CasilleroProvider();
     return ListView(
 
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(height: 10.0,),
         cabecera(),
        ConstrainedBox(
@@ -1016,7 +1017,7 @@ Widget _botonesRedondeados(context) {
            Row(
              mainAxisAlignment: MainAxisAlignment.center,
              crossAxisAlignment: CrossAxisAlignment.center,
-             children: <Widget>[
+             children: <prefix.Widget>[
                _containerIconoNotficaciones('recursos/imagenes/personas.png', 'JUNTA DIRECTIVA',00,00),
                SizedBox(width: 10.0,),
                _containerIconoNotficaciones('recursos/imagenes/junta.png', 'VIGILANCIA',00,00),
@@ -1030,7 +1031,7 @@ Widget _botonesRedondeados(context) {
 
     );
   }
-   Widget cardMensajes(
+   prefix.Widget cardMensajes(
       texto, fecha, hora, color, estado, BuildContext context, id){
       return GestureDetector(
         
@@ -1039,7 +1040,7 @@ Widget _botonesRedondeados(context) {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
             child: Row(
-              children: <Widget>[
+              children: <prefix.Widget>[
                 Text(
                   texto,
                   style: TextStyle(
@@ -1055,7 +1056,7 @@ Widget _botonesRedondeados(context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       GestureDetector(
                         child: Text(
                           '(LEER)' ,
@@ -1102,24 +1103,24 @@ Widget _botonesRedondeados(context) {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
+      children: <prefix.Widget>[
         Column(
-          children: <Widget>[
-            Row(children: <Widget>[
+          children: <prefix.Widget>[
+            Row(children: <prefix.Widget>[
               Icon(Icons.mail_outline, color: Colors.transparent ),
               SizedBox(width: 5.0,),
               Text('INBOX', style: TextStyle(color: Colors.transparent,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
             ],)
           ],),
-        Column(children: <Widget>[
-            Row(children: <Widget>[
+        Column(children: <prefix.Widget>[
+            Row(children: <prefix.Widget>[
               Icon(Icons.mail_outline, color: Color.fromRGBO(255, 114, 0, 1.0), ),
               SizedBox(width: 5.0,),
               Text('INBOX', style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 17.0),),
             ],)
         ],),
         Column(
-          children: <Widget>[
+          children: <prefix.Widget>[
             
               Padding(
           padding: const EdgeInsets.all(8.0),
@@ -1141,7 +1142,7 @@ Widget _botonesRedondeados(context) {
   _containerIconoNotficaciones( iconData, leyenda,int posicion,int drawer){
 
    return GestureDetector(child: Column(
-     children: <Widget>[
+     children: <prefix.Widget>[
        SizedBox(height: 10.0,),
        Container( 
                   width: 75.0,
@@ -1169,7 +1170,7 @@ _enviados(){
     final notificacionesProvider = CasilleroProvider();
     return ListView(
 
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(height: 10.0,),
          Text('ENVIADOS', style: TextStyle(color: Colors.orange.shade800,fontWeight: FontWeight.bold,fontSize: 18.0, fontFamily: 'CenturyGothic'),textAlign: TextAlign.center,),
 
@@ -1266,8 +1267,8 @@ _enviados(){
   _chatAdmin(){
     return SingleChildScrollView(
         child: Stack(
-          children: <Widget>[
-            Column(children: <Widget>[
+          children: <prefix.Widget>[
+            Column(children: <prefix.Widget>[
               Divider(
                 height: 30,
                 color: Colors.white,
@@ -1318,7 +1319,7 @@ _enviados(){
 }).toList();
         return ListView(
           padding: EdgeInsets.all(10.0),
-          children: <Widget>[
+          children: <prefix.Widget>[
             ...itemchat,
           ],
           );
@@ -1331,7 +1332,7 @@ _enviados(){
         ),
       );
   }
-  Widget _cardMensajes( _numeroidentificacion,_nombre,_mensaje){
+  prefix.Widget _cardMensajes( _numeroidentificacion,_nombre,_mensaje){
    
 
   return  GestureDetector(  
@@ -1340,7 +1341,7 @@ _enviados(){
              height: 50,
              padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
              child: Row(
-               children: <Widget>[
+               children: <prefix.Widget>[
                  
                 Text(_numeroidentificacion, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
                 SizedBox(width: 15.0,),
@@ -1351,7 +1352,7 @@ _enviados(){
                                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
 
               
                     ],
@@ -1366,7 +1367,7 @@ _enviados(){
          });
 
 }
-Widget pqrGeneradaAlert(BuildContext context) {
+prefix.Widget pqrGeneradaAlert(BuildContext context) {
   showDialog(
       context: context,
       barrierDismissible: false,
@@ -1374,7 +1375,7 @@ Widget pqrGeneradaAlert(BuildContext context) {
         return AlertDialog(
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: <prefix.Widget>[
               CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: 40.0,
@@ -1386,7 +1387,7 @@ Widget pqrGeneradaAlert(BuildContext context) {
               Text('Registro generado con exito'),
             ],
           ),
-          actions: <Widget>[
+          actions: <prefix.Widget>[
             FlatButton(
               child: Text(
                 'Aceptar',
@@ -1407,7 +1408,7 @@ _vistaUnidad() {
           return SingleChildScrollView(
             child: Center(
               child: Column(
-                children: <Widget>[
+                children: <prefix.Widget>[
                   SizedBox(
                     height: 20.0,
                   ),
@@ -1447,7 +1448,7 @@ _vistaUnidad() {
                   Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                    child: Column(children: <Widget>[
+                    child: Column(children: <prefix.Widget>[
                        _containerUnidad(appData.nombreSubUnidad),
                       SizedBox(
                         height: 5.0,
@@ -1474,7 +1475,7 @@ _vistaUnidad() {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       _containerIcono2(Icons.people, 'JUNTA DIRECTIVA', null),
                       SizedBox(
                         width: 10.0,
@@ -1531,7 +1532,7 @@ _vistaUnidad() {
           _selecionadoItem2(posicion, "CHATEAR");
         },
         child: Column(
-          children: <Widget>[
+          children: <prefix.Widget>[
             SizedBox(
               height: 10.0,
             ),
@@ -1588,17 +1589,17 @@ _vistaUnidad() {
    
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
+              children: <prefix.Widget>[
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
+                  children: <prefix.Widget>[
                     SizedBox(
                       height: 2.0,
                     ),
@@ -1629,7 +1630,7 @@ _vistaUnidad() {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       Center(
                         child: fotoUsuario(),
                       ),
@@ -1664,7 +1665,7 @@ _vistaUnidad() {
            Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              
-             children: <Widget>[
+             children: <prefix.Widget>[
                _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
                SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS',5),
@@ -1714,7 +1715,7 @@ _vistaUnidad() {
    );
 
  }
-   Widget _fotoUsuario() {
+   prefix.Widget _fotoUsuario() {
     return Container(
       width: 150,
       height: 150,
@@ -1726,7 +1727,7 @@ _vistaUnidad() {
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Container(
                       decoration: new BoxDecoration(
                           shape: BoxShape.circle,
@@ -1737,7 +1738,7 @@ _vistaUnidad() {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       GestureDetector(
                         onTap: () {},
                         child: Icon(
@@ -1759,7 +1760,7 @@ _vistaUnidad() {
   }
   containerIcono(IconData iconData, leyenda) {
     return Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(
           height: 10.0,
         ),
@@ -1844,7 +1845,7 @@ _vistaUnidad() {
           textAlign: TextAlign.right,
         ));
   }
-   Widget infoText(controller,nombre) {
+   prefix.Widget infoText(controller,nombre) {
     return Container(
       color: color,
       margin: EdgeInsets.symmetric(horizontal: 30.0),
@@ -1872,7 +1873,7 @@ _vistaUnidad() {
   _containerIcono( iconData, leyenda,posicion){
 
    return GestureDetector(child: Column(
-     children: <Widget>[
+     children: <prefix.Widget>[
        SizedBox(height: 10.0,),
        Container( 
                   width: 100.0,
@@ -1899,7 +1900,7 @@ _vistaUnidad() {
  _vistasubunidades(){
    return SingleChildScrollView(
       child: Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         Text('UNIDADES RESIDENCIALES',style: TextStyle(color: Colors.black,fontSize: 25.0,fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold ),),
         _listaSubunidad(),
         //_formularioActualizar(),
@@ -1911,7 +1912,7 @@ _vistaUnidad() {
            Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              
-             children: <Widget>[
+             children: <prefix.Widget>[
                _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
                SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS',5),
@@ -2004,7 +2005,7 @@ return  Padding(
     }
   }
 
-  Widget _cardMensajesListaSubunidad(String propietario ,String residente,String tipounida,String estadocuenta,String nomenclatura,String estadoUnidad,String id,String total,color){
+  prefix.Widget _cardMensajesListaSubunidad(String propietario ,String residente,String tipounida,String estadocuenta,String nomenclatura,String estadoUnidad,String id,String total,color){
     
   return  GestureDetector(  
          child: Card(
@@ -2013,7 +2014,7 @@ return  Padding(
              padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
              margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 0.0),
              child: Row(
-               children: <Widget>[
+               children: <prefix.Widget>[
                 Text(propietario.length >10 ?propietario.substring(0,10)+"...":propietario, style: TextStyle(color: Colors.black, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 13.0),),
                 SizedBox(width: 15.0,),
                  Text(tipounida, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
@@ -2021,7 +2022,7 @@ return  Padding(
                                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
 
                      Text('VER MAS', style: TextStyle(color: Color.fromRGBO(240, 75, 14 , 1),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
 
@@ -2106,7 +2107,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     return Container(
       width: 150,
       height: 150,
@@ -2118,7 +2119,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
 Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -2131,7 +2132,7 @@ Container(
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       IconButton(
                         onPressed: () {
                           getImageFromCam();
