@@ -134,7 +134,7 @@ class Mensaje extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Container( 
-        margin: EdgeInsets.fromLTRB(0, 3.5, 0, 0),
+        margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
         child:Column(
           crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[

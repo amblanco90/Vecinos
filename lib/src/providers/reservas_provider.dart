@@ -17,15 +17,12 @@ class ReservasProvider{
  final response = await client.post("$baseUrl/reserva/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
-    final decodedData = json.decode(response.body);
-    
-    
     try{
-      final entidades = new Reservas.fromJsonList(decodedData);
-return entidades.items.reversed.toList();
+    final decodedData = json.decode(response.body);
+    final entidades = new Reservas.fromJsonList(decodedData);
+    return entidades.items.reversed.toList();
     }catch(a){
-      Future<List<Reserva>>  a;
-        return a;
+        return [];
     }
 
   }

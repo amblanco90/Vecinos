@@ -1301,7 +1301,7 @@ _enviados(){
                 width: 400,
                 height: 400,
   child: StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('userChatAdmin').snapshots(),
+    stream: Firestore.instance.collection('useredificio'+appData.idUnidad.toString()).snapshots(),
     builder: (context, snapshot) {
 
       if (!snapshot.hasData) {
@@ -1311,8 +1311,10 @@ _enviados(){
                         new AlwaysStoppedAnimation<Color>(Colors.orange),
                   ));
       } else {
+  
       List<Widget> itemchat =  snapshot.data.documents.map((f) {
-        return _cardMensajes(f.documentID , f.data['nombre'] , f.data['texto']);
+        var r = f.data['texto'].replaceRange(0, f.data['texto'].length, '...');
+        return _cardMensajes(f.documentID , f.data['nombre'] , (f.data['texto'].length <15)?f.data['texto'] : f.data['texto'].replaceRange(15, f.data['texto'].length, '...'));
 }).toList();
         return ListView(
           padding: EdgeInsets.all(10.0),

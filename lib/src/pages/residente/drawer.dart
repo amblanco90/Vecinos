@@ -1048,22 +1048,21 @@ Widget _chatResidente(){
               ),
               Container(
                   margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
-                  child: Row(children: <Widget>[
-                    Padding(padding: EdgeInsets.fromLTRB(size.width * 0.15, 0, 0, 0),),
+                  child:  Row( mainAxisAlignment: MainAxisAlignment.center , children: <Widget>[
                     Text("CON QUIEN",
                         style: TextStyle(
-                            fontSize: 21.0,
+                            fontSize: size.width * 0.05,
                             color: Color.fromRGBO(255, 153, 29, 1.0),
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                             Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("DESEA HABLAR?",
                         style: TextStyle(
-                            fontSize: 21.0,
+                            fontSize: size.width * 0.05,
                             color:Color.fromRGBO(167, 164, 164, 1),
                             fontFamily: 'CenturyGothic',
                             fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                  ])),
+                  ]),),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Container(

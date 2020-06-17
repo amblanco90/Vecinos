@@ -15,7 +15,6 @@ class ConyugeProvider{
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
     final decodedData = json.decode(response.body);
-    print(decodedData['resp']);
     final conyuge=new Conyuge.fromJson(decodedData);
 
     return conyuge;

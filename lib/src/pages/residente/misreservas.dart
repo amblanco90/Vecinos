@@ -538,6 +538,7 @@ _reservas(BuildContext context){
     builder: (BuildContext context,
      AsyncSnapshot<List<Reserva>> snapshot) {
       if (snapshot.connectionState == ConnectionState.done){ 
+        
         _datoslistareserva=snapshot.data;
           return ConstrainedBox(
   constraints: new BoxConstraints(
@@ -839,7 +840,7 @@ botonPrincipal(context){
                          return _cardMensajestodareserva(_listaocupada[index],  Colors.red.shade100);
                        
                      }
-                     ) :Text('Esta fecha no se a echo reserva'),
+                     ) :Text('Esta fecha no se ha echo reserva'),
                    ),
                ),
                ),

@@ -239,7 +239,7 @@ Future<String> guardarReserva(DatosReserva data) async {
   }
 }
 
-Future<bool> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,cedula_familiar,nombre_familiar,correo_familiar,movil_familiar,direccion_familiar) async {
+Future<String> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,cedula_familiar,nombre_familiar,correo_familiar,movil_familiar,direccion_familiar) async {
   print(nombre_familiar);
   final response = await client.post(
     "$baseUrl/nucleo_familiar/save",
@@ -251,23 +251,24 @@ Future<bool> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,ce
   "id_familiar":id_familiar,
   "cedula_familiar": cedula_familiar,
   "nombre_familiar": nombre_familiar,
-  "apellidos_familiar": ".",
+  "apellidos_familiar": "",
   "correo_familiar": correo_familiar,
   "movil_familiar": movil_familiar,
   "direccion_familiar": direccion_familiar,
   "username": appData.cedula
 }),
   );
+  print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     print(response.body);
-    if(datos["resp"]=="ok"){
-      return true;
+    if(datos["msj"]=="ok"){
+      return "";
     }else{
-      return false;
+      return datos["msj"];
     }
   } else {
-    return false;
+    return "a ocurrido un error";
   }
 }
 Future<bool> createProfile(DatosVisitas data) async {
@@ -301,6 +302,7 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
       appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
       appData.unidadInicial = datos["lista_subunidades"][0];
       appData.idUnidad=datos["id_unidad"];
+      appData.url_pago=datos["url_pago"];
       for (var item in datos["lista_subunidades"]) {
         
         appData.unidades.add(item);

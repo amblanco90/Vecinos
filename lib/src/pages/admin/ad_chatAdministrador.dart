@@ -125,7 +125,7 @@ class Mensaje extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 3.5, 0, 0),
+      margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Container( 
         child:Column(
           crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,

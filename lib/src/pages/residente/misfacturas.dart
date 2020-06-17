@@ -1,8 +1,10 @@
 
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/facturas.dart';
 import 'package:edificion247/src/providers/facturasProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MisFacturas extends StatelessWidget {
   @override
@@ -12,6 +14,13 @@ class MisFacturas extends StatelessWidget {
   return _listaFacturas(context);
      
   }
+  _launchURL(url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
   _listaFacturas(context){
     return FutureBuilder(future:facturaprovider.getlistafactura() ,
     builder: (BuildContext context,
@@ -69,7 +78,11 @@ Widget _cardMensajesFacturas(DatosFacturas datos,context){
 Container(
        margin: EdgeInsets.symmetric(horizontal: 80.0 ),
        padding: EdgeInsets.symmetric(vertical: 7.0),
-       child: RaisedButton(
+       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+         
+          RaisedButton(
          color:  Color.fromRGBO(255, 153, 29, 1.0) ,
                  shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(5),),
@@ -80,7 +93,20 @@ Container(
             "VER MAS",
            textAlign: TextAlign.center,  style:TextStyle(fontSize:  18.0 , color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold,)
           ),
+          ),
+          RaisedButton(
+         color:  Color.fromRGBO(255, 153, 29, 1.0) ,
+                 shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5),),
+          onPressed: ()   {
+               _launchURL(appData.url_pago);
+          },
+          child:  Text(
+            "PAGAR",
+           textAlign: TextAlign.center,  style:TextStyle(fontSize:  18.0 , color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold,)
+          ),
           )
+       ],)
      ),
 
               
@@ -92,6 +118,7 @@ Container(
            
 
 }
+
 Widget _alertFacturas (BuildContext context,conceptos){
   final entidades=new ListaConceptos.fromJsonList(conceptos);
     entidades.items.reversed.toList();

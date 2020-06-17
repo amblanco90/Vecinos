@@ -174,7 +174,7 @@ _guardareditar(String _idnucleo,String _idfamilia){
                     //DatosFamilia datosFamilia=DatosFamilia(id_parentesco: '3',id_residente:appData.idUsuario.toString(),cedula_familiar: _controllerIdentificacion.text,nombre_familiar: _controllerNombre.text,apellidos_familiar: '',correo_familiar:_controllerCorreo.text,movil_familiar: _controllerNumeroContacto.text,direccion_familiar: 'calle 1 # 45-25',username: 'rperz',id_nucleo: _idNucleo.toString(),id_familiar:_idfam.toString());
                     ApiService apiService=new ApiService();
                     apiService.guardarFamiliar(_idnucleo,"1",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
-                      if(isSuccess){
+                      if(isSuccess == ""){
                         _idNucleo=null;
                           _alertConyugeMensajes(context, "registro exito");
                         _controllerNombre.text="";
@@ -185,7 +185,7 @@ _guardareditar(String _idnucleo,String _idfamilia){
                           
                         });
                       }else{
-                        _alertConyugeMensajes(context, "A ocurrido un error al tratar de guardar un familiar");
+                        _alertConyugeMensajes(context, isSuccess);
                          }
             });
                   }
