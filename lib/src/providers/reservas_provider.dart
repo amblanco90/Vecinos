@@ -50,5 +50,27 @@ return entidades.items.reversed.toList();
 
   }
 
+  Future<List<Reserva>> getreservatodasAdmin() async {
+
+   final Map<String, dynamic> authData = {
+      "username": appData.cedula
+    };
+
+
+ final response = await client.post("$baseUrl/admin/reserva/list/all",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    final decodedData = json.decode(response.body);
+    
+    
+    try{
+      final entidades = new Reservas.fromJsonList(decodedData);
+      return entidades.items.reversed.toList();
+    }catch(a){
+      return null;
+    }
+
+  }
+
 }
 
