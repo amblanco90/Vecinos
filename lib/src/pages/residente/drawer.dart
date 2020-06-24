@@ -3,7 +3,8 @@ import 'package:edificion247/src/bloc/provider_perfil.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/bloc/provider_visitas.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
-import 'package:edificion247/src/models/noticia.dart';
+import 'package:edificion247/src/models/cartelera.dart';
+import 'package:edificion247/src/widgets/verNoticia.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
 import 'package:edificion247/src/models/unidadmodel.dart';
@@ -1314,9 +1315,9 @@ Widget _chatResidente(){
             padding: EdgeInsets.all(10.0),
             child: Scrollbar(
               child: FutureBuilder(
-                future: noticiasProvider.getAllNoticias(),
+                future: noticiasProvider.getAllNoticiasAdmin(),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Noticia>> snapshot) {
+                    AsyncSnapshot<List<Cartelera>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
                     return snapshot.data!=null? ListView.builder(
                             shrinkWrap: true,
@@ -1324,11 +1325,11 @@ Widget _chatResidente(){
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: () {
-                                  noticiaAlert(
-                                      context,
-                                      snapshot.data[index].descripcion,
-                                      snapshot.data[index].titulo,
-                                      snapshot.data[index].fechaCreacion);
+                                  
+                                    verNoticia(context, snapshot.data[index].titulo, 
+                                    snapshot.data[index].descripcion, snapshot.data[index].imagen, 
+                                    snapshot.data[index].fechaCreacion, snapshot.data[index].idCartelera
+                                    , funcion);
                                 },
                                 child: Card(
                                   color: Colors.grey.shade300,

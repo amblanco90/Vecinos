@@ -1,6 +1,7 @@
 import 'package:edificion247/src/bloc/provider_perfil_admin.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/models/cartelera.dart';
 import 'package:edificion247/src/models/listasubunidad.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
 import 'package:edificion247/src/models/unidadmodel.dart';
@@ -8,6 +9,7 @@ import 'package:edificion247/src/models/noticia.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
+import 'package:edificion247/src/pages/admin/crearNoticias.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
 import 'package:edificion247/src/pages/admin/lista_reservas_admin.dart';
 import 'package:edificion247/src/pages/residente/emergenciasPage.dart';
@@ -39,6 +41,7 @@ import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:edificion247/src/widgets/detalleNotificacion.dart';
 import 'package:edificion247/src/widgets/dropdown_widget.dart';
 import 'package:edificion247/src/widgets/noticiasAlert.dart';
+import 'package:edificion247/src/widgets/verNoticia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix;
 import 'package:image_picker/image_picker.dart';
@@ -105,6 +108,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 22:return EmergenciasPage();
         case 23: return _enviados();
         case 24: return ListaRservaAdminPage();
+        case 25: return CrearNoticiasPage();
                 
 
       }
@@ -496,6 +500,8 @@ prefix.Widget drawerItem(){
                  listTile('VISITA', 20),
                  Divider(color: Colors.black,thickness: 0.7,),
                 listTile('TAXI', 13),
+                 Divider(color: Colors.black,thickness: 0.7,),
+                listTile('NOTICIAS', 25),
                 Divider(color: Colors.black,thickness: 0.7,),
                  listTile('CHATEAR', 15),
                 
@@ -754,9 +760,9 @@ prefix.Widget _botonesRedondeados(context) {
             padding: EdgeInsets.all(10.0),
             child: Scrollbar(
               child: FutureBuilder(
-                future: noticiasProvider.getAllNoticias(),
+                future: noticiasProvider.getAllNoticiasAdmin(),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Noticia>> snapshot) {
+                    AsyncSnapshot<List<Cartelera>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
                     return snapshot.data.length > 0
                         ? ListView.builder(
@@ -766,8 +772,10 @@ prefix.Widget _botonesRedondeados(context) {
                               return GestureDetector(
                                   onTap: (){
 
-                                    noticiaAlert(context, snapshot.data[index].descripcion,
-                                    snapshot.data[index].titulo, snapshot.data[index].fechaCreacion);
+                                    verNoticia(context, snapshot.data[index].titulo, 
+                                    snapshot.data[index].descripcion, snapshot.data[index].imagen, 
+                                    snapshot.data[index].fechaCreacion, snapshot.data[index].idCartelera
+                                    , funcion);
 
                                   },
 

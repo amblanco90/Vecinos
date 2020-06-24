@@ -24,7 +24,9 @@ class PedidoTaxiProvider{
 }
 
 Future<Map<String, dynamic>> eliminarPedidoTaxi(BuildContext context, id) async {
-  final Map<String, dynamic> authData = {"id_taxi": id};
+  final Map<String, dynamic> authData = {
+    "username":appData.cedula,
+    "id_taxi": id};
 
     Client client = Client();
     final response = await client.post(
