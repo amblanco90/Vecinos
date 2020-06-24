@@ -72,5 +72,59 @@ return entidades.items.reversed.toList();
 
   }
 
+   Future<String> setAprobarReserva(String id_reserva) async {
+
+   final Map<String, dynamic> authData = {
+      "username": appData.cedula,
+      "id_reserva":id_reserva
+    };
+ final response = await client.post("$baseUrl/admin/reserva/approve",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    final datos = json.decode(response.body);
+    if(response.statusCode==200){
+      try{
+        if(datos['resp']=="ok"){
+          return datos['msj'];
+        }else{
+          return datos['msj'];
+        }
+    }catch(a){
+      return datos['Ocurrio un error'];
+    }
+    }else{
+      return datos['Ocurrio un error'];
+    }
+    
+
+  }
+
+  Future<String> setCancelarReserva(String id_reserva) async {
+
+   final Map<String, dynamic> authData = {
+      "username": appData.cedula,
+      "id_reserva":id_reserva
+    };
+ final response = await client.post("$baseUrl/admin/reserva/deny",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+    final datos = json.decode(response.body);
+    if(response.statusCode==200){
+      try{
+        if(datos['resp']=="ok"){
+          return datos['msj'];
+        }else{
+          return datos['msj'];
+        }
+    }catch(a){
+      return datos['Ocurrio un error'];
+    }
+    }else{
+      return datos['Ocurrio un error'];
+    }
+    
+
+  }
+
 }
 

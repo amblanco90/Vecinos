@@ -9,6 +9,7 @@ import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/pages/admin/ad_chatAdministrador.dart';
 import 'package:edificion247/src/pages/admin/buzon_admin.dart';
+import 'package:edificion247/src/pages/admin/link_admin.dart';
 import 'package:edificion247/src/pages/admin/lista_reservas_admin.dart';
 import 'package:edificion247/src/pages/residente/emergenciasPage.dart';
 import 'package:edificion247/src/pages/residente/micasillero.dart';
@@ -104,9 +105,8 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
         case 21:return MiCasillero();
         case 22:return EmergenciasPage();
         case 23: return _enviados();
-        case 24: return ListaRservaAdminPage();
-                
-
+        case 24: return ListaReservaAdminPage();
+        case 25: return LinkPagoAdminPage();
       }
   
     }
@@ -505,6 +505,9 @@ prefix.Widget drawerItem(){
                 
                 Divider(color: Colors.black,thickness: 0.7,),
                 listTile('PQR', 19),
+
+                Divider(color: Colors.black,thickness: 0.7,),
+                listTile('LINK PAGO', 25),
                 
                 Divider(color: Colors.black,thickness: 0.7,),
                listTile('EMERGENCIAS', 22),

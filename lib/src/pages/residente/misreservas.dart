@@ -75,9 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.symmetric(horizontal:25.0),
           child: Container(height: 4.0,width: 350.0 , decoration: BoxDecoration( color: Colors.grey, borderRadius: BorderRadius.circular(5.0)),),
         ),
-        SizedBox(height:10.0),
-        SizedBox(height:10.0),
-        SizedBox(height:10.0),
+        SizedBox(height:30.0),
         botonPrincipal(context),
         SizedBox(height:10.0),
         
@@ -869,7 +867,6 @@ botonPrincipal(context){
                         _eventsController.text
                       ];
                     }
-                   // prefs.setString("events", json.encode(encodeMap(_events)));
                     _eventsController.clear();
                     Navigator.pop(context);
                   },

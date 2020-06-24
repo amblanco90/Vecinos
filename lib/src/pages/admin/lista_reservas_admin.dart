@@ -1,51 +1,38 @@
 import 'package:edificion247/src/models/visitas_models.dart';
 import 'package:edificion247/src/providers/reservas_provider.dart';
 import 'package:flutter/material.dart';
-class ListaRservaAdminPage extends StatelessWidget {
+
+class ListaReservaAdminPage extends StatefulWidget {
+
+  @override
+  _ListaReservaAdminPageState createState() => _ListaReservaAdminPageState();
+}
 final reservaProvider=new ReservasProvider();
+class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return Container(
       child:Column( 
         children: <Widget>[
-          Center(child: Text('LISTA RESERVA',style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),
+          Container(
+            height:size.height * 0.1 ,
+            child:Center(child: Text('LISTA RESERVA',style: TextStyle(color: Color.fromRGBO(255, 114, 0, 1.0),
           fontFamily: 'CenturyGothic',
           fontWeight: FontWeight.bold,
           fontSize: 20.0),
           textAlign:TextAlign.center,),),
-          Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 30),),
-          _listaResva(context)
+          //Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 30),),
+            ),
+          _listaResva(context,size),
       ],)
     );
+
+   
   }
 
-_tabla(){
-  return DataTable(
-                sortColumnIndex: 2,
-                sortAscending: false,
-                columns: [
-                  DataColumn(label: Text("Nombre")),
-                  DataColumn(label: Text("Apellido")),
-                  DataColumn(label: Text("Años"), numeric: true),
-                ],
-                rows: [
-                  DataRow(
-                    selected: true,
-                    cells: [
-                    DataCell(Text("Andres"), showEditIcon: true),
-                    DataCell(Text("Cruz")),
-                    DataCell(Text("28"))
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text("Ramos")),
-                    DataCell(Text("Ayu")),
-                    DataCell(Text("999"))
-                  ])
-                ],
-              );
-}
-  _listaResva(context){
-    final size=MediaQuery.of(context).size;
+
+  _listaResva(context,size){
     return FutureBuilder(future: reservaProvider.getreservatodasAdmin(),
     builder: (BuildContext context,
      AsyncSnapshot<List<Reserva>> snapshot){
@@ -147,7 +134,7 @@ _tabla(){
   _verInformacionReserva(Reserva datos,context){
     showDialog(
         context: context,
-        builder: (context) {
+        builder: (context2) {
           return Dialog(
             backgroundColor: Colors.transparent,
             child: SingleChildScrollView(
@@ -174,7 +161,7 @@ _tabla(){
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => Navigator.pop(context2),
                         child: Icon(Icons.close),
                       )
                     ],
@@ -208,7 +195,7 @@ _tabla(){
                           children: <Widget>[
                             Container(
                               width: 200.0,
-                              height: 200.0,
+                              height: 270.0,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -323,6 +310,21 @@ _tabla(){
                                           fontFamily: 'CenturyGothic',
                                           fontWeight: FontWeight.bold,
                                         )),
+                                        SizedBox(height: 10.0),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                          
+                                           RaisedButton(
+                                          onPressed: datos.estado == "Aprobado"|| datos.estado == "Por aprobar" || datos.estado == "*Cancelado*"? null:(){_cancelarReserva(datos.id_reserva.toString(),context,context2);} ,
+                                          child:  Text( 'CANCELAR' , style: TextStyle(fontSize: 20)),
+                                          
+                                        ),
+                                         RaisedButton(
+                                          onPressed: datos.estado == "Aprobado"|| datos.estado == "*Cancelado*"? null:(){_aprobarReserva(datos.id_reserva.toString(),context,context2);},
+                                          child: const Text('APROBAR ', style: TextStyle(fontSize: 20)),
+                                        ),
+                                        ],)
                                   ]),
                             )
                           ],
@@ -339,4 +341,64 @@ _tabla(){
           );
         });
   }
+
+  _aprobarReserva(String id_reserva,BuildContext context,BuildContext context2){
+    
+    reservaProvider.setAprobarReserva(id_reserva).then(((value){
+    Navigator.pop(context2);
+      _alertReservaMensajes(context, value);
+      setState(() {
+      
+    });
+    }));
+  }
+   _cancelarReserva(String id_reserva,BuildContext context,BuildContext context2){
+    reservaProvider.setCancelarReserva(id_reserva).then(((value){
+      
+     Navigator.pop(context2);
+      _alertReservaMensajes(context, value);
+      
+      setState(() {
+      
+    });
+    }));
+  }
+
+   Widget _alertReservaMensajes (BuildContext context,String mensaje){
+
+   showDialog(
+
+     context: context,
+     barrierDismissible: false,
+     builder: (context){
+       return AlertDialog(
+         
+         content: Column(
+           mainAxisSize: MainAxisSize.min,
+           children: <Widget>[
+              CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 40.0,
+                child: Image.asset('recursos/imagenes/logo.png'),
+              ),
+              SizedBox(height: 15.0,),
+              Text(mensaje),
+           ],
+         ),
+
+         actions: <Widget>[
+           FlatButton(
+             child: Text('Aceptar', style: TextStyle(color: Color.fromRGBO(205, 105, 55, 1.0)),),
+             onPressed: () => Navigator.of(context).pop(),
+           ),
+         ],
+        
+
+       );
+     }
+
+
+   );
+
+ }
 }
