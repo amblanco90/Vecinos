@@ -27,6 +27,7 @@ class SubUnidadProvider{
    
 Future <Unidad> getUnidad() async {
     final Map<String, dynamic> authData = {"id_residente": appData.idUsuario , "id_subunidad": appData.idSubunidad};
+    print(authData);
     final response = await client.post(
         "$baseUrl/unidad/get/basico",
         body: json.encode(authData),
