@@ -4,6 +4,7 @@ import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/bloc/provider_visitas.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/cartelera.dart';
+import 'package:edificion247/src/pages/residente/chatvigilante.dart';
 import 'package:edificion247/src/widgets/verNoticia.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
@@ -723,7 +724,7 @@ class _DrawerItemState extends State<DrawerItem> {
       case 17:
         return OtrosPage();
       case 18:
-        return ChatVigilanciaPage();
+        return ChatVigilantePages();
       case 19:
         return ChatAdministradorPages();
       case 20:
@@ -1083,11 +1084,11 @@ Widget _chatResidente(){
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', null,null),
+                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 20,10),
                   SizedBox(
                     width: 10.0,
                   ),
-                  _containerIcono(Icons.security, 'VIGILANTE', null,null),
+                  _containerIcono(Icons.security, 'VIGILANTE', 18,11),
                   SizedBox(
                     width: 10.0,
                   ),

@@ -1,5 +1,4 @@
-
- import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/helpers/message.dart';
 import 'package:flutter/material.dart';
@@ -7,22 +6,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 
-class ChatJuntaDirectivaPage extends StatefulWidget {
+class ChatVigilantePages extends StatefulWidget {
   @override
-  _ChatJuntaDirectivaPageState createState() => _ChatJuntaDirectivaPageState();
+  _ChatVigilantePagesState createState() => _ChatVigilantePagesState();
 }
 
-class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
+class _ChatVigilantePagesState extends State<ChatVigilantePages> {
   final Firestore _firestore = Firestore.instance;
   TextEditingController messageController = TextEditingController();
   ScrollController scrollController= ScrollController();
 
  Future<void> callback() async{
-     var documentReference = Firestore.instance.collection('mensagesEdificiojuntadirectiva'+appData.idUnidad.toString())
+     var documentReference = Firestore.instance.collection('mensagesEdificioVigilante'+appData.idUnidad.toString())
         .document(appData.cedula.toString())
         .collection(appData.cedula.toString())
         .document(DateTime.now().millisecondsSinceEpoch.toString());
-         var documentReference2 = Firestore.instance.collection('useredificiojuntadirectiva'+appData.idUnidad.toString())
+         var documentReference2 = Firestore.instance.collection('useredificiovigilante'+appData.idUnidad.toString())
         .document(appData.cedula.toString());
 
       String menssage=messageController.text;
@@ -45,7 +44,7 @@ class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
          "de":"re"+appData.cedula.toString(),
         "texto":menssage,
         "nombre":appData.nombre,
-        "para":"ju"+appData.cedula.toString(),
+        "para":"vi"+appData.cedula.toString(),
         'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
         },
       );
@@ -65,7 +64,7 @@ class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
         children: <Widget>[
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream:_firestore.collection('mensagesEdificiojuntadirectiva'+appData.idUnidad.toString())
+              stream:_firestore.collection('mensagesEdificioVigilante'+appData.idUnidad.toString())
       .document(appData.cedula.toString())
       .collection(appData.cedula.toString())
       .orderBy('timestamp', descending: true)
