@@ -112,11 +112,12 @@ class _DrawerItemState extends State<DrawerItem> {
                           });
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        child: Column(
+                        child:  Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'PRINCIPAL',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -124,6 +125,7 @@ class _DrawerItemState extends State<DrawerItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 2.0,
                             ),
@@ -165,7 +167,8 @@ class _DrawerItemState extends State<DrawerItem> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
                           children: <Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'FACTURACION',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -173,6 +176,7 @@ class _DrawerItemState extends State<DrawerItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 2.0,
                             ),
@@ -215,7 +219,8 @@ class _DrawerItemState extends State<DrawerItem> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'SOPORTE',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -223,6 +228,7 @@ class _DrawerItemState extends State<DrawerItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 3.0,
                             ),
@@ -244,7 +250,7 @@ class _DrawerItemState extends State<DrawerItem> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )
@@ -824,9 +830,12 @@ class _DrawerItemState extends State<DrawerItem> {
                       height: 5.0,
                     ),
                     Container(
-                        child: Text(appData.nombre + ' ' + appData.apellido,
+                        child: FittedBox(
+                          child: Text(appData.nombre + ' ' + appData.apellido,
                             style: TextStyle(fontFamily: 'CenturyGothic'),
-                            textAlign: TextAlign.left)),
+                            textAlign: TextAlign.left),
+                        ),
+                            ),
                     // DropdownWidget(),
                   ],
                 ),

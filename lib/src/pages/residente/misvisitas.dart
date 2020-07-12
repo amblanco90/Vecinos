@@ -77,14 +77,15 @@ class _VisitaPagesState extends State<VisitaPages> {
                  getImageFromGallery();
                },
             child :Container(
+              width: size.width * 1,
              padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
              child:Row(
+               mainAxisAlignment: MainAxisAlignment.center,
              children: <Widget>[
                Icon(Icons.attach_file),
-               Text('ADJUNTAR FOTO',style: TextStyle(fontSize: 13.0, color: Color.fromRGBO(189, 186, 186, 1),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),),
-               
+               Text('ADJUNTAR FOTO',style: TextStyle( fontSize: 10, color: Color.fromRGBO(189, 186, 186, 1),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),),
                Container(
-                            width: 100.0,
+                            width: size.width * 0.3,
                             height: 100.0,
                             color: Colors.grey.shade200,
                             child: _image == null
@@ -94,6 +95,7 @@ class _VisitaPagesState extends State<VisitaPages> {
                                 : Image.file(_image),
                           ),
                Container(
+                 width: size.width *0.3,
                  padding: EdgeInsets.fromLTRB(size.width*0.05, 4, 5, 4),
                  child:RaisedButton(
                  
@@ -146,10 +148,10 @@ class _VisitaPagesState extends State<VisitaPages> {
               _alertVisitaMensajes(context,"No se puede dejar campos vacio");
               }
           },
-          child: const Text(
+          child: FittedBox(child: Text(
             'GENERAR',
             style: TextStyle(fontSize: 12,color:Color.fromRGBO(205, 105, 55, 1.0) )
-          ),
+          ),),
           )
                )
              ]
@@ -295,7 +297,7 @@ _tablaVisita(BuildContext context){
                     
                     }
                     );
-    }else{
+    }else if (_listavisita.length!=0){
        return     ConstrainedBox(
   constraints: new BoxConstraints(
     maxHeight: 180.0,
@@ -318,6 +320,9 @@ _tablaVisita(BuildContext context){
     ),
   ),
 );
+    }else{
+      _estadolistareserva=false;
+       return Text("No tiene visitas");
     }
     
    

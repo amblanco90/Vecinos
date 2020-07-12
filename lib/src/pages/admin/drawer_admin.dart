@@ -198,7 +198,8 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <prefix.Widget>[
-                            Text(
+                           FittedBox( 
+                             child:  Text(
                               'MI UNIDAD',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -206,6 +207,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                           ),
                             SizedBox(
                               height: 2.0,
                             ),
@@ -249,7 +251,8 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
                           children: <prefix.Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'FACTURACION',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -257,6 +260,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 2.0,
                             ),
@@ -301,7 +305,8 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <prefix.Widget>[
-                            Text(
+                            FittedBox( 
+                              child: Text(
                               'PQR SOPORTE',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -309,6 +314,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11,
                                   fontFamily: 'CenturyGothic'),
+                            ),
                             ),
                             SizedBox(
                               height: 3.0,
@@ -402,9 +408,12 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                       height: 5.0,
                     ),
                     Container(
-                        child: Text(appData.nombre + ' ' + appData.apellido,
+                        child: FittedBox(
+                          child: Text(appData.nombre + ' ' + appData.apellido,
                             style: TextStyle(fontFamily: 'CenturyGothic'),
-                            textAlign: TextAlign.left)),
+                            textAlign: TextAlign.left),
+                        ),
+                    ),
                    // DropdownWidget(),
                   ],
                 ),
@@ -1336,7 +1345,7 @@ _enviados(){
   
       List<Widget> itemchat =  snapshot.data.documents.map((f) {
         var r = f.data['texto'].replaceRange(0, f.data['texto'].length, '...');
-        return _cardMensajes(f.documentID , f.data['nombre'] , (f.data['texto'].length <15)?f.data['texto'] : f.data['texto'].replaceRange(15, f.data['texto'].length, '...'));
+        return _cardMensajes(f.documentID , f.data['nombre'] , (f.data['texto'].length <10)?f.data['texto'] : f.data['texto'].replaceRange(10, f.data['texto'].length, '...'));
 }).toList();
         return ListView(
           padding: EdgeInsets.all(10.0),
@@ -1368,7 +1377,7 @@ _enviados(){
                 SizedBox(width: 15.0,),
                 Text(_nombre, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
                 SizedBox(width: 15.0,),
-                 Text(_mensaje, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                 Text(_mensaje, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 13.0),), 
                 Expanded(
                                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
