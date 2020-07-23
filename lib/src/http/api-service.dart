@@ -296,17 +296,23 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){ 
       appData.idUsuario = datos["id"];
-      appData.saldo = datos["lista_subunidades"][0]["saldo"];
+      if(datos["lista_subunidades"]!=null){
+        appData.saldo = datos["lista_subunidades"][0]["saldo"];
       appData.tipoUnidad = datos["lista_subunidades"][0]["nombre_tipo_unidad"];
       appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
       appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
       appData.unidadInicial = datos["lista_subunidades"][0];
-      appData.idUnidad=datos["id_unidad"];
-      appData.url_pago=datos["url_pago"];
       for (var item in datos["lista_subunidades"]) {
         
         appData.unidades.add(item);
       }
+        
+        
+      }
+      
+      appData.idUnidad=datos["id_unidad"];
+      appData.url_pago=datos["url_pago"];
+      
       //print(appData.unidades);
 
       
