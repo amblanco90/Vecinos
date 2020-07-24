@@ -1,0 +1,232 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.vecinos.edificion247"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:3:5-66
+14-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:3:22-64
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:4:5-65
+15-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:4:22-62
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+16-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:5:5-81
+16-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:5:22-78
+17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+17-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:6:5-80
+17-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:6:22-77
+18    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+18-->[:geolocator] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+18-->[:geolocator] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+19    <!-- <uses-sdk android:minSdkVersion="14" /> -->
+20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+20-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\991d1e8f63f066093a6b23b849b1ec9d\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:13:5-79
+20-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\991d1e8f63f066093a6b23b849b1ec9d\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:13:22-76
+21    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+21-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:24:5-68
+21-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:24:22-65
+22    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+22-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:26:5-82
+22-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:26:22-79
+23    <!--
+24 io.flutter.app.FlutterApplication is an android.app.Application that
+25         calls FlutterMain.startInitialization(this); in its onCreate method.
+26         In most cases you can leave this as-is, but you if you want to provide
+27         additional functionality it is fine to subclass or reimplement
+28         FlutterApplication and put your custom class here.
+29    -->
+30    <application
+30-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:12:5-37:19
+31        android:name="io.flutter.app.FlutterApplication"
+31-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:13:9-57
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.1.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\3aaf6e5219b7f981ec263df919098c6f\core-1.1.0\AndroidManifest.xml:24:18-86
+33        android:debuggable="true"
+34        android:icon="@mipmap/ic_launcher"
+34-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:15:9-43
+35        android:label="Vecinos247" >
+35-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:14:9-35
+36        <activity
+36-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:16:9-31:20
+37            android:name="com.vecinos.edificion247.MainActivity"
+37-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:17:13-41
+38            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+38-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:20:13-163
+39            android:hardwareAccelerated="true"
+39-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:21:13-47
+40            android:launchMode="singleTop"
+40-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:18:13-43
+41            android:theme="@style/LaunchTheme"
+41-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:19:13-47
+42            android:windowSoftInputMode="adjustResize" >
+42-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:22:13-55
+43            <intent-filter>
+43-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:23:13-26:29
+44                <action android:name="android.intent.action.MAIN" />
+44-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:24:17-68
+44-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:24:25-66
+45
+46                <category android:name="android.intent.category.LAUNCHER" />
+46-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:25:17-76
+46-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:25:27-74
+47            </intent-filter>
+48            <intent-filter>
+48-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:27:13-30:29
+49                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+49-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:28:17-69
+49-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:28:25-66
+50
+51                <category android:name="android.intent.category.DEFAULT" />
+51-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:29:17-76
+51-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:29:27-73
+52            </intent-filter>
+53        </activity>
+54        <!--
+55             Don't delete the meta-data below.
+56             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+57        -->
+58        <meta-data
+58-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:34:9-36:33
+59            android:name="flutterEmbedding"
+59-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:35:13-44
+60            android:value="2" />
+60-->C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\android\app\src\main\AndroidManifest.xml:36:13-30
+61
+62        <service
+62-->[:cloud_firestore] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+63            android:name="com.google.firebase.components.ComponentDiscoveryService"
+63-->[:cloud_firestore] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+64            android:directBootAware="true"
+64-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+65            android:exported="false" >
+65-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\991d1e8f63f066093a6b23b849b1ec9d\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:19:13-37
+66            <meta-data
+66-->[:cloud_firestore] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+67                android:name="com.google.firebase.components:io.flutter.plugins.firebase.cloudfirestore.FlutterFirebaseAppRegistrar"
+67-->[:cloud_firestore] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-133
+68                android:value="com.google.firebase.components.ComponentRegistrar" />
+68-->[:cloud_firestore] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+69            <meta-data
+69-->[:firebase_core] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+70                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
+70-->[:firebase_core] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-123
+71                android:value="com.google.firebase.components.ComponentRegistrar" />
+71-->[:firebase_core] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+72            <meta-data
+72-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-16:85
+73                android:name="com.google.firebase.components:io.flutter.plugins.firebasemessaging.FlutterFirebaseAppRegistrar"
+73-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-127
+74                android:value="com.google.firebase.components.ComponentRegistrar" />
+74-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:17-82
+75            <meta-data
+75-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\991d1e8f63f066093a6b23b849b1ec9d\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:20:13-22:85
+76                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+76-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\991d1e8f63f066093a6b23b849b1ec9d\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:21:17-111
+77                android:value="com.google.firebase.components.ComponentRegistrar" />
+77-->[com.google.firebase:firebase-firestore:21.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\991d1e8f63f066093a6b23b849b1ec9d\jetified-firebase-firestore-21.3.0\AndroidManifest.xml:22:17-82
+78            <meta-data
+78-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:32:13-34:85
+79                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+79-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:33:17-96
+80                android:value="com.google.firebase.components.ComponentRegistrar" />
+80-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:34:17-82
+81        </service>
+82        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
+82-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+82-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
+83            <intent-filter>
+83-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+84                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+84-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+84-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+85            </intent-filter>
+86        </service>
+87
+88        <provider
+88-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+89            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+89-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+90            android:authorities="com.vecinos.edificion247.flutter.image_provider"
+90-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+91            android:exported="false"
+91-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+92            android:grantUriPermissions="true" >
+92-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+93            <meta-data
+93-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+94                android:name="android.support.FILE_PROVIDER_PATHS"
+94-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+95                android:resource="@xml/flutter_image_picker_file_paths" />
+95-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+96        </provider>
+97        <!--
+98             FirebaseMessagingService performs security checks at runtime,
+99             but set to not exported to explicitly avoid allowing another app to call it.
+100        -->
+101        <service
+101-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:28:9-34:19
+102            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+102-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:29:13-82
+103            android:exported="false" >
+103-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:30:13-37
+104            <intent-filter android:priority="-500" >
+104-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+105                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+105-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+105-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+106            </intent-filter>
+107        </service>
+108
+109        <receiver
+109-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:37:9-44:20
+110            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+110-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:38:13-78
+111            android:exported="true"
+111-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:39:13-36
+112            android:permission="com.google.android.c2dm.permission.SEND" >
+112-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:40:13-73
+113            <intent-filter>
+113-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:41:13-43:29
+114                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+114-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:42:17-81
+114-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:42:25-78
+115            </intent-filter>
+116        </receiver>
+117
+118        <activity
+118-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+119            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+119-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+120            android:exported="false"
+120-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+121            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+121-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+122
+123        <provider
+123-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+124            android:name="com.google.firebase.provider.FirebaseInitProvider"
+124-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+125            android:authorities="com.vecinos.edificion247.firebaseinitprovider"
+125-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+126            android:exported="false"
+126-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+127            android:initOrder="100" />
+127-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+128
+129        <meta-data
+129-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+130            android:name="com.google.android.gms.version"
+130-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+131            android:value="@integer/google_play_services_version" />
+131-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+132    </application>
+133
+134</manifest>
