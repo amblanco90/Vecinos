@@ -44,6 +44,9 @@ class Reserva {
     String observaciones; 
     int id_zona_social;
     String nombre_zona;
+    String estado;
+    String residente;
+    String subunidad;
   Reserva({
     this.id_reserva,
     this.res_valor,
@@ -52,6 +55,9 @@ class Reserva {
     this.nombre_zona,
     this.id_zona_social,
     this.observaciones,
+    this.estado,
+    this.residente,
+    this.subunidad
   });
 
   factory Reserva.fromJson(Map<String, dynamic> json)=> Reserva(
@@ -62,5 +68,8 @@ class Reserva {
     nombre_zona: json['nombre_zona'],
     id_zona_social: json['id_zona_social'],
     observaciones: json['observaciones'],
+    estado: json['estado'],
+    residente: json['residente'],
+    subunidad: json['subunidad'],
   );
 }

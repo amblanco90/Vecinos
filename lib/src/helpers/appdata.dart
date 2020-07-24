@@ -59,6 +59,7 @@ class AppData {
   int saldo;
   String tipoUnidad;
   String nombreSubUnidad;
+  String url_pago='';
   String emergencia = 'Incendio';
   Map<dynamic,dynamic> unidadInicial = {};
   List<Map<dynamic,dynamic>> unidades =[];

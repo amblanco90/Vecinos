@@ -1,7 +1,5 @@
 import 'package:edificion247/src/helpers/message.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 
 class ChatPages extends StatefulWidget {
 

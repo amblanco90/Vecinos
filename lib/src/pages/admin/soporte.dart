@@ -5,7 +5,8 @@ import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:edificion247/src/providers/pqrProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'  as prefix ;
+import 'package:flutter/material.dart' ;
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -58,7 +59,7 @@ class _SoportePagesState extends State<SoportePages> {
   
 
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     pr = new ProgressDialog(context);
     pr.style(
         message: 'Guardando...',
@@ -119,7 +120,7 @@ class _SoportePagesState extends State<SoportePages> {
     return SingleChildScrollView(
       child: Container(
         child: Column(
-          children: <Widget>[
+          children:<prefix.Widget>[
             Card(
               margin: EdgeInsets.symmetric(horizontal: 10.0),
               color: Colors.white,
@@ -140,11 +141,11 @@ class _SoportePagesState extends State<SoportePages> {
                   ],
                 ),
                 child: Column(
-                  children: <Widget>[
+                  children: <prefix.Widget>[
                     Container(
                       padding: EdgeInsets.all(10.0),
                       child: Column(
-                        children: <Widget>[
+                        children: <prefix.Widget>[
                          
                           SizedBox(height: 10.0),
                           descripcion
@@ -154,7 +155,7 @@ class _SoportePagesState extends State<SoportePages> {
                     Container(
                       padding: EdgeInsets.all(20.0),
                       child: Column(
-                        children: <Widget>[
+                        children: <prefix.Widget>[
                           Container(
                             width: 100.0,
                             height: 100.0,
@@ -167,11 +168,11 @@ class _SoportePagesState extends State<SoportePages> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
+                            children: <prefix.Widget>[
                               Container(
                                   padding: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Row(
-                                    children: <Widget>[
+                                    children: <prefix.Widget>[
                                       FloatingActionButton(
                                         heroTag: 'cam',
                                         onPressed: getImageFromCam,
@@ -282,7 +283,7 @@ class _SoportePagesState extends State<SoportePages> {
              padding: EdgeInsets.all(10.0),
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
-               children: <Widget>[
+               children: <prefix.Widget>[
                  Text(snapshot.data[index].fechaCreacion, style: TextStyle(color: Colors.grey.shade700, fontWeight: FontWeight.bold, fontFamily: 'CenturyGothic'),),
                  Text('DESCRIPCION', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 15.0, fontFamily: 'CenturyGothic'),),
                  

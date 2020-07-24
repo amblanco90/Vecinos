@@ -1,8 +1,10 @@
 
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/facturas.dart';
 import 'package:edificion247/src/providers/facturasProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MisFacturas extends StatelessWidget {
   @override
@@ -12,36 +14,24 @@ class MisFacturas extends StatelessWidget {
   return _listaFacturas(context);
      
   }
+  _launchURL(url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
   _listaFacturas(context){
     return FutureBuilder(future:facturaprovider.getlistafactura() ,
     builder: (BuildContext context,
-    AsyncSnapshot<List<DatosFacturas>> snapshot){
+    AsyncSnapshot<DatosFacturas> snapshot){
       if(snapshot.connectionState == ConnectionState.done){
-          return     ConstrainedBox(
-  constraints: new BoxConstraints(
-    maxHeight: 280.0,
-    
-  ),
-
-  child: 
-      Container(
- 
-    padding:  EdgeInsets.all(10.0),
-    child: Scrollbar(
-        
-        child: new ListView.builder(
-          itemCount: snapshot.data.length,
-          itemBuilder: (context, index) {
-            return  _cardMensajesFacturas(snapshot.data[index].id_factura.toString(),snapshot.data[index].fecha_factura,snapshot.data[index].total.toString(),snapshot.data[index].saldo.toString(),index % 2 == 0 ? Color.fromRGBO(254, 215, 185, 1) :Color.fromRGBO(217, 218, 229  , 1) ,snapshot.data[index].conceptos,context);
-            
-  },
-        ),
-        
-    ),
-  ),
-  
-  
-);
+        if(snapshot.data.id_factura != null){
+             return _cardMensajesFacturas(snapshot.data,context);
+        }else{
+          return Center(child: Text('En estos momentos no tiene facturas disponibles',style: TextStyle(fontSize: 20.0),textAlign: TextAlign.center,),);
+        }
+         
       }else{
         return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -55,47 +45,80 @@ class MisFacturas extends StatelessWidget {
 
     });
   }
-Widget _cardMensajesFacturas(String id_factura ,String fecha_factura,String total,String saldo,color,conceptos,context){
+Widget _cardMensajesFacturas(DatosFacturas datos,context){
     
-  return  GestureDetector(  
-         child: Card(
-           color: color,
-           child: Container(
+    final size=MediaQuery.of(context).size;
+  return   SingleChildScrollView(
+    child:Container(
              padding: EdgeInsets.symmetric(horizontal:5.0, vertical: 2.0),
              margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 0.0),
-             child: Row(
+             child: Column(
                children: <Widget>[
-                 
-                Text(id_factura, style: TextStyle(color: Colors.black, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 13.0),),
-                SizedBox(width: 15.0,),
-                 Text(fecha_factura, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
-                 SizedBox(width: 50.0,),
-                 Text(total, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
-                SizedBox(width: 50.0,),
-                 Text(saldo, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
-               
-               
-                Expanded(
-                                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
+                Center(child: Text("INFORMACION FACTURA", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),),
+                SizedBox(height: 50.0,),
+                Text("ID FACTURA", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),
+                SizedBox(height: 10.0,),
+                Text(datos.id_factura.toString(), style: TextStyle(color: Colors.black, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 13.0),),
+                SizedBox(height: 20.0,),
+                Text("FECHA FACTURA", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),
+                Text(datos.fecha_factura, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                SizedBox(height: 20.0,),
+                Text("NOMBRE RESIDENTE ", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),
+                Text(datos.nombre, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                SizedBox(height: 20.0,),
+                Text("NOMBRE UNIDAD ", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),
+                Text(datos.nombre_unidad, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),), 
+                SizedBox(height: 20.0,),
+                Text("SALDO", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),
+                Text(datos.saldo.toString(), style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
+                SizedBox(height: 20.0,),
+                Text("TOTAL ", style: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 25.0),textAlign: TextAlign.center,),
+                Text(datos.total.toString(), style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),  
+               SizedBox(height: 50.0,),
+Container(
+       margin: EdgeInsets.symmetric(horizontal: 80.0 ),
+       padding: EdgeInsets.symmetric(vertical: 7.0),
+       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+         
+          RaisedButton(
+         color:  Color.fromRGBO(255, 153, 29, 1.0) ,
+                 shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5),),
+          onPressed: () {
+            showSimpleCustomDialog(context,datos.conceptos);
+          },
+          child:  Text(
+            "VER MAS",
+           textAlign: TextAlign.center,  style:TextStyle(fontSize:  18.0 , color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold,)
+          ),
+          ),
+          RaisedButton(
+         color:  Color.fromRGBO(255, 153, 29, 1.0) ,
+                 shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5),),
+          onPressed: ()   {
+               _launchURL(appData.url_pago);
+          },
+          child:  Text(
+            "PAGAR",
+           textAlign: TextAlign.center,  style:TextStyle(fontSize:  18.0 , color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold,)
+          ),
+          )
+       ],)
+     ),
 
-                     Text('VER MAS', style: TextStyle(color: Color.fromRGBO(240, 75, 14 , 1),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 15.0),),
-
-                    ],
-                  ),
-                )
+              
+        
               ],
              ),
-           ),
-         ), onTap: (){
-           showSimpleCustomDialog(context,conceptos);
-                  //_alertFacturas(context, conceptos);
-                  },
-                  );
+           ) ,
+    );
+           
 
 }
+
 Widget _alertFacturas (BuildContext context,conceptos){
   final entidades=new ListaConceptos.fromJsonList(conceptos);
     entidades.items.reversed.toList();

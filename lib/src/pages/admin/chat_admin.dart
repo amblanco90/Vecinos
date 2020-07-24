@@ -12,6 +12,7 @@ class _ChatPageAdminState extends State<ChatPageAdmin> {
    final Firestore _firestore = Firestore.instance;
   @override
   Widget build(BuildContext context) {
+    print(appData.idUnidad.toString());
       return SingleChildScrollView(
         child: Stack(
           children: <Widget>[

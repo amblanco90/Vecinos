@@ -14,10 +14,14 @@ class OtrosProvider{
     final response = await client.post("$baseUrl/nucleo_familiar/list/otros",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
+        try{
     final decodedData = json.decode(response.body);
 final entidades = new ListaHijo.fromJsonList(decodedData);
 
     return entidades.items.reversed.toList();
+    }catch(e){
+      return [];
+    }
   
   }
 }

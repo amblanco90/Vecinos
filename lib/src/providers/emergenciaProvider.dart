@@ -14,7 +14,11 @@ import 'package:http/http.dart';
   Future generarEmergencia(BuildContext context, String mensaje) async {
 
   
-  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario,"id_subunidad":appData.idSubunidad, "mensaje":mensaje, "username": appData.cedula,"id_perfil":appData.rol=="Residente"?100:300};
+  final Map<String, dynamic> authData = {"id_residente": appData.idUsuario,
+  
+  "mensaje": mensaje + ' | ' + appData.nombreSubUnidad,
+  "username": appData.cedula,
+  "id_perfil":appData.rol=="Residente"?100:300};
   print(authData);
     Client client = Client();
     final response = await client.post(

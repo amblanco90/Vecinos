@@ -49,9 +49,9 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
         },
       );
     });
-    
-      messageController.clear();
-      scrollController.animateTo(scrollController.position.maxScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
+     messageController.clear();
+      scrollController.animateTo(scrollController.position.minScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
+      
 
     }
   }
@@ -88,8 +88,7 @@ class _ChatAdministradorPagesState extends State<ChatAdministradorPages> {
                     reverse: true,
                     controller: scrollController,
                     children: <Widget>[
-                      ...mensajes,
-
+                     ...mensajes,
                     ],
                   );  
                 }
@@ -135,6 +134,7 @@ class Mensaje extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Container( 
+        margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
         child:Column(
           crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[

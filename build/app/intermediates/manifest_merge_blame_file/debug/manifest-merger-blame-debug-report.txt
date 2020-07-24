@@ -5,7 +5,7 @@
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="16"
+8        android:minSdkVersion="21"
 9        android:targetSdkVersion="28" />
 10    <!--
 11         Flutter needs it to communicate with the running application
@@ -150,83 +150,109 @@
 85            </intent-filter>
 86        </service>
 87
-88        <provider
-88-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
-89            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-89-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
-90            android:authorities="com.vecinos.edificion247.flutter.image_provider"
-90-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
-91            android:exported="false"
-91-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
-92            android:grantUriPermissions="true" >
-92-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
-93            <meta-data
-93-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
-94                android:name="android.support.FILE_PROVIDER_PATHS"
-94-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
-95                android:resource="@xml/flutter_image_picker_file_paths" />
-95-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
-96        </provider>
-97        <!--
-98             FirebaseMessagingService performs security checks at runtime,
-99             but set to not exported to explicitly avoid allowing another app to call it.
-100        -->
-101        <service
-101-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:28:9-34:19
-102            android:name="com.google.firebase.messaging.FirebaseMessagingService"
-102-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:29:13-82
-103            android:exported="false" >
-103-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:30:13-37
-104            <intent-filter android:priority="-500" >
-104-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
-105                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-105-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
-105-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
-106            </intent-filter>
-107        </service>
-108
-109        <receiver
-109-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:37:9-44:20
-110            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
-110-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:38:13-78
-111            android:exported="true"
-111-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:39:13-36
-112            android:permission="com.google.android.c2dm.permission.SEND" >
-112-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:40:13-73
-113            <intent-filter>
-113-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:41:13-43:29
-114                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-114-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:42:17-81
-114-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:42:25-78
-115            </intent-filter>
-116        </receiver>
-117
-118        <activity
-118-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
-119            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-119-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
-120            android:exported="false"
-120-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
-121            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-121-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+88        <activity
+88-->[:url_launcher] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+89            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+89-->[:url_launcher] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+90            android:exported="false"
+90-->[:url_launcher] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+91            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+91-->[:url_launcher] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+92
+93        <provider
+93-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
+94            android:name="de.esys.esysfluttershare.EsysFlutterShareFileProvider"
+94-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-81
+95            android:authorities="com.vecinos.edificion247.fileprovider.github.com/orgs/esysberlin/esys-flutter-share"
+95-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-110
+96            android:exported="false"
+96-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
+97            android:grantUriPermissions="true" >
+97-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
+98            <meta-data
+98-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:72
+99                android:name="android.support.FILE_PROVIDER_PATHS"
+99-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+100                android:resource="@xml/esys_flutter_share_filepaths" />
+100-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-69
+101        </provider>
+102        <provider
+102-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+103            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+103-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+104            android:authorities="com.vecinos.edificion247.flutter.image_provider"
+104-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+105            android:exported="false"
+105-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+106            android:grantUriPermissions="true" >
+106-->[:image_picker] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+107            <meta-data
+107-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:72
+108                android:name="android.support.FILE_PROVIDER_PATHS"
+108-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+109                android:resource="@xml/flutter_image_picker_file_paths" />
+109-->[:esys_flutter_share] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\esys_flutter_share\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-69
+110        </provider>
+111        <!--
+112             FirebaseMessagingService performs security checks at runtime,
+113             but set to not exported to explicitly avoid allowing another app to call it.
+114        -->
+115        <service
+115-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:28:9-34:19
+116            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+116-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:29:13-82
+117            android:exported="false" >
+117-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\7d7ed9e0ca96d19fd4a210a1d58e4103\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:30:13-37
+118            <intent-filter android:priority="-500" >
+118-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+119                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+119-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+119-->[:firebase_messaging] C:\Users\AM BLANCO\OneDrive\Escritorio\pruebass\Vecinos\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+120            </intent-filter>
+121        </service>
 122
-123        <provider
-123-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
-124            android:name="com.google.firebase.provider.FirebaseInitProvider"
-124-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
-125            android:authorities="com.vecinos.edificion247.firebaseinitprovider"
-125-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
-126            android:exported="false"
-126-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
-127            android:initOrder="100" />
-127-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
-128
-129        <meta-data
-129-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
-130            android:name="com.google.android.gms.version"
-130-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
-131            android:value="@integer/google_play_services_version" />
-131-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
-132    </application>
-133
-134</manifest>
+123        <receiver
+123-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:37:9-44:20
+124            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+124-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:38:13-78
+125            android:exported="true"
+125-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:39:13-36
+126            android:permission="com.google.android.c2dm.permission.SEND" >
+126-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:40:13-73
+127            <intent-filter>
+127-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:41:13-43:29
+128                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+128-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:42:17-81
+128-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\8ae3a27e5f765ecccfa84ccab34e1473\firebase-iid-20.0.1\AndroidManifest.xml:42:25-78
+129            </intent-filter>
+130        </receiver>
+131
+132        <activity
+132-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+133            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+133-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+134            android:exported="false"
+134-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+135            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+135-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\4c0b774c09d5393feb013f0dbe753af3\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+136
+137        <provider
+137-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+138            android:name="com.google.firebase.provider.FirebaseInitProvider"
+138-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+139            android:authorities="com.vecinos.edificion247.firebaseinitprovider"
+139-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+140            android:exported="false"
+140-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+141            android:initOrder="100" />
+141-->[com.google.firebase:firebase-common:19.3.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\05258242e03015a1593688dc7224779e\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+142
+143        <meta-data
+143-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+144            android:name="com.google.android.gms.version"
+144-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+145            android:value="@integer/google_play_services_version" />
+145-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\AM BLANCO\.gradle\caches\transforms-2\files-2.1\927fccf4fe4ea1ba193270726027dc88\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+146    </application>
+147
+148</manifest>

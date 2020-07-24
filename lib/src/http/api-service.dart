@@ -23,7 +23,7 @@ class ApiService {
 
   final String baseUrl = "http://18.191.213.12//api";
   Client client = Client();
-Future<dynamic> borrarReserva(int id) async {
+  Future<dynamic> borrarReserva(int id) async {
   final response = await client.post(
     "$baseUrl/reserva/delete",
     headers: {"content-type": "application/json"},
@@ -175,6 +175,29 @@ Future<List<dynamic>> listarVsitas(String id) async {
   }
 } 
 
+Future<dynamic> getDisponibilidadZona(String id_zona,String fecha) async {
+    final Map<String, dynamic> authData = {"id_zona":id_zona,"fecha":fecha};
+    
+    final response = await client.post(
+        "$baseUrl/zonas/disponibilidad",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+        if (response.statusCode == 200) {
+    final datos = json.decode(response.body);
+    try{
+         if(datos['resp'] == "error"){
+      return datos['resp'];
+    }
+    }catch(Exeption){
+      return datos;
+    }
+   
+  } else {
+    return null;
+  }
+    return json.decode(response.body);
+  }
+
 Future<List<dynamic>> listarReserva(String id) async {
   final response = await client.post(
     "$baseUrl/reserva/list",
@@ -204,7 +227,6 @@ Future<String> guardarReserva(DatosReserva data) async {
     body: reservaToJson(data),
   );
   
-    print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){
@@ -217,7 +239,7 @@ Future<String> guardarReserva(DatosReserva data) async {
   }
 }
 
-Future<bool> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,cedula_familiar,nombre_familiar,correo_familiar,movil_familiar,direccion_familiar) async {
+Future<String> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,cedula_familiar,nombre_familiar,correo_familiar,movil_familiar,direccion_familiar) async {
   print(nombre_familiar);
   final response = await client.post(
     "$baseUrl/nucleo_familiar/save",
@@ -229,23 +251,24 @@ Future<bool> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,ce
   "id_familiar":id_familiar,
   "cedula_familiar": cedula_familiar,
   "nombre_familiar": nombre_familiar,
-  "apellidos_familiar": ".",
+  "apellidos_familiar": "",
   "correo_familiar": correo_familiar,
   "movil_familiar": movil_familiar,
   "direccion_familiar": direccion_familiar,
   "username": appData.cedula
 }),
   );
+  print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     print(response.body);
-    if(datos["resp"]=="ok"){
-      return true;
+    if(datos["msj"]=="ok"){
+      return "";
     }else{
-      return false;
+      return datos["msj"];
     }
   } else {
-    return false;
+    return "a ocurrido un error";
   }
 }
 Future<bool> createProfile(DatosVisitas data) async {
@@ -273,26 +296,52 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){ 
       appData.idUsuario = datos["id"];
-      appData.saldo = datos["lista_subunidades"][0]["saldo"];
-      appData.tipoUnidad = datos["lista_subunidades"][0]["nombre_tipo_unidad"];
-      appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
-      appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
-      appData.unidadInicial = datos["lista_subunidades"][0];
-      appData.idUnidad=datos["id_unidad"];
+      if(datos["lista_subunidades"]!=null){
+        appData.saldo = datos["lista_subunidades"][0]["saldo"];
+        appData.tipoUnidad = datos["lista_subunidades"][0]["nombre_tipo_unidad"];
+        appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
+        appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
+        appData.unidadInicial = datos["lista_subunidades"][0];
       for (var item in datos["lista_subunidades"]) {
         
         appData.unidades.add(item);
       }
+        
+        
+      }else{
+        appData.idSubunidad=0;
+      }
+      
+      appData.idUnidad=datos["id_unidad"];
+      appData.url_pago=datos["url_pago"];
+      
       //print(appData.unidades);
+       for (var item in datos["perfiles"]) {
+        
+        print(item);
+      }
 
       
       appData.cedula= datos["cedula"];
       if(datos["perfiles"].length==1){
 
-        appData.permisos='Residente';
+        if(datos["perfiles"][0]["id_perfil"]==200){
 
-      }else{
+          appData.permisos='Familiar';
+          print(appData.permisos);        }
+          else if(datos["perfiles"][0]["id_perfil"]==100 ){
+
+          appData.permisos='Residente';
+             print(appData.permisos);  
+        }else {
+          appData.permisos='Admini' ;  
+           print(appData.permisos);  
+          }
+
+
+      }else if(datos["perfiles"].length==2) {
         appData.permisos='Administrador';
+         print(appData.permisos);  
       }
       
       final prefs = await SharedPreferences.getInstance();

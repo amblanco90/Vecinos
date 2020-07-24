@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/pqr.dart';
 import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 import 'package:edificion247/src/providers/pqrProvider.dart';
@@ -41,7 +42,7 @@ class _PqrUnidadesState extends State<PqrUnidades> {
             SizedBox(
               height: 10.0,
             ),
-            Row(
+         appData.permisos=='Admini' || appData.permisos =='Administrador'? Container():    Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -66,7 +67,7 @@ class _PqrUnidadesState extends State<PqrUnidades> {
             SizedBox(
               height: 10.0,
             ),
-            Padding(
+    appData.permisos=='Admini' || appData.permisos =='Administrador'? Container():        Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
                 height: 7.0,
@@ -79,7 +80,7 @@ class _PqrUnidadesState extends State<PqrUnidades> {
             SizedBox(
               height: 10.0,
             ),
-            GestureDetector(
+        appData.permisos=='Admini' || appData.permisos =='Administrador'? Container():     GestureDetector(
               onTap: () {
                 
                 gg(context, refresh);

@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1  
 
 environment:
-  sdk: ">=2.1.0 <3.0.0" 
+  sdk: ">=2.7.0 <3.0.0" 
  
 dependencies:  
   flutter: 
@@ -27,6 +27,7 @@ dependencies:
   geolocator: 
   usage: 
   toast:
+  fluttertoast: ^4.0.1
   page_transition: 
   flutter_icons: ^1.0.0
   http: ^0.12.0+4
@@ -38,10 +39,16 @@ dependencies:
   firebase_core: ^0.4.4
   cloud_firestore: ^0.13.4+2 
   firebase_messaging: ^6.0.13
-  flushbar: ^1.10.4
+  flushbar: 
+  esys_flutter_share: ^1.0.2
+  path_provider:
+  url_launcher: ^5.4.10
+
+
 
   
   
+
  
 
   
@@ -54,7 +61,6 @@ dependencies:
   rxdart: 
   flutter_map: 
   
-  fluttertoast:
   shared_preferences:
 
 flutter_icons:
@@ -133,3 +139,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+analyzer:
+  enable-experiment:
+    - control-flow-collections
+module:
+    androidX: true    

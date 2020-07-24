@@ -12,6 +12,7 @@ import 'package:edificion247/src/pages/residente/misvisitas.dart';
 import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix;
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -31,20 +32,20 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
   var color = Colors.transparent;
   ProgressDialog pr;
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
+        children: <prefix.Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
+              children: <prefix.Widget>[
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
+                  children: <prefix.Widget>[
                     SizedBox(
                       height: 2.0,
                     ),
@@ -75,7 +76,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       Center(
                         child: fotoUsuario(),
                       ),
@@ -110,7 +111,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
            Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              
-             children: <Widget>[
+             children: <prefix.Widget>[
                _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES'),
                SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS'),
@@ -147,7 +148,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
     );
   }
 
-  Widget _fotoUsuario() {
+  prefix.Widget _fotoUsuario() {
     return Container(
       width: 150,
       height: 150,
@@ -159,7 +160,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
                   Container(
                       decoration: new BoxDecoration(
                           shape: BoxShape.circle,
@@ -170,7 +171,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       GestureDetector(
                         onTap: () {},
                         child: Icon(
@@ -193,7 +194,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
 
   containerIcono(IconData iconData, leyenda) {
     return Column(
-      children: <Widget>[
+      children: <prefix.Widget>[
         SizedBox(
           height: 10.0,
         ),
@@ -295,7 +296,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
 
  }
 
-  Widget infoText(controller,nombre) {
+  prefix.Widget infoText(controller,nombre) {
     return Container(
       color: color,
       margin: EdgeInsets.symmetric(horizontal: 30.0),
@@ -323,7 +324,7 @@ class _MiPerfilAdminPagesState extends State<MiPerfilAdminPages> {
   _containerIcono( iconData, leyenda){
 
    return GestureDetector(child: Column(
-     children: <Widget>[
+     children: <prefix.Widget>[
        SizedBox(height: 10.0,),
        Container( 
                   width: 100.0,
@@ -403,7 +404,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  prefix.Widget build(BuildContext context) {
     return Container(
       width: 150,
       height: 150,
@@ -415,7 +416,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
             backgroundColor: Color.fromRGBO(255, 114, 0, 1.0),
             child: Stack(
                 alignment: AlignmentDirectional.center,
-                children: <Widget>[
+                children: <prefix.Widget>[
 Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -428,7 +429,7 @@ Container(
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: <prefix.Widget>[
                       IconButton(
                         onPressed: () {
                           getImageFromCam();

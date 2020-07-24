@@ -1,7 +1,11 @@
+
+ import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/helpers/message.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+
 
 class ChatJuntaDirectivaPage extends StatefulWidget {
   @override
@@ -9,107 +13,149 @@ class ChatJuntaDirectivaPage extends StatefulWidget {
 }
 
 class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
-     final List<Message> _messages = <Message>[];
+  final Firestore _firestore = Firestore.instance;
+  TextEditingController messageController = TextEditingController();
+  ScrollController scrollController= ScrollController();
 
-  final _textController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-  DateTime time = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(time);
-    return Container(
-       child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.white,
-            child: new Container(
-              child: new Column(
-                children: <Widget>[
-                  //Chat list
-                  new Flexible(
-                    child: new ListView.builder(
-                      padding: new EdgeInsets.all(8.0),
-                      reverse: true,
-                      itemBuilder: (_, int index) => _messages[index],
-                      itemCount: _messages.length,
-                    ),
-                  ),
-                  new Divider(height: 1.0),
-                  new Container(
-                      decoration:
-                          new BoxDecoration(color: Theme.of(context).cardColor),
-                      child: new IconTheme(
-                          data: new IconThemeData(
-                              color: Theme.of(context).accentColor),
-                          child: new Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                            child: new Row(
-                              children: <Widget>[
-                                //left send button
+ Future<void> callback() async{
+     var documentReference = Firestore.instance.collection('mensagesEdificiojuntadirectiva'+appData.idUnidad.toString())
+        .document(appData.cedula.toString())
+        .collection(appData.cedula.toString())
+        .document(DateTime.now().millisecondsSinceEpoch.toString());
+         var documentReference2 = Firestore.instance.collection('useredificiojuntadirectiva'+appData.idUnidad.toString())
+        .document(appData.cedula.toString());
 
-                                Container(width: 10.0,),
-                                //Enter Text message here
-                                new Flexible(
-                                  child: new TextField(
-                                    
-                                    controller: _textController,
-                                    decoration: new InputDecoration.collapsed(
-                                        hintText: "Enter message"),
-                                  ),
-                                ),
-
-                                  new Container(
-                                    width: 48.0,
-                                    height: 48.0,
-                                    child: new IconButton(
-                                        icon: Icon(Icons.send ,color: Color.fromRGBO(255, 153, 29, 0.9) ,),
-                                        onPressed: () => _sendMsg(
-                                            _textController.text,
-                                            'left',
-                                            formattedDate)),
-                                ),
-
-
-                                //right send button
-
-                              ],
-                            ),
-                          ))),
-                ],
-              ),
-            ))
-    );
-  }
-void _sendMsg(String msg, String messageDirection, String date) {
-    if (msg.length == 0) {
-      Fluttertoast.showToast(
-          msg: "Escriba su mensaje aquí",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 1,
-          backgroundColor:  Color.fromRGBO(255, 153, 29, 0.9) ,);
-    } else {
-      _textController.clear();
-      Message message = new Message(
-        msg: msg,
-        direction: messageDirection,
-        dateTime: date,
+      String menssage=messageController.text;
+    if (messageController.text.length> 0){
+       Firestore.instance.runTransaction((transaction) async {
+      await transaction.set(
+        documentReference2,
+        {
+         "cedula":appData.cedula.toString(),
+        "texto":menssage,
+        "nombre":appData.nombre,
+        'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
+        },
       );
-      setState(() {
-        _messages.insert(0, message);
-      });
+    });
+          Firestore.instance.runTransaction((transaction) async {
+      await transaction.set(
+        documentReference,
+        {
+         "de":"re"+appData.cedula.toString(),
+        "texto":menssage,
+        "nombre":appData.nombre,
+        "para":"ju"+appData.cedula.toString(),
+        'timestamp': DateTime.now().millisecondsSinceEpoch.toString(),
+        },
+      );
+    });
+     messageController.clear();
+      scrollController.animateTo(scrollController.position.minScrollExtent, curve: Curves.easeOut,duration: Duration(milliseconds: 300));
+      
+
     }
   }
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream:_firestore.collection('mensagesEdificiojuntadirectiva'+appData.idUnidad.toString())
+      .document(appData.cedula.toString())
+      .collection(appData.cedula.toString())
+      .orderBy('timestamp', descending: true)
+      .limit(20)
+      .snapshots(),
+              builder: (context,snapshot){
+                if (!snapshot.hasData){
+                  return Center( 
+                    child: CircularProgressIndicator( 
+                    ),
+                  );
+                }else{
+                  List<DocumentSnapshot> docs=snapshot.data.documents;
+                  List<Widget> mensajes= docs.map((doc) => Mensaje(
+                    de: doc.data['de'],
+                    text: doc.data['texto'],
+                    nombre: doc.data['nombre'],
+                    me: "re"+appData.cedula.toString() == doc.data['de'],
+                   )).toList();
+                  return ListView(
+                    reverse: true,
+                    controller: scrollController,
+                    children: <Widget>[
+                     ...mensajes,
+                    ],
+                  );  
+                }
+              },
+            ) ,
+            ),
+            Container( 
+              child: Row( 
+                children: <Widget>[
+                  Expanded( 
+                    child: TextField( 
+                      decoration: InputDecoration( 
+                        hintText: "Ingresa nuevo mensaje",
+                        border: const OutlineInputBorder(),
+                      ),
+                      controller: messageController,
+                    ),
+                  ),
+                  FlatButton( 
+                    color: Colors.orange,
+                    child: Text('Enviar'), 
+                    onPressed: callback,
+                      
+                  )
+                ],
+              ),
+            )
+        ],
+      ) ,
+    );
   }
 
+}
+
+class Mensaje extends StatelessWidget {
+  final String de;
+  final String text;
+  final String nombre;
+  final bool me;
+  const Mensaje({Key key,this.de,this.text,this.me,this.nombre}) : super(key: key);
+
   @override
-  void dispose() {
-    // Every listener should be canceled, the same should be done with this stream.
-    // Clean up the controller when the Widget is disposed
-    _textController.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Container(
+      child: Container( 
+        margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+        child:Column(
+          crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              nombre
+            ),
+            Material( 
+              color: me ? Colors.teal : Colors.red,
+              borderRadius: BorderRadius.circular(10.0),
+              elevation: 6.0,
+              child: Container( 
+                padding :EdgeInsets.symmetric(horizontal: 10.0,vertical:10.0),
+                child: Text( 
+                  text
+                )
+              )
+            )
+          ],
+        )
+      ),
+    );
   }
 }

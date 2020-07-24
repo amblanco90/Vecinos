@@ -3,7 +3,9 @@ import 'package:edificion247/src/bloc/provider_perfil.dart';
 import 'package:edificion247/src/bloc/provider_unidad.dart';
 import 'package:edificion247/src/bloc/provider_visitas.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
-import 'package:edificion247/src/models/noticia.dart';
+import 'package:edificion247/src/models/cartelera.dart';
+import 'package:edificion247/src/pages/residente/chatvigilante.dart';
+import 'package:edificion247/src/widgets/verNoticia.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
 import 'package:edificion247/src/models/unidadmodel.dart';
@@ -110,11 +112,12 @@ class _DrawerItemState extends State<DrawerItem> {
                           });
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        child: Column(
+                        child:  Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'PRINCIPAL',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -122,6 +125,7 @@ class _DrawerItemState extends State<DrawerItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 2.0,
                             ),
@@ -144,7 +148,7 @@ class _DrawerItemState extends State<DrawerItem> {
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  appData.permisos=='Familiar'? Container() :GestureDetector(
                     onTap: () {
                       setState(() {
                         _item = 0;
@@ -163,7 +167,8 @@ class _DrawerItemState extends State<DrawerItem> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         child: Column(
                           children: <Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'FACTURACION',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -171,6 +176,7 @@ class _DrawerItemState extends State<DrawerItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 2.0,
                             ),
@@ -213,7 +219,8 @@ class _DrawerItemState extends State<DrawerItem> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(
+                            FittedBox(
+                              child: Text(
                               'SOPORTE',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -221,6 +228,7 @@ class _DrawerItemState extends State<DrawerItem> {
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'CenturyGothic'),
                             ),
+                             ),
                             SizedBox(
                               height: 3.0,
                             ),
@@ -242,7 +250,7 @@ class _DrawerItemState extends State<DrawerItem> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )
@@ -722,7 +730,7 @@ class _DrawerItemState extends State<DrawerItem> {
       case 17:
         return OtrosPage();
       case 18:
-        return ChatVigilanciaPage();
+        return ChatVigilantePages();
       case 19:
         return ChatAdministradorPages();
       case 20:
@@ -822,9 +830,12 @@ class _DrawerItemState extends State<DrawerItem> {
                       height: 5.0,
                     ),
                     Container(
-                        child: Text(appData.nombre + ' ' + appData.apellido,
+                        child: FittedBox(
+                          child: Text(appData.nombre,
                             style: TextStyle(fontFamily: 'CenturyGothic'),
-                            textAlign: TextAlign.left)),
+                            textAlign: TextAlign.left),
+                        ),
+                            ),
                     // DropdownWidget(),
                   ],
                 ),
@@ -915,8 +926,8 @@ class _DrawerItemState extends State<DrawerItem> {
                       color: Colors.black,
                       thickness: 0.7,
                     ),
-                    listTile('FACTURAS', 9, 3),
-                    Divider(
+                   appData.permisos=='Familiar'?Container():  listTile('FACTURAS', 9, 3),
+                   appData.permisos=='Familiar'?Container() : Divider(
                       color: Colors.black,
                       thickness: 0.7,
                     ),
@@ -925,8 +936,8 @@ class _DrawerItemState extends State<DrawerItem> {
                       color: Colors.black,
                       thickness: 0.7,
                     ),
-                    listTile('FAMILIA', 14, 9),
-                    Divider(
+                    appData.permisos=='Familiar'?Container():listTile('FAMILIA', 14, 9),
+                    appData.permisos=='Familiar'? Container(): Divider(
                       color: Colors.black,
                       thickness: 0.7,
                     ),
@@ -1037,6 +1048,7 @@ class _DrawerItemState extends State<DrawerItem> {
     );
   }
 Widget _chatResidente(){
+  final size=MediaQuery.of(context).size;
     return  SingleChildScrollView(
         child: Stack(
           children: <Widget>[
@@ -1047,22 +1059,21 @@ Widget _chatResidente(){
               ),
               Container(
                   margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
-                  child: Row(children: <Widget>[
-                    Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
+                  child:  Row( mainAxisAlignment: MainAxisAlignment.center , children: <Widget>[
                     Text("CON QUIEN",
                         style: TextStyle(
-                            fontSize: 21.0,
+                            fontSize: size.width * 0.05,
                             color: Color.fromRGBO(255, 153, 29, 1.0),
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                             Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),),
                     Text("DESEA HABLAR?",
                         style: TextStyle(
-                            fontSize: 21.0,
+                            fontSize: size.width * 0.05,
                             color:Color.fromRGBO(167, 164, 164, 1),
                             fontFamily: 'CenturyGothic',
-                            fontWeight: FontWeight.bold)),
-                  ])),
+                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                  ]),),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Container(
@@ -1082,11 +1093,11 @@ Widget _chatResidente(){
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', null,null),
+                  _containerIcono(Icons.people, 'JUNTA DIRECTIVA', 20,10),
                   SizedBox(
                     width: 10.0,
                   ),
-                  _containerIcono(Icons.security, 'VIGILANTE', null,null),
+                  _containerIcono(Icons.security, 'VIGILANTE', 18,11),
                   SizedBox(
                     width: 10.0,
                   ),
@@ -1314,9 +1325,9 @@ Widget _chatResidente(){
             padding: EdgeInsets.all(10.0),
             child: Scrollbar(
               child: FutureBuilder(
-                future: noticiasProvider.getAllNoticias(),
+                future: noticiasProvider.getAllNoticiasAdmin(),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Noticia>> snapshot) {
+                    AsyncSnapshot<List<Cartelera>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
                     return snapshot.data!=null? ListView.builder(
                             shrinkWrap: true,
@@ -1324,11 +1335,11 @@ Widget _chatResidente(){
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: () {
-                                  noticiaAlert(
-                                      context,
-                                      snapshot.data[index].descripcion,
-                                      snapshot.data[index].titulo,
-                                      snapshot.data[index].fechaCreacion);
+                                  
+                                    verNoticia(context, snapshot.data[index].titulo, 
+                                    snapshot.data[index].descripcion, snapshot.data[index].imagen, 
+                                    snapshot.data[index].fechaCreacion, snapshot.data[index].idCartelera
+                                    , funcion);
                                 },
                                 child: Card(
                                   color: Colors.grey.shade300,
@@ -1483,15 +1494,15 @@ Widget _chatResidente(){
             Container(
                 margin: EdgeInsets.fromLTRB(25, 5, 5, 5),
                 child: Column(children: <Widget>[
-                  Text("ADMINISTRA LOS MIEMBROS ",
+                  Text("ADMINISTRA LOS MIEMBROS  ",
                       style: TextStyle(
-                          fontSize: 23.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(255, 153, 29, 1.0),
                           fontFamily: 'CenturyGothic',
                           fontWeight: FontWeight.bold)),
                   Text("DE TU NUCLEO FAMILIAR",
                       style: TextStyle(
-                          fontSize: 23.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(255, 153, 29, 1.0),
                           fontFamily: 'CenturyGothic',
                           fontWeight: FontWeight.bold)),
@@ -2527,7 +2538,7 @@ class _cabeceradrawerState extends State<cabeceradrawer> {
           SizedBox(
             height: 5.0,
           ),
-          Text(appData.nombre + ' ' + appData.apellido,
+          Text(appData.nombre ,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,

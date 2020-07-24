@@ -10,18 +10,17 @@ class VisitaProvider{
     final Map<String, dynamic> authData = {
       "id_residente": appData.idUsuario
     };
+     try{
     final response = await client.post("$baseUrl/visita/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
+         print(response.body.toString());
     final decodedData = json.decode(response.body);
-    print(response.body.toString());
-
-    try{
       final entidades = new ListaVisitante.fromJsonList(decodedData);
 return entidades.items.reversed.toList();
     }catch(a){
-      Future<List<DatosVisita>>  a;
-        return a;
+      
+        return [];
     }
   
   }

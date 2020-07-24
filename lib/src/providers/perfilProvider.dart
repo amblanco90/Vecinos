@@ -27,14 +27,7 @@ class PerfilProvider{
     appData.apellido = reservas.inputApe;
     if(reservas.inputFoto!=''){
       appData.fotoPerfil = base64.decode(reservas.inputFoto);
-    }
-    
-   
-   
-  
-
-    
-
+    } 
     return reservas;
 
   }
