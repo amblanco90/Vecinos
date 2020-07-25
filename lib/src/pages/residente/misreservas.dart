@@ -552,7 +552,7 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,snapshot.data[index].fecha_hora_fin,'ACTIVA',snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString());
+             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,snapshot.data[index].fecha_hora_fin,snapshot.data[index].estado,snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString());
 
             
   },
@@ -587,7 +587,7 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: _datoslistareserva.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,'ACTIVA',_datoslistareserva[index].id_reserva, Colors.red.shade100, context ,_datoslistareserva[index].observaciones.toString());
+             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].estado,_datoslistareserva[index].id_reserva, Colors.red.shade100, context ,_datoslistareserva[index].observaciones.toString());
 
             
   },

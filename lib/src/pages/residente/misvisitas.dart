@@ -61,6 +61,8 @@ class _VisitaPagesState extends State<VisitaPages> {
         Column(
           children: <Widget>[
             Text("GENERAR VISITA",style:TextStyle(fontSize: 24.0, color: Color.fromRGBO(205, 105, 55, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),
+           
+           
            _camposFormulario('IDENTIFICACION',_identificacionController,TextInputType.number),
            _camposFormulario('NOMBRE VISITANTE',_nombreController,TextInputType.text),
            _camposFormulario('NUMERO DE CONTACTO',_numeroContantoController,TextInputType.number),
@@ -79,23 +81,29 @@ class _VisitaPagesState extends State<VisitaPages> {
             child :Container(
               width: size.width * 1,
              padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
-             child:Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-               Icon(Icons.attach_file),
-               Text('ADJUNTAR FOTO',style: TextStyle( fontSize: 10, color: Color.fromRGBO(189, 186, 186, 1),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),),
-               Container(
-                            width: size.width * 0.3,
-                            height: 100.0,
-                            color: Colors.grey.shade200,
-                            child: _image == null
-                                ? Center(
-                                    child: Icon(Icons.add),
-                                  )
-                                : Image.file(_image),
-                          ),
-               Container(
-                 width: size.width *0.3,
+             child:Column(
+               children: [
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                 children: <Widget>[
+                   Icon(Icons.attach_file),
+                   Text('ADJUNTAR FOTO',style: TextStyle( fontSize: 10, color: Color.fromRGBO(189, 186, 186, 1),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),),
+                   SizedBox(width: 20.0,),
+                   Container(
+                                width: size.width * 0.4,
+                                height: 100.0,
+                                color: Colors.grey.shade200,
+                                child: _image == null
+                                    ? Center(
+                                        child: Icon(Icons.add),
+                                      )
+                                    : Image.file(_image),
+                              ),
+                   
+                 ]
+           ),
+           Container(
+                 width: size.width *0.4,
                  padding: EdgeInsets.fromLTRB(size.width*0.05, 4, 5, 4),
                  child:RaisedButton(
                  
@@ -154,9 +162,10 @@ class _VisitaPagesState extends State<VisitaPages> {
           ),),
           )
                )
-             ]
-           )
-           ),),
+               ],
+             )
+           ),
+           ),
           Visibility(
             visible: _progresgenerarvisita,
             child: Padding(
@@ -362,6 +371,7 @@ _tablaVisita(BuildContext context){
     );
   }
 
+   
   Widget _camposFormulario2(String texto,TextEditingController _controller,TextInputType type){
     final size=MediaQuery.of(context).size;
     return Container(

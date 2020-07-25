@@ -303,7 +303,6 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
         appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
         appData.unidadInicial = datos["lista_subunidades"][0];
       for (var item in datos["lista_subunidades"]) {
-        
         appData.unidades.add(item);
       }
         
