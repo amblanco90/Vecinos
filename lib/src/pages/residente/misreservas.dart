@@ -381,9 +381,9 @@ _botonGuardar(){
               }
               DatosReserva datosReserva;
               if(_idreserva  !=" "){
-                   datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: _idreserva.toString());
+                   datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: appData.idUsuario.toString(),id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: _idreserva.toString());
               }else{
-                 datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: "10",id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: " ");
+                 datosReserva=DatosReserva(id_subunidad: appData.idSubunidad.toString(),valor: "5000",id_residente: appData.idUsuario.toString(),id_zona_social: _posicionZona.toString(), observaciones: _controllerObservaciones.text,fecha_hora_inicio:fecha_Selecionada+" "+_dropdownStrHoraInicio,fecha_hora_fin:fecha_Selecionada+" "+_dropdownStrHoraFinal,username: appData.cedula.toString(),id_reserva: " ");
               }
               ApiService apiService=ApiService();
               apiService.guardarReserva(datosReserva).then((isSuccess){
