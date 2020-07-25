@@ -17,9 +17,11 @@ class _OtrosPageState extends State<OtrosPage> {
     final _controllerNumeroContacto=TextEditingController();
     final _controllerCorreo=TextEditingController();
     List<dynamic> _listarOtros=new List();
-    final _solicitarListaOtros=new OtrosProvider();
+    final _providerOtros=new OtrosProvider();
     int _idNucleo;
     int _idfam;
+    bool camposCedula=true;
+    bool _enablecampos=false;
     bool _estadobuttonguardar=true;
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,18 @@ class _OtrosPageState extends State<OtrosPage> {
           Column(
             children:<Widget>[
               _barraArribaConyugue(),
+               Center(
+               child: Container(
+                 width: 350.0,
+                margin: EdgeInsets.fromLTRB(10, 4, 10, 4),
+                height: 50,
+                          child:   Row( children: <Widget>[
+                    _camposFormularioCedula('CEDULA FAMILIAR', _controllerIdentificacion, TextInputType.number,""),
+                  Align(alignment: Alignment.centerRight, child:  _botonBuscarFamiliar(),)
+                    ],),
+               ),
+             ),
               _camposFormulario('NOMBRE COMPLETO', _controllerNombre, TextInputType.text),
-              _camposFormulario('IDENTIFICACION', _controllerIdentificacion, TextInputType.number),
               _camposFormulario('NUMERO DE CONTACTO', _controllerNumeroContacto, TextInputType.number),
               _camposFormulario('CORREO ELECTRONICO', _controllerCorreo, TextInputType.emailAddress),
                 _botonGuardar(),
@@ -117,20 +129,21 @@ class _OtrosPageState extends State<OtrosPage> {
                     return;
                   }else{
                     ApiService apiService=new ApiService();
-                    apiService.guardarFamiliar(_idnucleo,"3",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
-                      if(isSuccess== ""){
+                     apiService.guardarFamiliar(_idnucleo,"3",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
+                      if(isSuccess==""){
+                        _alertHijoMensajes(context,isSuccess);
+                      }else{
                         _idNucleo=null;
-                          _alertHijoMensajes(context, "registro exito");
                         _controllerNombre.text="";
                         _controllerIdentificacion.text="";
                         _controllerNumeroContacto.text="";
                         _controllerCorreo.text="";
                         _estadobuttonguardar=true;
-                        setState(() {
-                          
-                        });
-                      }else{
+                        camposCedula=true;
+                        _enablecampos=false;
                         _alertHijoMensajes(context, isSuccess);
+                        setState(() {
+                        });
                          }
             });
                   }
@@ -156,7 +169,7 @@ class _OtrosPageState extends State<OtrosPage> {
     
   ),
 
-  child: FutureBuilder(future: _solicitarListaOtros.getlistaotros(),
+  child: FutureBuilder(future: _providerOtros.getlistaotros(),
         builder: (BuildContext context,
                 AsyncSnapshot<List<Hijo>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) { 
@@ -224,6 +237,8 @@ return  Padding(
          ), onTap: (){
            setState(() {
              _estadobuttonguardar=false;
+             _enablecampos=true;
+             camposCedula=false;
            });
              _controllerNombre.text=nombre_otro;
              _controllerIdentificacion.text=texto;
@@ -307,15 +322,47 @@ return  Padding(
   }
 
   Widget _camposFormulario(String texto,TextEditingController controller,TextInputType type){
-    final size=MediaQuery.of(context).size;
     return Container(
-      width: size.width * 0.85,
+      width: 350.0,
       margin: EdgeInsets.fromLTRB(10, 4, 10, 4),
       height: 50,
       child:TextField(
               controller: controller,
                 autofocus: false,
                 keyboardType: type,
+                enabled: _enablecampos,
+                style:
+                    new TextStyle(fontSize: 13.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
+                    textAlign: TextAlign.justify,
+                decoration: new InputDecoration(
+                  filled: true,
+                  hintStyle: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),
+                  fillColor: Color.fromRGBO(233, 233, 233, 1),
+                  hintText: texto,
+                  contentPadding: const EdgeInsets.only(
+                      left: 14.0, bottom: 8.0, top: 8.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.white),
+                    borderRadius: new BorderRadius.circular(5),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.white),
+                    borderRadius: new BorderRadius.circular(5),
+                  ),
+  ),
+
+)
+    );
+  }
+Widget _camposFormularioCedula(String texto,TextEditingController controller,TextInputType type,String prefix,){
+    return Container(
+      width: 150.0,
+      height: 50,
+      child:TextField(
+              controller: controller,
+                autofocus: false,
+                keyboardType: type,
+                enabled: camposCedula,
                 style:
                     new TextStyle(fontSize: 13.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
                     textAlign: TextAlign.justify,
@@ -340,6 +387,68 @@ return  Padding(
     );
   }
 
+  Widget _botonBuscarFamiliar(){
+   return GestureDetector(
+       onTap: (){ 
+       }, 
+       child: Container(
+         width: 100,
+         height: 60.0,
+       margin: EdgeInsets.symmetric(horizontal: 10.0 ),
+       padding: EdgeInsets.symmetric(vertical: 7.0),
+       child: RaisedButton(
+         color: Color.fromRGBO(255, 153, 29, 1.0),
+                 shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5),),
+          onPressed: () {
+          if (!_controllerIdentificacion.text.isEmpty){
+              if(_controllerIdentificacion.text.length <6 || _controllerIdentificacion.text.length >10){
+                  _alertHijoMensajes(context, "Campo identificacion no puede tener mas de 10 y menos 6 digitos");
+              }else{
+
+                 if(_validarnumeros(_controllerIdentificacion.text)== false){
+                      _alertHijoMensajes(context, 'solo puede ingresas numeros en identificacion');
+                      return;
+                    }
+                _providerOtros.getOtros(_controllerIdentificacion.text).then((datos) {
+                  _idNucleo=null;
+                if (datos.estado_solicitud){
+                    _controllerCorreo.text=datos.correo;
+                    _controllerNombre.text=datos.nombre_familiar;
+                    _controllerNumeroContacto.text=datos.movil;
+                    camposCedula=false;
+                    _enablecampos=true;
+                    setState(() {
+                      
+                    });
+                }else{
+                  if(datos.mensaje_solicitud=="Persona ya está guardada como Familiar"){
+                    _alertHijoMensajes(context, datos.mensaje_solicitud);
+                  }else{
+                    camposCedula=false;
+                  _enablecampos=true;
+                  _alertHijoMensajes(context, "Puede guadar el familair nuevo");
+                  setState(() {
+                    
+                  });
+                  }
+                }
+            });
+         
+              }
+          }else{
+                _alertHijoMensajes(context, "No se puede degar campo vacio");
+          }
+          },
+          child: const Text(
+            'BUSCAR',
+            style:TextStyle(fontSize: 15.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+          ),
+          )
+     ),
+   );
+
+ }
 
    _botonPrincipal(){
 

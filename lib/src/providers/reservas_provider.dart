@@ -18,6 +18,7 @@ class ReservasProvider{
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
     try{
+      print(response.body);
     final decodedData = json.decode(response.body);
     final entidades = new Reservas.fromJsonList(decodedData);
     return entidades.items.reversed.toList();

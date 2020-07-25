@@ -304,7 +304,6 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
       appData.idUnidad=datos["id_unidad"];
       appData.url_pago=datos["url_pago"];
       for (var item in datos["lista_subunidades"]) {
-        
         appData.unidades.add(item);
       }
       //print(appData.unidades);
@@ -312,9 +311,7 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
       
       appData.cedula= datos["cedula"];
       if(datos["perfiles"].length==1){
-
         appData.permisos='Residente';
-
       }else{
         appData.permisos='Administrador';
       }

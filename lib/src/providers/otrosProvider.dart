@@ -24,4 +24,45 @@ final entidades = new ListaHijo.fromJsonList(decodedData);
     }
   
   }
+
+  Future<Hijo> getOtros(String cedula) async {
+    final Map<String, dynamic> authData = {
+      "cedula_familiar": cedula
+    };
+    final response = await client.post("$baseUrl/familiar/check",
+        body: json.encode(authData),
+        headers: {"Content-Type": "application/json"});
+        print(response.body);
+
+        Hijo datosOtros=Hijo();
+
+        try{
+              if (response.statusCode == 200) {
+                final datos = json.decode(response.body);
+                  if(datos["resp"]=="error"){
+                    datosOtros.estado_solicitud=false;
+                    datosOtros.mensaje_solicitud=datos["msj"];
+                    return datosOtros;
+                  }
+                  else{
+                    final decodedData = json.decode(response.body);
+                      final otrosdatos = new Hijo.fromJson(decodedData);
+                      otrosdatos.estado_solicitud=true;
+                      otrosdatos.nombre_familiar=decodedData['nombre'];
+                    return otrosdatos;
+                    
+                  }
+              } else {
+                datosOtros.estado_solicitud=false;
+                datosOtros.mensaje_solicitud="Ocurrio un error";
+                return datosOtros;
+                
+              }
+          }catch(e){
+                datosOtros.estado_solicitud=false;
+                datosOtros.mensaje_solicitud="Ocurrio un error";
+                return datosOtros;
+            }
+    
+  }
 }

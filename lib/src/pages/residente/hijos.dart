@@ -1,10 +1,8 @@
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/http/api-service.dart';
-import 'package:edificion247/src/http/datos-familia.dart';
 import 'package:edificion247/src/models/hijo.dart';
 import 'package:edificion247/src/providers/hijoProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 
 class HijoPage extends StatefulWidget {
   @override
@@ -16,11 +14,13 @@ class _HijoPageState extends State<HijoPage> {
     final _controllerIdentificacion=TextEditingController();
     final _controllerNumeroContacto=TextEditingController();
     final _controllerCorreo=TextEditingController();
-    final _solicitarListaHijo=new HijoProvider();
+    final _providerHijo=new HijoProvider();
     int _idNucleofamilia;
     int _idNucleo;
     int _idfam;
     bool _estadobuttonguardar=true;
+    bool camposCedula=true;
+    bool _enablecampos=false;
   @override
  Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -29,8 +29,19 @@ class _HijoPageState extends State<HijoPage> {
           Column(
             children:<Widget>[
               _barraArribaConyugue(),
+
+             Center(
+               child: Container(
+                 width: 350.0,
+      margin: EdgeInsets.fromLTRB(10, 4, 10, 4),
+      height: 50,
+                child:   Row( mainAxisSize: MainAxisSize.max, children: <Widget>[
+          _camposFormularioCedula('CEDULA FAMILIAR', _controllerIdentificacion, TextInputType.number,""),
+         Align(alignment: Alignment.centerRight, child:  _botonBuscarFamiliar(),)
+          ],),
+               ),
+             ),
               _camposFormulario('NOMBRE COMPLETO', _controllerNombre, TextInputType.text),
-              _camposFormulario('IDENTIFICACION', _controllerIdentificacion, TextInputType.number),
               _camposFormulario('NUMERO DE CONTACTO', _controllerNumeroContacto, TextInputType.number),
               _camposFormulario('CORREO ELECTRONICO', _controllerCorreo, TextInputType.emailAddress),
                 _botonGuardar(),
@@ -96,7 +107,7 @@ Widget _alertHijoMensajes (BuildContext context,String mensaje){
     
   ),
 
-  child: FutureBuilder(future: _solicitarListaHijo.getlistahijo(),
+  child: FutureBuilder(future: _providerHijo.getlistahijo(),
         builder: (BuildContext context,
                 AsyncSnapshot<List<Hijo>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) { 
@@ -163,6 +174,8 @@ return  Padding(
          ), onTap: (){
            setState(() {
              _estadobuttonguardar=false;
+             _enablecampos=true;
+             camposCedula=false;
            });
                      _controllerNombre.text=nombre_hijo;
                     _controllerIdentificacion.text=texto;
@@ -176,10 +189,11 @@ return  Padding(
 
 }
   Widget _crearBotonRedondeado(Color color, IconData icon, BuildContext context,int posicion ) {
+    final size=MediaQuery.of(context).size;
     return Column(
       children: <Widget>[
         Container(
-          width: 100,
+          width: size.width * 0.28,
           height: 90.0,
           margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
           decoration: BoxDecoration(
@@ -209,6 +223,7 @@ return  Padding(
   }
 
   Widget _barraArribaConyugue(){
+    final size=MediaQuery.of(context).size;
    return  Container(
       child:Column(children: <Widget>[
       
@@ -236,8 +251,8 @@ return  Padding(
       Row(children: <Widget>[
         Align(child:  _crearBotonRedondeado(Color.fromRGBO(255, 153, 29, 1.0),Icons.people, context,7) ,alignment: Alignment.topLeft,),
         Column(children: <Widget>[
-         Container(width: 240.0,child: Align(child:Text('HIJOS',style: TextStyle(fontFamily: 'CenturyGothic',fontSize: 18.0,fontWeight: FontWeight.bold ),),alignment: Alignment.centerLeft,),),
-           Container(height: 8.0,width: 240.0, decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(1.0)),),
+         Container(width: size.width * 0.68,child: Align(child:Text('HIJOS',style: TextStyle(fontFamily: 'CenturyGothic',fontSize: 18.0,fontWeight: FontWeight.bold ),),alignment: Alignment.centerLeft,),),
+           Container(height: 8.0,width: size.width * 0.68, decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(1.0)),),
         ],)
        
       ],)
@@ -253,6 +268,7 @@ return  Padding(
       child:TextField(
               controller: controller,
                 autofocus: false,
+                enabled: _enablecampos,
                 keyboardType: type,
                 style:
                     new TextStyle(fontSize: 13.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
@@ -277,6 +293,102 @@ return  Padding(
 )
     );
   }
+
+  Widget _camposFormularioCedula(String texto,TextEditingController controller,TextInputType type,String prefix,){
+    return Container(
+      width: 150.0,
+      height: 50,
+      child:TextField(
+              controller: controller,
+                autofocus: false,
+                keyboardType: type,
+                enabled: camposCedula,
+                style:
+                    new TextStyle(fontSize: 13.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
+                    textAlign: TextAlign.justify,
+                decoration: new InputDecoration(
+                  filled: true,
+                  hintStyle: TextStyle(color: Color.fromRGBO(255, 153, 29, 1.0), fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),
+                  fillColor: Color.fromRGBO(233, 233, 233, 1),
+                  hintText: texto,
+                  contentPadding: const EdgeInsets.only(
+                      left: 14.0, bottom: 8.0, top: 8.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.white),
+                    borderRadius: new BorderRadius.circular(5),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.white),
+                    borderRadius: new BorderRadius.circular(5),
+                  ),
+  ),
+
+)
+    );
+  }
+
+ Widget _botonBuscarFamiliar(){
+   return GestureDetector(
+       onTap: (){ 
+       }, 
+       child: Container(
+         width: 100,
+         height: 60.0,
+       margin: EdgeInsets.symmetric(horizontal: 10.0 ),
+       padding: EdgeInsets.symmetric(vertical: 7.0),
+       child: RaisedButton(
+         color: Color.fromRGBO(255, 153, 29, 1.0),
+                 shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5),),
+          onPressed: () {
+          if (!_controllerIdentificacion.text.isEmpty){
+              if(_controllerIdentificacion.text.length <6 || _controllerIdentificacion.text.length >10){
+                  _alertHijoMensajes(context, "Campo identificacion no puede tener mas de 10 y menos 6 digitos");
+              }else{
+
+                 if(_validarnumeros(_controllerIdentificacion.text)== false){
+                      _alertHijoMensajes(context, 'solo puede ingresas numeros en identificacion');
+                      return;
+                    }
+                _providerHijo.getHijo(_controllerIdentificacion.text).then((datos) {
+                  _idNucleo=null;
+                if (datos.estado_solicitud){
+                    _controllerCorreo.text=datos.correo;
+                    _controllerNombre.text=datos.nombre_familiar;
+                    _controllerNumeroContacto.text=datos.movil;
+                    camposCedula=false;
+                    _enablecampos=true;
+                    setState(() {
+                      
+                    });
+                }else{
+                  if(datos.mensaje_solicitud=="Persona ya está guardada como Familiar"){
+                    _alertHijoMensajes(context, datos.mensaje_solicitud);
+                  }else{
+                    camposCedula=false;
+                  _enablecampos=true;
+                  _alertHijoMensajes(context, "Puede guadar el familair nuevo");
+                  setState(() {
+                    
+                  });
+                  }
+                }
+            });
+         
+              }
+          }else{
+                _alertHijoMensajes(context, "No se puede degar campo vacio");
+          }
+          },
+          child: const Text(
+            'BUSCAR',
+            style:TextStyle(fontSize: 15.0, color: Colors.black,fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)
+          ),
+          )
+     ),
+   );
+
+ }
 
 
    _botonPrincipal(){
@@ -304,7 +416,13 @@ return  Padding(
  
 _botonGuardar(){
 
-   return GestureDetector(
+   if(camposCedula){
+     return Container(
+       height: 80,
+       child: Text('Primero ingrese el numero de cedula y precione el boton buscar usuario',textAlign: TextAlign.center,),
+     );
+   }else{
+     return GestureDetector(
        onTap: (){ 
          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DrawerItem() ));
        }, 
@@ -331,6 +449,7 @@ _botonGuardar(){
           )
      ),
    );
+   }
 
  }
 
@@ -359,22 +478,22 @@ _guardareditar(String _idnucleo,String _idfamilia){
                     _alertHijoMensajes(context, "Campo numero de contacto no puede tener mas de 10 y menos 7 digitos");
                     return;
                   }else{
-                    DatosFamilia datosFamilia=new DatosFamilia(id_nucleo:"216",id_parentesco:"3",id_residente:"153",cedula_familiar:"12639357",nombre_familiar:"afdsds",apellidos_familiar:"",correo_familiar:"aad@gmail.com",movil_familiar:"7436463",direccion_familiar:"asdas",username:appData.cedula.toString());
-                    //DatosFamilia datosFamilia=DatosFamilia(id_parentesco: '3',id_residente:appData.idUsuario.toString(),cedula_familiar: _controllerIdentificacion.text,nombre_familiar: _controllerNombre.text,apellidos_familiar: '',correo_familiar:_controllerCorreo.text,movil_familiar: _controllerNumeroContacto.text,direccion_familiar: 'calle 1 # 45-25',username: 'rperz',id_nucleo: _idNucleo.toString(),id_familiar:_idfam.toString());
                     ApiService apiService=new ApiService();
                     apiService.guardarFamiliar(_idnucleo,"2",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
                       if(isSuccess==""){
+                        _alertHijoMensajes(context,isSuccess);
+                      }else{
                         _idNucleo=null;
-                          _alertHijoMensajes(context, "registro exito");
                         _controllerNombre.text="";
                         _controllerIdentificacion.text="";
                         _controllerNumeroContacto.text="";
                         _controllerCorreo.text="";
                         _estadobuttonguardar=true;
+                        camposCedula=true;
+                        _enablecampos=false;
+                        _alertHijoMensajes(context, isSuccess);
                         setState(() {
                         });
-                      }else{
-                        _alertHijoMensajes(context,isSuccess);
                          }
             });
                   }

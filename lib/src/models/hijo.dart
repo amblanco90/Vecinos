@@ -24,6 +24,8 @@ class Hijo{
   String correo;
   String movil;
   int documento;
+  bool estado_solicitud;
+  String mensaje_solicitud;
 
   Hijo({
     this.id_nucleo,
@@ -35,6 +37,7 @@ class Hijo{
     this.correo,
     this.movil,
     this.documento,
+    this.estado_solicitud
   });
   factory Hijo.fromJson(Map<String, dynamic> json)=> Hijo(
     id_nucleo: json['id_nucleo'],
