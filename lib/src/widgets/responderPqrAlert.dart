@@ -280,6 +280,7 @@ responderPqr(BuildContext context,destinatario,tipo,id,estado) {
                                 pr.dismiss();
                                 Navigator.pop(context);
                                 GenericAlert(context, val["respuesta"],null);
+                                pr.dismiss();
 
                               });
                              

@@ -231,6 +231,7 @@ responderPqrAdmin(BuildContext context,destinatario,tipo,id,estado) {
                                 _image =null;
                                 pr.dismiss();
                                 GenericAlert(context, val["respuesta"],null);
+                                pr.dismiss();
 
                               });
                              

@@ -554,6 +554,7 @@ prefix.Widget drawerItem(){
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
                           onPressed: () {
+                            appData.limpiarFoto();
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
