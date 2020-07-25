@@ -64,7 +64,10 @@ class AppData {
   Map<dynamic,dynamic> unidadInicial = {};
   List<Map<dynamic,dynamic>> unidades =[];
 
-  
+  limpiarFoto(){
+    fotoPerfil = null;
+    encodedFotoPerfil ='';
+  }
 
   String rol;
   factory AppData() {
