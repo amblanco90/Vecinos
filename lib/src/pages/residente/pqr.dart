@@ -42,7 +42,7 @@ class _PqrPagesState extends State<PqrPages> {
             SizedBox(
               height: 10.0,
             ),
-            Row(
+        appData.permisos=='Admini' ? Container():     Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[

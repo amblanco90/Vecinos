@@ -148,7 +148,7 @@ class _DrawerItemState extends State<DrawerItem> {
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  appData.permisos=='Familiar'? Container() :GestureDetector(
                     onTap: () {
                       setState(() {
                         _item = 0;
@@ -831,7 +831,7 @@ class _DrawerItemState extends State<DrawerItem> {
                     ),
                     Container(
                         child: FittedBox(
-                          child: Text(appData.nombre + ' ' + appData.apellido,
+                          child: Text(appData.nombre,
                             style: TextStyle(fontFamily: 'CenturyGothic'),
                             textAlign: TextAlign.left),
                         ),
@@ -926,8 +926,8 @@ class _DrawerItemState extends State<DrawerItem> {
                       color: Colors.black,
                       thickness: 0.7,
                     ),
-                    listTile('FACTURAS', 9, 3),
-                    Divider(
+                   appData.permisos=='Familiar'?Container():  listTile('FACTURAS', 9, 3),
+                   appData.permisos=='Familiar'?Container() : Divider(
                       color: Colors.black,
                       thickness: 0.7,
                     ),
@@ -936,8 +936,8 @@ class _DrawerItemState extends State<DrawerItem> {
                       color: Colors.black,
                       thickness: 0.7,
                     ),
-                    listTile('FAMILIA', 14, 9),
-                    Divider(
+                    appData.permisos=='Familiar'?Container():listTile('FAMILIA', 14, 9),
+                    appData.permisos=='Familiar'? Container(): Divider(
                       color: Colors.black,
                       thickness: 0.7,
                     ),
@@ -2538,7 +2538,7 @@ class _cabeceradrawerState extends State<cabeceradrawer> {
           SizedBox(
             height: 5.0,
           ),
-          Text(appData.nombre + ' ' + appData.apellido,
+          Text(appData.nombre ,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,

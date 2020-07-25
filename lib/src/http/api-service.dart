@@ -23,7 +23,7 @@ class ApiService {
 
   final String baseUrl = "http://18.191.213.12//api";
   Client client = Client();
-Future<dynamic> borrarReserva(int id) async {
+  Future<dynamic> borrarReserva(int id) async {
   final response = await client.post(
     "$baseUrl/reserva/delete",
     headers: {"content-type": "application/json"},
@@ -296,24 +296,51 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){ 
       appData.idUsuario = datos["id"];
-      appData.saldo = datos["lista_subunidades"][0]["saldo"];
-      appData.tipoUnidad = datos["lista_subunidades"][0]["nombre_tipo_unidad"];
-      appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
-      appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
-      appData.unidadInicial = datos["lista_subunidades"][0];
-      appData.idUnidad=datos["id_unidad"];
-      appData.url_pago=datos["url_pago"];
+      if(datos["lista_subunidades"]!=null){
+        appData.saldo = datos["lista_subunidades"][0]["saldo"];
+        appData.tipoUnidad = datos["lista_subunidades"][0]["nombre_tipo_unidad"];
+        appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
+        appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
+        appData.unidadInicial = datos["lista_subunidades"][0];
       for (var item in datos["lista_subunidades"]) {
         appData.unidades.add(item);
       }
+        
+        
+      }else{
+        appData.idSubunidad=0;
+      }
+      
+      appData.idUnidad=datos["id_unidad"];
+      appData.url_pago=datos["url_pago"];
+      
       //print(appData.unidades);
+       for (var item in datos["perfiles"]) {
+        
+        print(item);
+      }
 
       
       appData.cedula= datos["cedula"];
       if(datos["perfiles"].length==1){
-        appData.permisos='Residente';
-      }else{
+
+        if(datos["perfiles"][0]["id_perfil"]==200){
+
+          appData.permisos='Familiar';
+          print(appData.permisos);        }
+          else if(datos["perfiles"][0]["id_perfil"]==100 ){
+
+          appData.permisos='Residente';
+             print(appData.permisos);  
+        }else {
+          appData.permisos='Admini' ;  
+           print(appData.permisos);  
+          }
+
+
+      }else if(datos["perfiles"].length==2) {
         appData.permisos='Administrador';
+         print(appData.permisos);  
       }
       
       final prefs = await SharedPreferences.getInstance();

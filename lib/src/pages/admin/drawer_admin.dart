@@ -230,7 +230,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                       ),
                     ),
                   ),
-                  GestureDetector(
+              appData.permisos=='Admini'? Container():  GestureDetector(
                     onTap: () {
                       setState(() {
                         _item = 5;
@@ -409,7 +409,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                     ),
                     Container(
                         child: FittedBox(
-                          child: Text(appData.nombre + ' ' + appData.apellido,
+                          child: Text(appData.nombre ,
                             style: TextStyle(fontFamily: 'CenturyGothic'),
                             textAlign: TextAlign.left),
                         ),
@@ -506,12 +506,12 @@ prefix.Widget drawerItem(){
                listTile('LISTA RESERVAS', 24),
 
                 Divider(color: Colors.black,thickness: 0.7,),
-                listTile('FACTURA', 5),
-                Divider(color: Colors.black,thickness: 0.7,),
+               appData.permisos=='Admini'? Container(): listTile('FACTURA', 5),
+               appData.permisos=='Admini'? Container(): Divider(color: Colors.black,thickness: 0.7,),
                  listTile('VISITA', 20),
                  Divider(color: Colors.black,thickness: 0.7,),
-                listTile('TAXI', 13),
-                 Divider(color: Colors.black,thickness: 0.7,),
+                 appData.permisos=='Admini' ? Container():listTile('TAXI', 13),
+                 appData.permisos=='Admini' ? Container(): Divider(color: Colors.black,thickness: 0.7,),
                 listTile('NOTICIAS', 25),
                 Divider(color: Colors.black,thickness: 0.7,),
                  listTile('CHATEAR', 15),
@@ -521,7 +521,7 @@ prefix.Widget drawerItem(){
                 
                 
                 Divider(color: Colors.black,thickness: 0.7,),
-                listTile('PQR', 19),
+                listTile('PQR', 6),
 
                 Divider(color: Colors.black,thickness: 0.7,),
                 listTile('LINK PAGO', 26),
@@ -671,14 +671,14 @@ prefix.Widget drawerItem(){
         SizedBox(
             height: 5.0,
           ),
-          Text(appData.nombre + ' ' + appData.apellido,
+          Text(appData.nombre ,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'CenturyGothic')),
           Text('ADMINISTRADOR', style: TextStyle(color: Colors.white)),
-          DropDownSidebar(data: funcion,),
+          appData.permisos=='Admini'?Container():DropDownSidebar(data: funcion,),
           Padding(
             padding: EdgeInsets.only(bottom: 10.0, top: 5.0),
             child: Container(
@@ -1475,7 +1475,7 @@ _vistaUnidad() {
                           borderRadius: BorderRadius.circular(2.0)),
                     ),
                   ),
-                  Container(
+           appData.permisos=='AdminiSTRADOR'? Container():       Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     child: Column(children: <prefix.Widget>[
@@ -1495,7 +1495,7 @@ _vistaUnidad() {
                       _containerUnidad(snapshot.data.movil+'-'+snapshot.data.fijo),
                     ]),
                   ),
-                  Container(
+                 appData.permisos=='Admini'? Container(): Container(
                     height: 6.0,
                     width: 280.0,
                     decoration: BoxDecoration(
@@ -1693,11 +1693,11 @@ _vistaUnidad() {
           child: Container(height: 7.0,width: 310.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
         ),
            Row(
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             mainAxisAlignment:appData.permisos=='Admini'? MainAxisAlignment.center:  MainAxisAlignment.spaceEvenly,
              
              children: <prefix.Widget>[
-               _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
-               SizedBox(width: 10.0,),
+              appData.permisos=='Admini'? Container(): _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
+               appData.permisos=='Admini'? Container(): SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS',5),
                SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/iconreserva.png','RESERVAS',18,)
@@ -1940,11 +1940,11 @@ _vistaUnidad() {
           child: Container(height: 7.0,width: 310.0 , decoration: BoxDecoration( color: Color.fromRGBO(255, 114, 0, 1.0), borderRadius: BorderRadius.circular(5.0)),),
         ),
            Row(
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             mainAxisAlignment:appData.permisos=='Admini'? MainAxisAlignment.center:  MainAxisAlignment.spaceEvenly,
              
              children: <prefix.Widget>[
-               _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
-               SizedBox(width: 10.0,),
+              appData.permisos=='Admini'? Container():  _containerIcono('recursos/imagenes/trespersonasicon.jpg', 'UNIDADES',17),
+              appData.permisos=='Admini'? Container():  SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/facturaicon.png', 'FACTURAS',5),
                SizedBox(width: 10.0,),
                _containerIcono('recursos/imagenes/iconreserva.png','RESERVAS',18),

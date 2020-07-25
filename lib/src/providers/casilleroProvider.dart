@@ -112,7 +112,7 @@ Future<Map<String, dynamic>> respuestaNotificacion(descripcion,idresidente,id,fo
  
   "id_casillero":id,
   "descripcion": descripcion, 
-  "emisor":appData.nombre+" "+ appData.apellido,
+  "emisor":appData.nombre,
   "rol_emisor":appData.rol,
   "foto":null,
   "username": appData.cedula 

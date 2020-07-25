@@ -37,7 +37,7 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-         Column(
+         appData.permisos=='Residente'&& appData.permisos!='Admini'? Column(
               children: <Widget>[
                 FlatButton(
                     color: color1,
@@ -68,8 +68,8 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
                       ],
                     ))
               ],
-            ),
-           appData.permisos=='Administrador'? Column(
+            ):Container(),
+           appData.permisos=='Administrador'|| appData.permisos=='Admini'? Column(
               children: <Widget>[
                 FlatButton(
                     color: color2,
