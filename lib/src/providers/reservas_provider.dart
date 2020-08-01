@@ -43,9 +43,8 @@ class ReservasProvider{
     
     try{
       final entidades = new Reservas.fromJsonList(decodedData);
-return entidades.items.reversed.toList();
+      return entidades.items.reversed.toList();
     }catch(a){
-      Future<List<Reserva>>  a;
         return null;
     }
 

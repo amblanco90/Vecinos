@@ -102,8 +102,6 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                       
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(destinatario!=null?destinatario:'', style :TextStyle(
                                             fontSize: 13.0,
@@ -129,8 +127,7 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                       
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                     
                       children: <Widget>[
                         Text(tipo!=null?tipo:'', style :TextStyle(
                                             fontSize: 13.0,
