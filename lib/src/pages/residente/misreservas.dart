@@ -15,19 +15,18 @@ import 'package:table_calendar/table_calendar.dart';
 
 
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class MyReserva extends StatefulWidget {
+  MyReserva({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyReservaState createState() => MyReservaState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyReservaState extends State<MyReserva> {
   
   final DateTime now = DateTime.now();
   bool _llamarzona=true;
   String _selectedDate = '2020-06-09';
-    String _selectedDateBaseDato = '2020-06-09';
   String _idreserva = " ";
    String _dropdownStrHoraInicio =" ";
    List opcionesInicial=[" "];
@@ -37,8 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
    final _controllerObservaciones=TextEditingController();
    List<dynamic> _listareserva=new List();
    List<dynamic> _listaZonas=new List();
-   String _zonaSelecionadad='Piscina';
+   String _zonaSelecionadad=' ';
    int _posicionZona=1;
+   String fechainicioactualizar;
+   String fechafinalactualizar;
    final reservaProvider=new ReservasProvider();
    CalendarController _calendarController=CalendarController();
    List<dynamic> _listaocupada=[];
@@ -55,20 +56,15 @@ class _MyHomePageState extends State<MyHomePage> {
   if(_estadotablecale){
    _solicitarTodasReserva();
   }
-   _solicitarListaZona();
     return SingleChildScrollView(
           child: Column(
 
         children: <Widget>[
          _calendarTable(),
         
-
-          Padding(
-          padding: const EdgeInsets.symmetric(horizontal:25.0),
-          child: Container(height: 4.0,width: 350.0 , decoration: BoxDecoration( color: Colors.grey, borderRadius: BorderRadius.circular(5.0)),),
-        ),
-
-          
+         SizedBox(height: 30,),
+            Text("TODAS MIS RESERVAS REALIZADAS",style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 20.0),),
+            
           _reservas(context),
 
           Padding(
@@ -85,22 +81,86 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-_solicitarListaZona(){
-  if(_llamarzona == true){
-ApiService _apiService=new ApiService();
-  _apiService.listarZona().then((onValue){
-    if(onValue!=null){
-      setState(() {
-        _llamarzona=false;
-        _listaZonas=onValue;
-      });
-    }
-  });
-  }
-  
-}
+_showAddDialogReserva() async {
+    showDialog(
+  context: context,
+  builder: (context) {
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog(
+       
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              
+              Row(children: <Widget>[
+                Text('Fecha Inicio: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
+                Text(fechainicioactualizar,style: TextStyle(fontFamily: 'CenturyGothic', fontSize: 15.0,fontWeight: FontWeight.bold )),
+              ],),
+              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+              Row(children: <Widget>[
+                Text('Fecha Fin: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
+                Text(fechainicioactualizar,style: TextStyle(fontFamily: 'CenturyGothic', fontSize: 15.0,fontWeight: FontWeight.bold )),
+              ],),
+              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+               Text('Selecione la fecha a actualizar: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
+              _calendario( setState),
+              Row(children: <Widget>[
+               Text('Hora Inicio: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
+                DropdownButton<String>(
+                  icon: Icon(Icons.arrow_drop_down, color: Colors.orange),
+             value: _dropdownStrHoraInicio,
+             onChanged: (String newValue){
+                 _dropdownStrHoraInicio = newValue;
+                 _dropdownStrHoraFinal=" ";
+                 _colocarHoraDisponibles(setState);
+                 setState(() {
+                   
+                 });
+                 
+             },
+  items: opcionesInicial.map(( value) {
+    return new DropdownMenuItem<String>(
+      value: value,
+      child: new Text(value),
+    );
+  }).toList(),
+)
+            ],),
 
-_solicitarDisponibilidadZonas(String id_zona,String fecha){
+            Row(children: <Widget>[
+               Text('Hora Final: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
+                DropdownButton<String>(
+                  icon: Icon(Icons.arrow_drop_down, color: Colors.orange),
+             value: _dropdownStrHoraFinal,
+             onChanged: (String newValue){
+               setState(() {
+                 _dropdownStrHoraFinal = newValue;
+               });
+             },
+  items: opcionesFinal.map(( value) {
+    return new DropdownMenuItem<String>(
+      value: value,
+      child: new Text(value),
+    );
+  }).toList(),
+)],),
+ Text('OBSERVACIONES',style: TextStyle(fontFamily: 'CenturyGothic', color: Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
+            _camposFormulario3("", _controllerObservaciones, TextInputType.text),
+            Divider(height: 20,),
+            _botonGuardar(context)
+              
+            
+            ],
+          ),
+        ),
+      );
+      },
+    );
+  },
+);
+  }
+_solicitarDisponibilidadZonas(String id_zona,String fecha,setState){
   if(_estadoDisponibilidadZonas){
       ApiService _apiService=new ApiService();
       _apiService.getDisponibilidadZona(id_zona, fecha).then((value){
@@ -112,7 +172,6 @@ _solicitarDisponibilidadZonas(String id_zona,String fecha){
              opcionesFinal.add(" ");
              _dropdownStrHoraInicio=" ";
              _dropdownStrHoraFinal=" ";
-             _estadoDisponibilidadZonas=false;
              setState(() {
                
              });
@@ -160,7 +219,7 @@ _solicitarTodasReserva(){
     }
   });
 }
-  Widget _calendario(){
+  Widget _calendario(setState){
 
   return  Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -206,7 +265,7 @@ _solicitarTodasReserva(){
                               style: TextStyle(color: Color(0xFF000000))
                           ),
                           onTap: (){
-                            _selectDate(context);
+                            _selectDate(context,setState);
                           },
                         ),
                       ),
@@ -215,7 +274,7 @@ _solicitarTodasReserva(){
                           icon: Icon(Icons.calendar_today),
                           tooltip: 'Tap to open date picker',
                           onPressed: () {
-                            _selectDate(context);
+                            _selectDate(context,setState);
                           },
                         ),
                       ),
@@ -227,7 +286,7 @@ _solicitarTodasReserva(){
           ],
         );
 }
- Future<void> _selectDate(BuildContext context) async {
+ Future<void> _selectDate(BuildContext context,setState) async {
 
       
     final b = showDatePicker(
@@ -243,7 +302,6 @@ _solicitarTodasReserva(){
     
     final DateTime d = await b;
     int mes = int.parse(DateFormat('M').format(now));
-    int dia = int.parse(DateFormat('dd').format(now));
     if (d != null)
     if (d.month == mes || d.month == mes+1 || d.month == mes+2){
        
@@ -267,7 +325,7 @@ _solicitarTodasReserva(){
                       _posicionZona=_zona['id'];
                   }
               }
-        _solicitarDisponibilidadZonas(_posicionZona.toString(),fecha_Selecionada);
+        _solicitarDisponibilidadZonas(_posicionZona.toString(),fecha_Selecionada,setState);
       
   }
 
@@ -281,7 +339,7 @@ _solicitarTodasReserva(){
                 Text('Fecha Inicio: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
                 Text(fecha_Selecionada,style: TextStyle(fontFamily: 'CenturyGothic', fontSize: 15.0,fontWeight: FontWeight.bold )),
               ],),
-            _calendario(),
+            //_calendario(),
             Row(children: <Widget>[
                Text('Hora Inicio: ',style: TextStyle(fontFamily: 'CenturyGothic', color:Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
                 DropdownButton<String>(
@@ -291,7 +349,7 @@ _solicitarTodasReserva(){
                setState(() {
                  _dropdownStrHoraInicio = newValue;
                  _dropdownStrHoraFinal=" ";
-                 _colocarHoraDisponibles();
+                 //_colocarHoraDisponibles();
                });
                  
              },
@@ -323,7 +381,8 @@ _solicitarTodasReserva(){
              Text('OBSERVACIONES',style: TextStyle(fontFamily: 'CenturyGothic', color: Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
             _camposFormulario3("", _controllerObservaciones, TextInputType.text),
             Divider(height: 20,),
-            _botonGuardar()],
+            //_botonGuardar()
+            ],
           ),
         ),
       );
@@ -357,7 +416,7 @@ Widget _zonasHabilitadas(){
 }
 
 
-_botonGuardar(){
+_botonGuardar(context){
 
    return GestureDetector(
        onTap: (){ 
@@ -388,12 +447,13 @@ _botonGuardar(){
               ApiService apiService=ApiService();
               apiService.guardarReserva(datosReserva).then((isSuccess){
                   if(isSuccess == 'ok'){
+
+                    Navigator.pop(context);
                     _alertReservaMensajes(context,"Reserva exitosa");
                     _idreserva=" ";
                     _controllerObservaciones.text=" ";
                     _estadotablecale=true;
                     setState(() {
-                      
                     });
                    
                   }else{
@@ -514,7 +574,7 @@ Widget _camposFormulario(String texto,TextEditingController controller,TextInput
 )
     );
   }
-_colocarHoraDisponibles(){
+_colocarHoraDisponibles(setState){
   
   var  fecha=_dropdownStrHoraInicio;
   var primeroSegundoCaracter=fecha.substring(0,2);
@@ -531,7 +591,7 @@ _colocarHoraDisponibles(){
 
 }
 _reservas(BuildContext context){
-  if(_estadotablecale){
+  if(_estadotablecale==true){
     return  FutureBuilder(future: reservaProvider.getAllReservas(),
     builder: (BuildContext context,
      AsyncSnapshot<List<Reserva>> snapshot) {
@@ -552,7 +612,7 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,snapshot.data[index].fecha_hora_fin,snapshot.data[index].estado,snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString());
+             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,snapshot.data[index].fecha_hora_fin,snapshot.data[index].estado,snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString(),snapshot.data[index].id_zona_social);
 
             
   },
@@ -587,7 +647,7 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: _datoslistareserva.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].estado,_datoslistareserva[index].id_reserva, Colors.red.shade100, context ,_datoslistareserva[index].observaciones.toString());
+             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].estado,_datoslistareserva[index].id_reserva, Colors.red.shade100, context ,_datoslistareserva[index].observaciones.toString(),_datoslistareserva[index].id_zona_social);
 
             
   },
@@ -623,7 +683,7 @@ Widget _cardMensajestodareserva(texto, color){
 }
 
 
-  Widget _cardMensajes(texto, fecha, hora, estado,id_reserva,color, BuildContext context,String observacion){
+  Widget _cardMensajes(texto, fechainicio,fechafin, hora, estado,id_reserva,color, BuildContext context,String observacion,int id_zona_social){
  
   return  GestureDetector(child: Card(
            color: color,
@@ -634,7 +694,7 @@ Widget _cardMensajestodareserva(texto, color){
                  
                 Text(texto, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                 SizedBox(width: 15.0,),
-                Text('(LEER)'+fecha, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                Text('(LEER)'+fechainicio, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                   
                 Expanded(
                                   child: Column(
@@ -642,7 +702,7 @@ Widget _cardMensajestodareserva(texto, color){
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
 
-                      Text(fecha, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                      Text(fechainicio, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                       Text(estado, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
 
                     ],
@@ -654,13 +714,13 @@ Widget _cardMensajestodareserva(texto, color){
          ),
          onTap: (){
            
-           _alertLista(texto, fecha, observacion,estado,id_reserva);
+           _alertLista(texto, fechainicio,fechafin ,observacion,estado,id_reserva,id_zona_social);
             
          },
          ) ;
 
 }
-Widget _alertLista(String tipo ,  String fecha,String observacion,String hora,id_reserva ){
+Widget _alertLista(String tipo ,  String fechainicio,  String fechafin,String observacion,String hora,id_reserva ,int id_zona_social){
    showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -671,7 +731,8 @@ Widget _alertLista(String tipo ,  String fecha,String observacion,String hora,id
           child: ListBody(
             children: <Widget>[
               _campoAlert(tipo),
-              _campoAlert(fecha),
+              _campoAlert("FECHA INICIO: "+fechainicio),
+              _campoAlert("FECHA FIN: "+fechafin),
               _campoAlert(hora),
               _campoAlert(observacion),
              
@@ -685,6 +746,7 @@ Widget _alertLista(String tipo ,  String fecha,String observacion,String hora,id
               _idreserva=" ";
               ApiService apiService=new ApiService();
               apiService.borrarReserva(id_reserva).then((onValue){
+                print(onValue);
                     Navigator.of(context).pop();
                    setState(() {
                      
@@ -696,15 +758,17 @@ Widget _alertLista(String tipo ,  String fecha,String observacion,String hora,id
             child: Text('Editar'),
             onPressed: () {
                Navigator.of(context).pop();
-               String _year=fecha.substring(6,10);
-               String _month=fecha.substring(3,5);
-                String _day=fecha.substring(0,2);
+               String _year=fechainicio.substring(6,10);
+               String _month=fechainicio.substring(3,5);
+                String _day=fechainicio.substring(0,2);
                 _selectedDate=_day+"/"+_month+"/"+_year;
-                _selectedDateBaseDato=_year+"-"+_month+"-"+_day;
+                fechafinalactualizar=fechafin;
+                fechainicioactualizar=fechainicio;
                   _idreserva=id_reserva.toString();
-                   _selectedDate=fecha;
-          _zonaSelecionadad=tipo;
+                   _selectedDate=" ";
+          _posicionZona=id_zona_social;
            _controllerObservaciones.text=observacion;
+           _showAddDialogReserva();
            
             },
           ),
@@ -824,7 +888,8 @@ botonPrincipal(context){
               ),
               calendarController: _calendarController,
             ),
-            
+            SizedBox(height: 30,),
+            Text("TODAS LA RESERVAS REALIZADAS",style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 20.0),),
              ConstrainedBox(
                constraints: new BoxConstraints(
                  maxHeight: _medidaslist,
@@ -836,14 +901,17 @@ botonPrincipal(context){
                      itemCount: _listaocupada.length,
                      itemBuilder: (context,index){
                          return _cardMensajestodareserva(_listaocupada[index],  Colors.red.shade100);
-                       
                      }
-                     ) :Text('Esta fecha no se ha echo reserva'),
+                     ) :Text('Esta fecha no se ha hecho reserva'),
                    ),
                ),
                ),
-               
-        _alertReserva(context),
+
+          
+           Padding(
+          padding: const EdgeInsets.symmetric(horizontal:25.0),
+          child: Container(height: 4.0,width: 350.0 , decoration: BoxDecoration( color: Colors.grey, borderRadius: BorderRadius.circular(5.0)),),
+        ),     
            
    ],);
  }

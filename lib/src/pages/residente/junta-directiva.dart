@@ -83,6 +83,7 @@ class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
                     de: doc.data['de'],
                     text: doc.data['texto'],
                     nombre: doc.data['nombre'],
+                    timestamp: doc.data['timestamp'],
                     me: "re"+appData.cedula.toString() == doc.data['de'],
                    )).toList();
                   return ListView(
@@ -108,11 +109,13 @@ class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
                       controller: messageController,
                     ),
                   ),
-                  FlatButton( 
-                    color: Colors.orange,
-                    child: Text('Enviar'), 
+                  Container(
+                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    child: FloatingActionButton(
+                    backgroundColor: Colors.orange,
+                    child: Icon(Icons.send,),
                     onPressed: callback,
-                      
+                  ),
                   )
                 ],
               ),
@@ -125,25 +128,23 @@ class _ChatJuntaDirectivaPageState extends State<ChatJuntaDirectivaPage> {
 }
 
 class Mensaje extends StatelessWidget {
-  final String de;
+ final String de;
   final String text;
   final String nombre;
   final bool me;
-  const Mensaje({Key key,this.de,this.text,this.me,this.nombre}) : super(key: key);
+  final int posicion;
+  final String timestamp;
+  const Mensaje({Key key,this.de,this.text,this.me,this.nombre,this.posicion,this.timestamp}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container( 
         margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
         child:Column(
           crossAxisAlignment: me ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              nombre
-            ),
             Material( 
-              color: me ? Colors.teal : Colors.red,
+              color: me ? Colors.yellow[500] : Colors.blue[200],
               borderRadius: BorderRadius.circular(10.0),
               elevation: 6.0,
               child: Container( 
@@ -152,10 +153,19 @@ class Mensaje extends StatelessWidget {
                   text
                 )
               )
-            )
+            ),
+            Container(
+                    child: Text(
+                      DateFormat('dd MMM kk:mm')
+                          .format(DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp))),
+                      style: TextStyle(color:  Colors.black, fontSize: 12.0, fontStyle: FontStyle.italic),
+                    ),
+                    margin: EdgeInsets.only(left: 5.0, top: 5.0, bottom: 5.0),
+                  ),
+            
           ],
         )
-      ),
+      
     );
   }
 }

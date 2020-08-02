@@ -24,7 +24,7 @@ final _controllerId=TextEditingController();
   bool _campostipoB=false;
    bool camposCedula=true;
    bool _guardarEstado=false;
-   var now = new DateTime.now();
+   final now = new DateTime.now();
    String currentTime = DateFormat('yyyy-MM-dd').format(now);
   final _propietarioConyugue= new PropitarioProvider();
 class _SubUnidadesPagesState extends State<SubUnidadesPages> {

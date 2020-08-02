@@ -48,7 +48,7 @@ class _OtrosPageState extends State<OtrosPage> {
               _camposFormulario('NUMERO DE CONTACTO', _controllerNumeroContacto, TextInputType.number),
               _camposFormulario('CORREO ELECTRONICO', _controllerCorreo, TextInputType.emailAddress),
                 _botonGuardar(),
-                       Text('*Recuerde que estos miembros tendran \n acceso a la aplicacion por medio  del \n documento de identificacion bajo el rol \n del "Nucleo Familiar" en la unidad \n Residente Registrada',style:TextStyle(fontSize: 15.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold)),
+                       Text('*Recuerde que estos miembros tendran \n acceso a la aplicacion por medio  del \n documento de identificacion bajo el rol \n del "Nucleo Familiar" en la unidad \n Residente Registrada',style:TextStyle(fontSize: 15.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic',fontWeight: FontWeight.bold),textAlign: TextAlign.center),
                         Divider(height: 20,color: Colors.white,),
 
                               _tablaHijos(context),

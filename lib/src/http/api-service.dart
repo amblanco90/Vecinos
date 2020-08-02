@@ -182,6 +182,7 @@ Future<dynamic> getDisponibilidadZona(String id_zona,String fecha) async {
         "$baseUrl/zonas/disponibilidad",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
+        print(response.body);
         if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     try{

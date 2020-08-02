@@ -39,7 +39,7 @@ class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
        if (snapshot.connectionState == ConnectionState.done){ 
           return ConstrainedBox(
             constraints:new BoxConstraints(
-              maxHeight: size.height * 0.7,
+              maxHeight: size.height * 0.68,
               ),
               child: ListView.builder(
                 itemCount: snapshot.data.length,
@@ -86,7 +86,7 @@ class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
                           fontSize: 10.0),
                     )),
                 SizedBox(
-                        width: 20.0,
+                        width: 15.0,
                       ),
                       Text(
                         datos.residente.length<= 17 ? datos.residente: datos.residente.replaceRange(17, datos.residente.length, '...'),
@@ -97,9 +97,10 @@ class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
                             fontSize: 10.0),
                       ),
                       SizedBox(
-                  width: 30.0,
+                  width: 15.0,
                 ),
-                      Text(
+                      FittedBox(
+                        child: Text(
                         datos.estado,
                         style: TextStyle(
                             color: Colors.grey.shade700,
@@ -107,14 +108,16 @@ class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 10.0),
                       ),
+                      ),
                       SizedBox(
-                  width: 20.0,
+                  width: 10.0,
                 ),
                   Expanded(child:  Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                       Text(
+                       FittedBox(
+                         child: Text(
                           '(LEER)' ,
                           style: TextStyle(
                               color: Color.fromRGBO(255, 114, 0, 1.0),
@@ -122,6 +125,7 @@ class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 10.0),
                         ),
+                       )
                     ],
                   ),)
                 
@@ -311,20 +315,24 @@ class _ListaReservaAdminPageState extends State<ListaReservaAdminPage> {
                                           fontWeight: FontWeight.bold,
                                         )),
                                         SizedBox(height: 10.0),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
+                                        FittedBox(
+                                            child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                            
+                                             RaisedButton(
+                                            onPressed: datos.estado == "Aprobado"|| datos.estado == "Por aprobar" || datos.estado == "*Cancelado*"? null:(){_cancelarReserva(datos.id_reserva.toString(),context,context2);} ,
+                                            child:  Text( 'CANCELAR' , style: TextStyle(fontSize: 20)),
+                                            
                                           
+                                             ),
+                                             Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0),),
                                            RaisedButton(
-                                          onPressed: datos.estado == "Aprobado"|| datos.estado == "Por aprobar" || datos.estado == "*Cancelado*"? null:(){_cancelarReserva(datos.id_reserva.toString(),context,context2);} ,
-                                          child:  Text( 'CANCELAR' , style: TextStyle(fontSize: 20)),
-                                          
-                                        ),
-                                         RaisedButton(
-                                          onPressed: datos.estado == "Aprobado"|| datos.estado == "*Cancelado*"? null:(){_aprobarReserva(datos.id_reserva.toString(),context,context2);},
-                                          child: const Text('APROBAR ', style: TextStyle(fontSize: 20)),
-                                        ),
-                                        ],)
+                                            onPressed: datos.estado == "Aprobado"|| datos.estado == "*Cancelado*"? null:(){_aprobarReserva(datos.id_reserva.toString(),context,context2);},
+                                            child: const Text('APROBAR ', style: TextStyle(fontSize: 20)),
+                                          ),
+                                          ],),
+                                        )
                                   ]),
                             )
                           ],
