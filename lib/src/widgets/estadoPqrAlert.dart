@@ -47,6 +47,9 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
             backgroundColor: Colors.transparent,
             content: SingleChildScrollView(
               child: Container(
+                width: MediaQuery. of(context). size. width, 
+
+                height:MediaQuery. of(context). size.height * 0.8,    
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -99,8 +102,6 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                       
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(destinatario!=null?destinatario:'', style :TextStyle(
                                             fontSize: 13.0,
@@ -126,8 +127,7 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                       
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                     
                       children: <Widget>[
                         Text(tipo!=null?tipo:'', style :TextStyle(
                                             fontSize: 13.0,
@@ -159,12 +159,12 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                         shrinkWrap: true,
                         children: <Widget>[
                           Container(
-                              width: 200.0,
+                              width: 250.0,
                               height: 200.0,
                               child: Text(
                                texto!=null?texto:'',
                                 maxLines: null,
-                                    style: TextStyle(
+                                    style: TextStyle( 
                                       fontSize: 13.0,
                                       color: Colors.grey.shade700,
                                       fontFamily: 'CenturyGothic',
@@ -190,9 +190,9 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                       height: 250.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3.0),
-                        color: Colors.grey.shade200,
+                        color: Colors.grey.shade200,  
                       ),
-                      padding: EdgeInsets.all(10.0),
+                       padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0),
                       child: Scrollbar(
                         child: FutureBuilder(
                     future: respuestapqrProvider.getHilo(id,context) ,
@@ -215,6 +215,7 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                     },
                   ),
                       ),
+                      
                     ),
                   ),
                 SizedBox(

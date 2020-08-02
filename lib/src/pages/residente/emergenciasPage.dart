@@ -133,6 +133,9 @@ _botonPrincipal(context) {
 Widget cardMensajes(
     texto, fecha, hora, color, estado, BuildContext context, id,funcion) {
   return GestureDetector(
+    onTap:(){
+      emergenciaAlert(context, texto, 'DETALLES', fecha,id,estado,funcion);
+    },
       child: Card(
     color: color,
     child: Container(

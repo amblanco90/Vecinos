@@ -308,8 +308,8 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
       }
         
         
-      }else{
-        appData.idSubunidad=0;
+      }else{ 
+        appData.idSubunidad=null;
       }
       
       appData.idUnidad=datos["id_unidad"];

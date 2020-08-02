@@ -2853,7 +2853,9 @@ Widget _chatResidente(){
       texto, fecha, hora, color, estado, BuildContext context, id) {
   
     return GestureDetector(
-        
+        onTap:(){
+           detalleNotificacion(context, texto, null, estado, id, '', '', funcion);
+        },
         child: Card(
           color: color,
           child: Container(
