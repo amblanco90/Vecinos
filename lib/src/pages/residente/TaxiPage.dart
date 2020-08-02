@@ -273,7 +273,10 @@ class _TaxiPageState extends State<TaxiPage> {
           } else if (estado == 21) {
             estadoString = 'DESPACHADO';
           }
+
           setState(() {});
+
+           verTaxi(context, estadoString, texto, id);
         },
         child: Card(
           color: color,
@@ -281,13 +284,18 @@ class _TaxiPageState extends State<TaxiPage> {
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
             child: Row(
               children: <Widget>[
-                Text(
-                  texto,
-                  style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontFamily: 'CenturyGothic',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10.0),
+                Container(
+                  width: 100.0,
+                  child: Text(
+                    texto,
+                    overflow: TextOverflow.ellipsis, 
+                    style: TextStyle(
+                       
+                        color: Colors.grey.shade700,
+                        fontFamily: 'CenturyGothic',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.0),
+                  ),
                 ),
                 SizedBox(
                   width: 15.0,

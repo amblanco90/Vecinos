@@ -48,8 +48,8 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
             content: SingleChildScrollView(
               child: Container(
                 width: MediaQuery. of(context). size. width, 
- 
-                height:MediaQuery. of(context). size.height - 50,
+
+                height:MediaQuery. of(context). size.height * 0.8,    
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   color: Colors.white,

@@ -47,7 +47,7 @@ gg(BuildContext context, funcion) {
               child: Container(
                 width: MediaQuery. of(context). size. width - 10, 
 
-                height:MediaQuery. of(context). size.height- 300,   
+                height:MediaQuery. of(context). size.height * 0.8,    
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   color: Colors.white,

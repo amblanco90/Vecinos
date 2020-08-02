@@ -195,6 +195,9 @@ cabecera() {
 prefix.Widget cardMensajes(
     texto, fecha, hora, color, estado, BuildContext context, id) {
   return GestureDetector(
+    onTap:(){
+      noticiaAlert(context, texto, 'DETALLES', fecha);
+    },
       child: Card(
     color: color,
     child: Container(
