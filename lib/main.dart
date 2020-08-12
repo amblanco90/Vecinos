@@ -1,12 +1,18 @@
 
 import 'dart:async';
+import 'dart:typed_data';
+import 'package:edificion247/src/helpers/appdata.dart';
+import 'package:edificion247/src/pages/login/afterLogin.dart';
+import 'package:edificion247/src/providers/perfilProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'src/pages/login/Login.dart';
+import 'dart:convert';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,13 +53,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp>  {
+  final perfilProvider = PerfilProvider();
 
   startTime() async {
     var _duration = new Duration(seconds: 5);
-    return new Timer(_duration, navigationPage);
+    return new Timer(_duration, _validarSesionAbierta);
   }
 
   void navigationPage() {
+
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
   }
 
@@ -68,7 +76,6 @@ class _MyAppState extends State<MyApp>  {
 
 
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
          backgroundColor: Color.fromRGBO(255, 255, 255, 1.0),
          body: Column(
@@ -95,6 +102,41 @@ class _MyAppState extends State<MyApp>  {
     
       
     );
+  }
+
+  _validarSesionAbierta() async{
+    final prefs = await SharedPreferences.getInstance();
+    if(prefs.getInt("cedula") != null){
+      appData.idUsuario=prefs.getInt('idUsuario') ??0;
+      appData.saldo =  prefs.getInt('saldo') ??0;
+      appData.tipoUnidad =  prefs.getString('tipoUnidad') ??"";
+      appData.idSubunidad =  prefs.getInt('idSubunidad') ??"";
+      appData.nombreSubUnidad =  prefs.getString('nombreSubUnidad') ??"";
+      Map valueMap = json.decode(prefs.getString('unidadInicial'));
+      appData.unidadInicial = valueMap;
+      appData.idUnidad =  prefs.getInt('idUnidad') ??0;
+      appData.url_pago =  prefs.getString('url_pago') ??"";
+      appData.cedula =  prefs.getInt('cedula') ??0;
+      appData.permisos =  prefs.getString('permisos') ??"";  
+      appData.nombre=prefs.getString("nombre") ?? "";
+      appData.apellido=prefs.getString("apellido") ?? "";
+      if(prefs.getString("foto") != null){
+        var foto = new Uint8List.fromList(prefs.getString("foto").codeUnits);
+        appData.fotoPerfil=foto;
+      }
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfterLoginPage() ));
+       
+    /**
+     perfilProvider.getPerfilResidente().then((value){
+         pr.dismiss();
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfterLoginPage() ));
+         return true;
+      });
+       */
+    }else{
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+    }
+    
   }
 
 /*LinearGradient(

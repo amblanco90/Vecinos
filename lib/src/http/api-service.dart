@@ -296,12 +296,25 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){ 
+
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setInt('idUsuario', datos["id"]);
       appData.idUsuario = datos["id"];
       if(datos["lista_subunidades"]!=null){
+
+        prefs.setInt('saldo', datos["lista_subunidades"][0]["saldo"]);
         appData.saldo = datos["lista_subunidades"][0]["saldo"];
+
+        prefs.setString('tipoUnidad', datos["lista_subunidades"][0]["nombre_tipo_unidad"]);
         appData.tipoUnidad = datos["lista_subunidades"][0]["nombre_tipo_unidad"];
+
+        prefs.setInt('idSubunidad', datos["lista_subunidades"][0]["id_subunidad"]);
         appData.idSubunidad= datos["lista_subunidades"][0]["id_subunidad"];
+        
+        prefs.setString('nombreSubUnidad', datos["lista_subunidades"][0]["nombre_subunidad"]);
         appData.nombreSubUnidad = datos["lista_subunidades"][0]["nombre_subunidad"];
+
+        prefs.setString('unidadInicial', json.encode(datos["lista_subunidades"][0]));
         appData.unidadInicial = datos["lista_subunidades"][0];
       for (var item in datos["lista_subunidades"]) {
         appData.unidades.add(item);
@@ -309,10 +322,14 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
         
         
       }else{ 
+        prefs.setString('idSubunidad', null);
         appData.idSubunidad=null;
       }
       
+      prefs.setInt('idUnidad', datos["id_unidad"]);
       appData.idUnidad=datos["id_unidad"];
+
+      prefs.setString('url_pago', datos["url_pago"]);
       appData.url_pago=datos["url_pago"];
       
       //print(appData.unidades);
@@ -321,30 +338,32 @@ Future<bool> login(DatosLogin datosLogin,ProgressDialog pr, context,usuario,pass
         print(item);
       }
 
-      
+      prefs.setInt('cedula', datos["cedula"]);
       appData.cedula= datos["cedula"];
       if(datos["perfiles"].length==1){
 
         if(datos["perfiles"][0]["id_perfil"]==200){
-
+          prefs.setString('permisos', 'Familiar');
           appData.permisos='Familiar';
-          print(appData.permisos);        }
+          print(appData.permisos);       
+           }
           else if(datos["perfiles"][0]["id_perfil"]==100 ){
-
+          prefs.setString('permisos', 'Residente');
           appData.permisos='Residente';
              print(appData.permisos);  
         }else {
+          prefs.setString('permisos', 'Admini');
           appData.permisos='Admini' ;  
            print(appData.permisos);  
           }
 
 
       }else if(datos["perfiles"].length==2) {
+        prefs.setString('permisos','Administrador');
         appData.permisos='Administrador';
          print(appData.permisos);  
       }
       
-      final prefs = await SharedPreferences.getInstance();
       if(estado == true){
         prefs.setString('usuario', usuario);
       prefs.setString('password', password);

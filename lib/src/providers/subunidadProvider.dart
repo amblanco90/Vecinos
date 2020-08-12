@@ -5,7 +5,7 @@ import 'package:http/http.dart' as client;
 import 'dart:convert';
 class SubUnidadProvider{
    final String baseUrl = "http://18.191.213.12//api";
-  Future<bool> setSubUnidad(DatosSubUnidad datosSubUnidad) async {
+  Future<String> setSubUnidad(DatosSubUnidad datosSubUnidad) async {
  
     final response = await client.post("$baseUrl/admin/subunidad/save",
         body: subUnidadToJsonLogin(datosSubUnidad),
@@ -13,13 +13,13 @@ class SubUnidadProvider{
    print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
-    if(datos["resp"]=="ok"){
-      return true;
+    if(datos["resp"]!="error"){
+      return datos["msj"];
     }else{
-      return false;
+      return datos["msj"];
     }
   } else {
-    return false;
+    return "Ocurrio un error";
   }
 
   }

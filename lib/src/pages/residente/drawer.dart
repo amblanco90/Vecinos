@@ -40,6 +40,7 @@ import 'package:edificion247/src/widgets/noticiasAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'conyuque.dart';
 import 'hijos.dart';
@@ -1456,7 +1457,9 @@ _botonGuardar(context,setState){
                               child: Image.asset('recursos/imagenes/exit.png')),
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
-                          onPressed: () {
+                          onPressed: () async {
+                            final  prefs = await SharedPreferences.getInstance();
+                            prefs.clear();
                             appData.limpiarFoto();
                             Navigator.pushReplacement(
                                 context,
