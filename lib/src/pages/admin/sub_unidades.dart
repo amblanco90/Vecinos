@@ -24,7 +24,7 @@ final _controllerId=TextEditingController();
   bool _campostipoB=false;
    bool camposCedula=true;
    bool _guardarEstado=false;
-   var now = new DateTime.now();
+   final now = new DateTime.now();
    String currentTime = DateFormat('yyyy-MM-dd').format(now);
   final _propietarioConyugue= new PropitarioProvider();
 class _SubUnidadesPagesState extends State<SubUnidadesPages> {
@@ -333,10 +333,9 @@ Widget _alertSubUninidadMensajes (BuildContext context,String mensaje){
         }else if(_tipoUnidad == "Ocupado"){
           _posiciontipoestado=2;
         }
-        print(_posiciontipounidad.toString());
         DatosSubUnidad datosSubUnidad= new DatosSubUnidad(inputId: "",inputNomen: _controllerNomenclatura.text,tipoUnidad: _posiciontipounidad.toString(),inputEstado: _posiciontipoestado.toString(),inputIdProp: _controllerId.text,inputNameProp: _controllerNombre.text,inputApeProp: _controllerApellido.text,inputCel: _controllerCelular.text,inputEmail: _controllerCorreo.text,inputTel: _controllerTelefono.text);
         _subunidadProvider.setSubUnidad(datosSubUnidad).then((onValue){
-           if(onValue == true){
+           if(onValue == "Registro guardado"){
                _controllerCedulaPropietario.text ="";
             _controllerId.text="";
          _controllerNombre.text="";
@@ -350,7 +349,7 @@ Widget _alertSubUninidadMensajes (BuildContext context,String mensaje){
          _guardarEstado=false;
          _alertSubUninidadMensajes(context, "Registro exitoso");
            }else{
-              _alertSubUninidadMensajes(context, "A ocurrido al tratar de guardar intenetar del nuevo");
+              _alertSubUninidadMensajes(context, onValue);
            }
         });
      }else{

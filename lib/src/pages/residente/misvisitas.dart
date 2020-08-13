@@ -293,14 +293,19 @@ _tablaVisita(BuildContext context){
                             return Text("No tiene visitas");
                                               }
                     }else{
-                    return  Padding(
+                    return Column(
+                      children: [
+                        Text("Se estan cargando todas sus visitas"),
+                         Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                       child: CircularProgressIndicator(
                     valueColor:
                         new AlwaysStoppedAnimation<Color>(Colors.orange),
                   )),
-                );
+                )
+                      ],
+                    );
                     
                     }
                     

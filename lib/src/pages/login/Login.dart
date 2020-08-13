@@ -19,6 +19,7 @@ String pais = ' ';
 class _LoginPageState extends State<LoginPage>  {
    bool _colocar=false;
   bool _obscureText = true;
+  
  
 
   ProgressDialog pr;
@@ -41,6 +42,7 @@ class _LoginPageState extends State<LoginPage>  {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     
     _obtenerdatos();
     pr = new ProgressDialog(context);
@@ -60,7 +62,7 @@ class _LoginPageState extends State<LoginPage>  {
             color: Colors.black, fontSize: 10.0, fontWeight: FontWeight.w400),
         messageTextStyle: TextStyle(
             color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600));
-    final size = MediaQuery.of(context).size;
+    
     final logo = Container(
       height: size.height * 0.4,
       child: CircleAvatar(
@@ -170,18 +172,17 @@ class _LoginPageState extends State<LoginPage>  {
           ApiService apiService = new ApiService();
           DatosLogin datos = new DatosLogin(
               username: userController.text, password: passwordController.text);
-
-          apiService.login(datos, pr, context,userController.text,passwordController.text,check).then((onValue) {
-            if (userController.text.isEmpty ||
-                passwordController.text.isEmpty) {
-              (context);
-            } else if (userController.text.isEmpty &&
-                passwordController.text.isEmpty) {
+          if (userController.text.isNotEmpty &&
+                passwordController.text.isNotEmpty) {
+                apiService.login(datos, pr, context,userController.text,passwordController.text,check).then((onValue) {     
+                  if (onValue == false) {
+                  ErrorLoginAlert(context);
+                }
+              });
+            }else{
               ValidacionLoginAlert(context);
-            } else if (onValue == false) {
-              ErrorLoginAlert(context);
             }
-          });
+          
         },
       ),
     );
