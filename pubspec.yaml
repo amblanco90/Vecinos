@@ -40,6 +40,7 @@ dependencies:
   cloud_firestore: ^0.13.4+2 
   firebase_messaging: ^6.0.13
   flushbar: 
+  soundpool:
   esys_flutter_share: ^1.0.2
   path_provider:
   url_launcher: ^5.4.10
@@ -127,6 +128,7 @@ flutter:
       - recursos/imagenes/trespersonasicon.jpg
       - recursos/imagenes/iconreserva.png
       - recursos/imagenes/facturaicon.png
+      - sounds/Alert-notification.mp3
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
