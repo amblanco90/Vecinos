@@ -23,18 +23,18 @@ Future<List<PedidoTaxi>> getAllCasillero() async {
     print(response.body);
     final decodedData = json.decode(response.body);
 
-    if(decodedData[0]["resp"]!=null){
 
-      return null;
-
-
-
-    }else{
 
       final entidades = new PedidosTaxis.fromJsonList(decodedData);
-      return entidades.items;
+      if(entidades.items.length==0){
+        print("cero");
+        return null;
+      }else{
+        return entidades.items;
+      }
 
-    }
+
+
 
 
   
@@ -54,21 +54,14 @@ Future<List<PedidoTaxi>> getAllEmergencias() async {
         "$baseUrl/residente/panico/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
-    print(response.body);
+
     final decodedData = json.decode(response.body);
 
-    if(decodedData[0]["resp"]!=null){
-
-      return null;
-
-
-
-    }else{
 
       final entidades = new PedidosTaxis.fromJsonList(decodedData);
       return entidades.items;
 
-    }
+
 
 
   
@@ -154,18 +147,20 @@ Future<List<PedidoTaxi>> getAllNotificaciones() async {
     print(response.body);
     final decodedData = json.decode(response.body);
 
-    if(decodedData[0]["resp"]!=null){
 
-      return null;
-
-
-
-    }else{
 
       final entidades = new PedidosTaxis.fromJsonListNotificaciones(decodedData);
-      return entidades.items;
 
+    if(entidades.items.length==0){
+      print("cero");
+      return null;
+    }else{
+      return entidades.items;
     }
+
+
+
+
 
 
 }
@@ -181,18 +176,12 @@ Future<List<HiloNotificacion>> getAllHiloNotificaciones(id) async {
     print(response.body);
     final decodedData = json.decode(response.body);
     
-    if(decodedData[0]["resp"]!=null){
 
-      return null;
-
-
-
-    }else{
 
       final entidades = new ListHiloNotificacion.fromJsonList(decodedData);
       return entidades.items;
 
-    }
+
 
 
 }
@@ -208,18 +197,15 @@ Future<List<PedidoTaxi>> getAllNotificacionesEnviadas() async {
     print(response.body);
     final decodedData = json.decode(response.body);
 
-    if(decodedData[0]["resp"]!=null){
-
-      return null;
-
-
-
-    }else{
-
       final entidades = new PedidosTaxis.fromJsonListNotificacionesEnviadas(decodedData);
+    if(entidades.items.length==0){
+      print("cero");
+      return null;
+    }else{
       return entidades.items;
-
     }
+
+
 
 
 }

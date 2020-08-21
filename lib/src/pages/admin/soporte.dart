@@ -29,7 +29,7 @@ class _SoportePagesState extends State<SoportePages> {
     final app = descripcionController.text;
     
 
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 250.0, maxWidth: 250.0);
     setState(() {
       _image = image;
       descripcionController.text = app; 
@@ -39,7 +39,7 @@ class _SoportePagesState extends State<SoportePages> {
   Future getImageFromGallery() async {
     final app = descripcionController.text;
     
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery, maxHeight: 250.0, maxWidth: 250.0);
     setState(() {
       _image = image;
       descripcionController.text = app; 

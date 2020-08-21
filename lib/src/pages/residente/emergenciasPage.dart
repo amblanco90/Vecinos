@@ -63,7 +63,7 @@ class _EmergenciasPageState extends State<EmergenciasPage> {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<PedidoTaxi>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
-                    return ListView.builder(
+                    return snapshot.data != null ? ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return cardMensajes(
@@ -77,7 +77,7 @@ class _EmergenciasPageState extends State<EmergenciasPage> {
                             context,
                             snapshot.data[index].idCasillero,funcion);
                       },
-                    );
+                    ): Center(child:Text("Las alertas generadas aperecerán aquí."));
                   else
                     return Center(
                         child: CircularProgressIndicator(
