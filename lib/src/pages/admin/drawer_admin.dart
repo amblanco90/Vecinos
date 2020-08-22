@@ -156,8 +156,8 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     fincion(){
     
     setState(() {
-                         _item = 22;
-                        _nombre_appbar = 'EMERGENCIAS';
+                         _item = 8;
+                        _nombre_appbar = 'NOTIFICACIONES';
                         _posicion_appbar=0;
                       });
   }
@@ -327,7 +327,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                           children: <prefix.Widget>[
                             FittedBox( 
                               child: Text(
-                              'PQR SOPORTE',
+                              'PQR',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: Colors.white,
@@ -1272,8 +1272,7 @@ prefix.Widget _botonesRedondeados(context) {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Cartelera>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done)
-                    return snapshot.data.length > 0
-                        ? ListView.builder(
+                    return snapshot.data!= null ? ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -1317,7 +1316,7 @@ prefix.Widget _botonesRedondeados(context) {
                               );
                             },
                           )
-                        : Container();
+                        : Center(child:Text("No hay noticias."));
                   else
                     return Center(
                         child: CircularProgressIndicator(
@@ -1497,7 +1496,7 @@ prefix.Widget _botonesRedondeados(context) {
                     builder: (BuildContext context,
                         AsyncSnapshot<List<PedidoTaxi>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)
-                        return ListView.builder(
+                        return snapshot.data !=null? ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return cardMensajes(
@@ -1512,7 +1511,7 @@ prefix.Widget _botonesRedondeados(context) {
                                 snapshot.data[index].idCasillero);
                                
                           },
-                        );
+                        ): Center(child:Text("Sin notificaciones"));
                       else
                         return Center(
                             child: CircularProgressIndicator(
@@ -1717,7 +1716,7 @@ _enviados(){
                     builder: (BuildContext context,
                         AsyncSnapshot<List<PedidoTaxi>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)
-                        return ListView.builder(
+                        return snapshot.data != null ? ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return cardMensajes(
@@ -1732,7 +1731,7 @@ _enviados(){
                                 snapshot.data[index].idCasillero);
                                
                           },
-                        );
+                        ): Center(child:Text("No ha respondido ninguna notificación."));
                       else
                         return Center(
                             child: CircularProgressIndicator(
@@ -2129,7 +2128,7 @@ _vistaUnidad() {
                     SizedBox(
                       height: 2.0,
                     ),
-                    botonEditEliminar('EDITAR', 1),
+
                     SizedBox(
                       height: 2.0,
                     ),
@@ -2594,7 +2593,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
                                       "recursos/imagenes/profile.png");
 
   Future getImageFromCam() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 250.0, maxWidth:250.0);
    
     setState(() {
       _image = image;
@@ -2611,7 +2610,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
   }
 
   Future getImageFromGallery() async {  
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery, maxHeight: 250.0, maxWidth:250.0);
     setState(() {
       _image = image;
       List<int> imageBytes = image.readAsBytesSync();

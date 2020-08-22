@@ -5,12 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ffb7ce61-b92e-4fc7-8d22-494b86bdd6da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/admin/crearNoticias.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/admin/crearNoticias.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/admin/perfil_admin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/admin/perfil_admin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/admin/soporte.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/admin/soporte.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/TaxiPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/TaxiPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/emergenciasPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/emergenciasPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/micasillero.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/micasillero.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/miperfil.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/miperfil.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/misvisitas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/misvisitas.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/providers/perfilProvider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/providers/perfilProvider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pages/residente/pqr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pages/residente/pqr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/providers/casilleroProvider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/providers/casilleroProvider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/providers/noticiasProvider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/providers/noticiasProvider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/providers/pedidoTaxi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/providers/pedidoTaxi.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/providers/respuestasResidenteProvider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/providers/respuestasResidenteProvider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/detalleNotificacion.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/detalleNotificacion.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/estadoPqrAdmin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/estadoPqrAdmin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/estadoPqrAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/estadoPqrAlert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/generarNoticia.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/generarNoticia.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/generarPqrAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/generarPqrAlert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/responderPqrAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/responderPqrAlert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/respuestaPqrAdminAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/respuestaPqrAdminAlert.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +41,156 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/providers/pedidoTaxi.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="552">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/providers/emergenciaProvider.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/emergenciasPage.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+              <folding>
+                <element signature="e#0#55#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/micasillero.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/providers/casilleroProvider.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="677">
+              <caret line="205" column="5" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/widgets/detalleNotificacion.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="154" selection-start-line="153" selection-end-line="154" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/pages/admin/crearNoticias.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#56#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/src/widgets/verNoticia.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="204" column="26" lean-forward="true" selection-start-line="204" selection-start-column="26" selection-end-line="204" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/models/pedidoTaxi.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>:Center(child:Text(&quot;Sin notificaciones.&quot;))</find>
+      <find>editar</find>
+      <find>taxi</find>
+      <find>emer</find>
+      <find>las</find>
+      <find>no tie</find>
+      <find>inbox</find>
+      <find>getallnotificaciones</find>
+      <find>perfil</find>
+      <find>noticias</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/lib/src/pages/residente/pqr.dart" />
+        <option value="$PROJECT_DIR$/lib/src/pages/residente/miperfil.dart" />
+        <option value="$PROJECT_DIR$/lib/src/pages/residente/drawer.dart" />
+        <option value="$PROJECT_DIR$/lib/src/providers/pedidoTaxi.dart" />
+        <option value="$PROJECT_DIR$/lib/src/providers/noticiasProvider.dart" />
+        <option value="$PROJECT_DIR$/lib/src/providers/respuestasResidenteProvider.dart" />
+        <option value="$PROJECT_DIR$/lib/src/providers/casilleroProvider.dart" />
+        <option value="$PROJECT_DIR$/lib/src/widgets/detalleNotificacion.dart" />
+        <option value="$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart" />
+        <option value="$PROJECT_DIR$/lib/src/pages/admin/crearNoticias.dart" />
+        <option value="$PROJECT_DIR$/lib/src/widgets/verNoticia.dart" />
+      </list>
+    </option>
   </component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
@@ -28,10 +199,79 @@
       </set>
     </option>
   </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="697" />
+    <option name="height" value="744" />
+  </component>
   <component name="ProjectId" id="1chxiyNNK6dAIiFwRqho3mjIzgD" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="providers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Vecinos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="edificion247" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
   <component name="PropertiesComponent">
-    <property name="dart.analysis.tool.window.force.activate" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../android studio/Cov19" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -63,17 +303,261 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info id="Structure" order="0" side_tool="true" />
+      <window_info id="Build Variants" order="1" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Resources Explorer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Captures" order="7" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="8" visible="true" weight="0.32980332" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.42880523" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.3289689" />
+      <window_info anchor="bottom" id="TODO" order="2" weight="0.3289689" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Debug" order="4" />
+      <window_info anchor="bottom" id="Version Control" order="5" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="6" visible="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="8" />
+      <window_info anchor="bottom" id="Dart Analysis" order="9" weight="0.5302782" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Flutter Inspector" order="2" />
+      <window_info anchor="right" id="Flutter Outline" order="3" weight="0.32980332" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Flutter Performance" order="5" weight="0.32980332" />
+      <window_info anchor="right" id="Device File Explorer" order="6" weight="0.32980332" />
+    </layout>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/miperfil.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="236" column="31" selection-start-line="236" selection-start-column="31" selection-end-line="236" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/pqr.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="182" column="79" selection-start-line="182" selection-start-column="79" selection-end-line="182" selection-end-column="79" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/providers/pqrProvider.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-283">
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/providers/noticiasProvider.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="104" column="4" selection-start-line="104" selection-start-column="4" selection-end-line="104" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/providers/respuestasResidenteProvider.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/widgets/estadoPqrAlert.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3227">
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/widgets/responderPqrAlert.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3991">
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/TaxiPage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="181" column="60" selection-start-line="181" selection-start-column="60" selection-end-line="181" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/drawer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="2688" column="51" selection-start-line="2688" selection-start-column="51" selection-end-line="2688" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/micasillero.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/providers/emergenciaProvider.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/providers/pedidoTaxi.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/models/pedidoTaxi.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/providers/casilleroProvider.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="677">
+          <caret line="205" column="5" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/widgets/detalleNotificacion.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="154" selection-start-line="153" selection-end-line="154" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/residente/emergenciasPage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/admin/drawer_admin.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/pages/admin/crearNoticias.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/widgets/verNoticia.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="204" column="26" lean-forward="true" selection-start-line="204" selection-start-column="26" selection-end-line="204" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

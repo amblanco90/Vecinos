@@ -158,7 +158,7 @@ detalleNotificacion(BuildContext context, texto, foto,estado,id,destinatario,tip
                                   return cardRespuestaNotificacion(snapshot.data[index].emisor, snapshot.data[index].fechaCreacion.toString(), snapshot.data[index].mensaje, snapshot.data[index].foto);
                                 },
                               )
-                            : Container();
+                            : Center(child:Text("Sin respuesta."));
                       else
                         return Center(
                             child: CircularProgressIndicator(

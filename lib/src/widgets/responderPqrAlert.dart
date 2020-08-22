@@ -207,7 +207,7 @@ responderPqr(BuildContext context,destinatario,tipo,id,estado) {
                                     try {
                                       observaciones.text = app;
                                       _image = await ImagePicker.pickImage(
-                                          source: ImageSource.gallery);
+                                          source: ImageSource.gallery, maxHeight: 250.0, maxWidth: 250.0);
                                       setState(() {});
                                     } catch (_) {
                                       print(_);

@@ -21,12 +21,12 @@ class NoticiasProvider {
     final response = await client.post("$baseUrl/unidad/noticias/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
-    print(response.body);
+    
     final decodedData = json.decode(response.body);
    
 
     final entidades = new ListCartelera.fromJsonList(decodedData);
-
+    print(entidades.items.reversed.toList());
     return entidades.items.reversed.toList();
   }   
 
@@ -41,11 +41,17 @@ class NoticiasProvider {
         headers: {"Content-Type": "application/json"});
     print(response.body);
     final decodedData = json.decode(response.body);
+
+    
+
+
    
 
     final entidades = new ListCartelera.fromJsonList(decodedData);
 
     return entidades.items.reversed.toList();
+
+    
   }   
 
   Future<void> generarNoticia(

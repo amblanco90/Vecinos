@@ -22,7 +22,7 @@ class MiCasillero extends StatelessWidget {
                         context);
                     
                   },
-                ):Container();
+                ):Center(child:Text("Casillero vacío."));
               } else {
                 return Center(
                     child: CircularProgressIndicator(

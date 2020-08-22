@@ -101,8 +101,8 @@ class _DrawerItemState extends State<DrawerItem> {
 
   fincion(){
     setState(() {
-                        _item = 22;
-                        nombre_appbar = 'EMERGENCIAS';
+                        _item = 12;
+                        nombre_appbar = 'NOTIFICACIONES';
                       });
   }
 
@@ -244,7 +244,7 @@ class _DrawerItemState extends State<DrawerItem> {
                           children: <Widget>[
                             FittedBox(
                               child: Text(
-                              'SOPORTE',
+                              'PQR',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: Colors.white,
@@ -1876,7 +1876,7 @@ Widget _chatResidente(){
                               );
                             },
                           )
-                        : Container();
+                        : Center(child:Text("No hay noticias."));
                   else
                     return Center(
                         child: CircularProgressIndicator(
@@ -2182,7 +2182,7 @@ Widget _chatResidente(){
                     SizedBox(
                       height: 2.0,
                     ),
-                    _botonEditEliminarPerfil('EDITAR', 1),
+
                     SizedBox(
                       height: 2.0,
                     ),
@@ -2703,7 +2703,7 @@ Widget _chatResidente(){
                     builder: (BuildContext context,
                         AsyncSnapshot<List<PedidoTaxi>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)
-                        return ListView.builder(
+                        return snapshot.data != null ? ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return cardMensajes(
@@ -2718,7 +2718,7 @@ Widget _chatResidente(){
                                 snapshot.data[index].idCasillero);
                                
                           },
-                        );
+                        ):Center(child:Text("Sin notificaciones."));
                       else
                         return Center(
                             child: CircularProgressIndicator(
@@ -2789,7 +2789,7 @@ Widget _chatResidente(){
                     builder: (BuildContext context,
                         AsyncSnapshot<List<PedidoTaxi>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)
-                        return ListView.builder(
+                        return snapshot.data != null ? ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return cardMensajes(
@@ -2804,7 +2804,7 @@ Widget _chatResidente(){
                                 snapshot.data[index].idCasillero);
                                
                           },
-                        );
+                        ):Center(child:Text("Las notificaciones respondidas aparecerán aquí."));
                       else
                         return Center(
                             child: CircularProgressIndicator(

@@ -52,7 +52,7 @@ class _MiPerfilState extends State<MiPerfil> {
                     SizedBox(
                       height: 2.0,
                     ),
-                    botonEditEliminar('GUARDAR', 0),
+                   
                   ],
                 ),
               ],
@@ -345,7 +345,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
                                       "recursos/imagenes/profile.png");
 
   Future getImageFromCam() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 250.0, maxWidth: 250.0);
    
     setState(() {
       _image = image;
@@ -362,7 +362,7 @@ class _fotoUsuarioState extends State<fotoUsuario> {
   }
 
   Future getImageFromGallery() async {  
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery, maxHeight: 250.0, maxWidth: 250.0);
     setState(() {
       _image = image;
       List<int> imageBytes = image.readAsBytesSync();

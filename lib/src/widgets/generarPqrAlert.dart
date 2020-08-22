@@ -97,9 +97,35 @@ gg(BuildContext context, funcion) {
                   SizedBox(
                     height: 15.0,
                   ),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('DIRIGIDO A',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic', 
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ],
+                  ),
                   DropDownDestinoPqr(),
                   SizedBox(
                     height: 10.0,
+                  ),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('TIPO PQR',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade700,
+                            fontFamily: 'CenturyGothic', 
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ],
                   ),
                   DropDownZonaPqr(),
                   SizedBox(
@@ -172,7 +198,7 @@ gg(BuildContext context, funcion) {
                                     try {
                                       observaciones.text = app;
                                       _image = await ImagePicker.pickImage(
-                                          source: ImageSource.gallery);
+                                          source: ImageSource.gallery, maxHeight: 250.0, maxWidth: 250.0);
                                       setState(() {});
                                     } catch (_) {
                                       print(_);

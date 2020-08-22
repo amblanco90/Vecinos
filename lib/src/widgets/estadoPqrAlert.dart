@@ -205,7 +205,7 @@ estadoPqr(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                                   return cardRespuestaPqr(snapshot.data[index].residente, snapshot.data[index].fechaCreacion, snapshot.data[index].mensaje, snapshot.data[index].foto);
                                 },
                               )
-                            : Container();
+                            : Center(child:Text("Pqr sin respuesta."));
                       else
                         return Center(
                             child: CircularProgressIndicator(

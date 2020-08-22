@@ -51,11 +51,18 @@ Future<List<PedidoTaxi>> getAllPedidosTaxi() async {
         "$baseUrl/residente/taxi/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
-    print(response.body);
-    final decodedData = json.decode(response.body);
-    final entidades = new PedidosTaxis.fromJsonList(decodedData);
 
-    return entidades.items;
+
+    
+    final decodedData = json.decode(response.body);
+
+
+
+      final entidades = new PedidosTaxis.fromJsonList(decodedData);
+      return entidades.items.reversed.toList();
+
+
+   
   }
 
 

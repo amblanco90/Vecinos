@@ -224,7 +224,7 @@ class _CrearNoticiasPageState extends State<CrearNoticiasPage> {
                                       );
                                 },
                               )
-                            : Container();
+                            : Center(child:Text("No hay noticias creadas."));
                       else
                         return Center(
                             child: CircularProgressIndicator(

@@ -47,7 +47,7 @@ class _VisitaPagesState extends State<VisitaPages> {
     String estado="ADJUNTAR FOTO";
     final _solicitarVisitas = new VisitaProvider();
      Future getImageFromGallery() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery, maxHeight: 250.0, maxWidth: 250.0);
     setState(() {
       _image = image;
     });

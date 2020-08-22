@@ -180,7 +180,7 @@ class _PqrPagesState extends State<PqrPages> {
                                       tipoString);
                                 },
                               )
-                            : Container();
+                            : Center(child:Text("No ha generado ningún pqr."));
                       else
                         return Center(
                             child: CircularProgressIndicator(

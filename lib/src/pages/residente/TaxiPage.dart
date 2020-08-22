@@ -179,7 +179,7 @@ class _TaxiPageState extends State<TaxiPage> {
                     builder: (BuildContext context,
                         AsyncSnapshot<List<PedidoTaxi>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done)
-                        return ListView.builder(
+                        return snapshot.data!=null? ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return cardMensajes(
@@ -193,7 +193,7 @@ class _TaxiPageState extends State<TaxiPage> {
                                 context,
                                 snapshot.data[index].idCasillero);
                           },
-                        );
+                        ) :Center(child:Text("No tiene pedidos de taxi."));
                       else
                         return Center(
                             child: CircularProgressIndicator(
