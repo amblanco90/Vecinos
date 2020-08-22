@@ -78,7 +78,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
     String cedularecidente=null;
 
   // variables de reservas 
-   String _zonaSelecionadad='PISCINA ADULTOS';
+   String _zonaSelecionadad;
     String _dropdownStrHoraInicio =" ";
    List opcionesInicial=[" "];
    final _controllerObservaciones=TextEditingController();
@@ -479,14 +479,15 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
   context: context,
   builder: (context) {
     return StatefulBuilder(
-      builder: (context, setState) {
+      builder: (acontext, setState) {
         return AlertDialog(
         title:Center(
-         child: FutureBuilder(
+         child: (_listaZonas.length==0) ?FutureBuilder(
            future: _apiService.listarZona(),
            builder: (BuildContext context,AsyncSnapshot <List<dynamic>> snapshot ){
               if(snapshot.connectionState == ConnectionState.done){
                 if(snapshot.data.length != 0){
+                  _zonaSelecionadad=snapshot.data[0]['zonaSocial'];
                   _listaZonas=snapshot.data;
                   return Column(
                     children: [
@@ -496,6 +497,12 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
              value: _zonaSelecionadad,
              onChanged: (String newValue){
                 _zonaSelecionadad = newValue;
+                fecha_Selecionada=' ';
+                _dropdownStrHoraInicio=" ";
+                _dropdownStrHoraFinal=" ";
+                _selectedDate = " ";
+                opcionesInicial=[" "];
+                opcionesFinal=[" "];
                setState(() {
                });
              },
@@ -514,9 +521,18 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
                   return Text('NO HAY ZONAS DISPONIBLES');
                 }
               }else{
+                  return  Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    valueColor:
+                        new AlwaysStoppedAnimation<Color>(Colors.orange),
+                  )),
+                );
+                }
 
-                if(_listaZonas.length!=0){
-                  return Column(
+           } ,
+         ): Column(
                     children: [
                        DropdownButtonHideUnderline(
                     child: DropdownButton(
@@ -525,6 +541,12 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
              onChanged: (String newValue){
 
                 _zonaSelecionadad = newValue;
+                fecha_Selecionada=' ';
+                _dropdownStrHoraInicio=" ";
+                _dropdownStrHoraFinal=" ";
+                _selectedDate = " ";
+                opcionesInicial=[" "];
+                opcionesFinal=[" "];
                setState(() {
                });
              },
@@ -540,21 +562,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
            ),
          ),
                     ],
-                  );
-                }else{
-                  return  Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                      child: CircularProgressIndicator(
-                    valueColor:
-                        new AlwaysStoppedAnimation<Color>(Colors.orange),
-                  )),
-                );
-                }
-                
-              }
-           } ,
-         ),
+                  ),
        ),
         content: SingleChildScrollView(
           child: ListBody(
@@ -608,7 +616,7 @@ class _DrawerAdminItemState extends State<DrawerAdminItem> {
  Text('OBSERVACIONES',style: TextStyle(fontFamily: 'CenturyGothic', color: Color.fromRGBO(255, 153, 29, 1.0), fontSize: 18.0,fontWeight: FontWeight.bold )),
             _camposFormulario3("", _controllerObservaciones, TextInputType.text),
             Divider(height: 20,),
-            _botonGuardar(context,setState)
+            _botonGuardar(acontext,setState)
               
             
             ],
@@ -696,10 +704,17 @@ Widget _camposFormulario3(String texto,TextEditingController controller,TextInpu
 _colocarHoraDisponibles(setState){
   
   List  datos = List<String>();
-
-  for(int i=2;i<opcionesInicial.length;i++){
-    datos.add(opcionesInicial[i]);
+  bool _horasfinal=false;
+  for(int i=0;i<opcionesInicial.length;i++){
+     if(_horasfinal){
+      datos.add(opcionesInicial[i]);
+    }
+    if(opcionesInicial[i] == _dropdownStrHoraInicio){
+      _horasfinal=true;
+    }
+    
   }
+    _horasfinal=false;
     datos.add(" ");
 
       opcionesFinal=datos;
@@ -708,7 +723,7 @@ _colocarHoraDisponibles(setState){
      
 
 }
-_botonGuardar(context,setState){
+_botonGuardar(acontext,setState){
 
    return GestureDetector(
        onTap: (){ 
@@ -720,7 +735,7 @@ _botonGuardar(context,setState){
             borderRadius: new BorderRadius.circular(5),),
           onPressed: () {
               if(_dropdownStrHoraFinal ==" "){
-                _alertReservaMensajes(context,"Tiene que elegir una hora final");
+                _alertReservaMensajes(acontext,"Tiene que elegir una hora final");
                   return;
               }
               for(int e=0;e<_listaZonas.length;e++){
@@ -738,22 +753,16 @@ _botonGuardar(context,setState){
               ApiService apiService=ApiService();
               apiService.guardarReserva(datosReserva).then((isSuccess){
                   if(isSuccess == 'ok'){
-                    _alertReservaMensajes(context,"Reserva exitosa");
                     _idreserva=" ";
                     _controllerObservaciones.text=" ";
                     _dropdownStrHoraFinal=" ";
                     _dropdownStrHoraInicio=" ";
                     _selectedDate=" ";
                     fecha_Selecionada=" ";
-                    _selecionadoItem( 18, 'RESERVAS');
-                   setState(() {
-                    });
-
-                   setState(() {
-                    });
+                    _alertReservaMensajes(acontext,"Registro guardado");
                    
                   }else{
-                    _alertReservaMensajes(context,isSuccess);
+                    _alertReservaMensajes(acontext,isSuccess);
                   }
               });
             
@@ -768,13 +777,13 @@ _botonGuardar(context,setState){
 
  }
 
-  Widget _alertReservaMensajes (BuildContext context,String mensaje){
+ Widget _alertReservaMensajes (BuildContext context,String mensaje){
 
    showDialog(
 
      context: context,
      barrierDismissible: false,
-     builder: (context){
+     builder: (acontext){
        return AlertDialog(
          
          content: Column(
@@ -793,7 +802,15 @@ _botonGuardar(context,setState){
          actions: <Widget>[
            FlatButton(
              child: Text('Aceptar', style: TextStyle(color: Color.fromRGBO(205, 105, 55, 1.0)),),
-             onPressed: () => Navigator.of(context).pop(),
+             onPressed: (){
+               if(mensaje == "Registro guardado"){
+                 Navigator.of(acontext).pop();
+                 _selecionadoItem( 18, 'RESERVAS');
+               }else{
+                Navigator.of(acontext).pop();
+               }
+                    
+             } 
            ),
          ],
         

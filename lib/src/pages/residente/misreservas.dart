@@ -52,10 +52,8 @@ class MyReservaState extends State<MyReserva> {
  @override
   Widget build(BuildContext context) {
   
-  
-  if(_estadotablecale){
    _solicitarTodasReserva();
-  }
+  
     return SingleChildScrollView(
           child: Column(
 
@@ -600,7 +598,7 @@ _reservas(BuildContext context){
         _datoslistareserva=snapshot.data;
           return ConstrainedBox(
   constraints: new BoxConstraints(
-    maxHeight: 180.0,
+    maxHeight: 160.0,
     
   ),
 
@@ -612,7 +610,15 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,snapshot.data[index].fecha_hora_fin,snapshot.data[index].estado,snapshot.data[index].id_reserva, Colors.red.shade100, context ,snapshot.data[index].observaciones.toString(),snapshot.data[index].id_zona_social);
+            Color _colorcelda;
+            if(snapshot.data[index].estado=="En espera"){
+              _colorcelda=Colors.yellow;
+            }else if(snapshot.data[index].estado=="NO aprobado"){
+                _colorcelda=Colors.red;
+            }else{
+                _colorcelda=Colors.green;
+            }
+             return  _cardMensajes(snapshot.data[index].nombre_zona.toString(),snapshot.data[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,snapshot.data[index].fecha_hora_fin,snapshot.data[index].estado,snapshot.data[index].id_reserva, _colorcelda, context ,snapshot.data[index].observaciones.toString(),snapshot.data[index].id_zona_social);
 
             
   },
@@ -692,9 +698,9 @@ Widget _cardMensajestodareserva(texto, color){
              child: Row(
                children: <Widget>[
                  
-                Text(texto, style: TextStyle(color: Colors.grey.shade700, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                Text(texto, style: TextStyle(color: Colors.black, fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                 SizedBox(width: 15.0,),
-                Text('(LEER)'+fechainicio, style: TextStyle(color:Color.fromRGBO(255, 153, 29, 1.0),  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                Text('(LEER)'+fechainicio, style: TextStyle(color:Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                   
                 Expanded(
                                   child: Column(
@@ -702,8 +708,8 @@ Widget _cardMensajestodareserva(texto, color){
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
 
-                      Text(fechainicio, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
-                      Text(estado, style: TextStyle(color: Colors.grey.shade700,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                      Text(fechainicio, style: TextStyle(color: Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                      Text(estado, style: TextStyle(color: Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
 
                     ],
                   ),

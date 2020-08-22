@@ -126,13 +126,6 @@ class _MyAppState extends State<MyApp>  {
       }
        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfterLoginPage() ));
        
-    /**
-     perfilProvider.getPerfilResidente().then((value){
-         pr.dismiss();
-         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AfterLoginPage() ));
-         return true;
-      });
-       */
     }else{
        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
     }

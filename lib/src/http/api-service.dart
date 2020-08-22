@@ -228,6 +228,7 @@ Future<String> guardarReserva(DatosReserva data) async {
     body: reservaToJson(data),
   );
   
+  print(response.body);
   if (response.statusCode == 200) {
     final datos = json.decode(response.body);
     if(datos["resp"]=="ok"){
