@@ -653,7 +653,15 @@ _reservas(BuildContext context){
         child: new ListView.builder(
           itemCount: _datoslistareserva.length,
           itemBuilder: (context, index) {
-             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].estado,_datoslistareserva[index].id_reserva, Colors.red.shade100, context ,_datoslistareserva[index].observaciones.toString(),_datoslistareserva[index].id_zona_social);
+            Color _colorcelda;
+            if(_datoslistareserva[index].estado=="En espera"){
+              _colorcelda=Colors.yellow;
+            }else if(_datoslistareserva[index].estado=="NO aprobado"){
+                _colorcelda=Colors.red;
+            }else{
+                _colorcelda=Colors.green;
+            }
+             return  _cardMensajes(_datoslistareserva[index].nombre_zona.toString(),_datoslistareserva[index].fecha_hora_inicio,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].fecha_hora_fin,_datoslistareserva[index].estado,_datoslistareserva[index].id_reserva,_colorcelda, context ,_datoslistareserva[index].observaciones.toString(),_datoslistareserva[index].id_zona_social);
 
             
   },
@@ -708,7 +716,7 @@ Widget _cardMensajestodareserva(texto, color){
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
 
-                      Text(fechainicio, style: TextStyle(color: Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
+                      Text(fechafin, style: TextStyle(color: Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
                       Text(estado, style: TextStyle(color: Colors.black,  fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold, fontSize: 10.0),),
 
                     ],

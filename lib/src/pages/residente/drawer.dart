@@ -783,7 +783,7 @@ class _DrawerItemState extends State<DrawerItem> {
   _selecionadoItem(int posicion, String nombre) {
     _posicionAnterior = _item;
     _nombreAnterion = nombre_appbar;
-   
+    Navigator.of(context).pop();
     setState(() {
       _item = posicion;
       nombre_appbar = nombre;
@@ -1232,7 +1232,7 @@ _botonGuardar(acontext,setState){
              onPressed: (){
                if(mensaje == "Registro guardado"){
                  Navigator.of(acontext).pop();
-                 _selecionadoItem( 1, 'RESERVAS');
+                 _selecionadoItem2( 1, 'RESERVAS');
                }else{
                 Navigator.of(acontext).pop();
                }
