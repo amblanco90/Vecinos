@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/cartelera.dart';
 import 'package:edificion247/src/models/noticia.dart';
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as client;
 import 'package:http/http.dart';
 
 class NoticiasProvider {
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl = constantes.apiUrl;
 
 
   Future<List<Cartelera>> getAllNoticias() async {
@@ -35,7 +36,6 @@ class NoticiasProvider {
       "username": appData.cedula
 
     };
-    print(appData.idSubunidad.toString());
     final response = await client.post("$baseUrl/admin/cartelera/list",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});

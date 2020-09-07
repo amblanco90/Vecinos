@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/conyugue.dart';
 import 'package:http/http.dart' as client;
 class ConyugeProvider{
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl = constantes.apiUrl;
 
 
   Future<Conyuge> getConyuge() async {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
 
@@ -9,7 +10,7 @@ import 'package:http/http.dart';
 
 class PedidoTaxiProvider{
 
-   final String baseUrl = "http://18.191.213.12//api";
+   final String baseUrl = constantes.apiUrl;
 
   Future<Map<String, dynamic>> pedirTaxi(BuildContext context, String observaciones) async {
   final Map<String, dynamic> authData = {"id_residente": appData.idUsuario, "id_subunidad": appData.idSubunidad, "observaciones": observaciones, "username": appData.cedula, "id_perfil":appData.rol=='Residente'?100:300};

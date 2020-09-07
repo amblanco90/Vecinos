@@ -1,9 +1,10 @@
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/facturas.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as client;
 class FacturaProvider{
-   final String baseUrl = "http://18.191.213.12//api";
+   final String baseUrl = constantes.apiUrl;
 
    Future<DatosFacturas> getlistafactura() async{
      final Map<String, dynamic> authData = {

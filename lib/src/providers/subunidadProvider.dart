@@ -1,10 +1,11 @@
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/sub-unidad.dart';
 import 'package:edificion247/src/models/unidadmodel.dart';
 import 'package:http/http.dart' as client;
 import 'dart:convert';
 class SubUnidadProvider{
-   final String baseUrl = "http://18.191.213.12//api";
+   final String baseUrl = constantes.apiUrl;
   Future<String> setSubUnidad(DatosSubUnidad datosSubUnidad) async {
  
     final response = await client.post("$baseUrl/admin/subunidad/save",

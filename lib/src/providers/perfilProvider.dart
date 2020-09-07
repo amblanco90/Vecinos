@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:edificion247/src/models/perfilResidente.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PerfilProvider{
 
-  final _url = 'http://18.191.213.12//api';
+  final _url = constantes.apiUrl;
   
   Future<PerfilResidente> getPerfilResidente() async {
 

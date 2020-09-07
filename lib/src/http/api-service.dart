@@ -1,4 +1,5 @@
 
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/http/datos-login.dart';
 import 'package:edificion247/src/http/datos-visitas.dart';
 import 'package:edificion247/src/models/pedidoTaxi.dart';
@@ -21,7 +22,7 @@ class ApiService {
   final perfilProvider = PerfilProvider();
 
 
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl =constantes.apiUrl;
   Client client = Client();
   Future<dynamic> borrarReserva(int id) async {
   final response = await client.post(

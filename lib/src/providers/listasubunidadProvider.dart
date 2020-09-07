@@ -1,9 +1,10 @@
+import 'package:edificion247/src/constantes.dart';
 import 'package:edificion247/src/models/listasubunidad.dart';
 import 'dart:convert';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:http/http.dart' as client;
 class ListaSubUnidadProvider{
-   final String baseUrl = "http://18.191.213.12//api";
+   final String baseUrl = constantes.apiUrl;
 
 
   Future<List<DatosListaSubunidades>> getlistasubunidades() async {

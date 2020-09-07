@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:edificion247/src/constantes.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:edificion247/src/helpers/appdata.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -20,7 +21,7 @@ class PushNotificationProvider {
   Future<int> _cheeringId;
 
 
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl = constantes.apiUrl;
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
