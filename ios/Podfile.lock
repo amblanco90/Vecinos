@@ -379,6 +379,12 @@ PODS:
     - Flutter
   - shared_preferences_web (0.0.1):
     - Flutter
+  - soundpool (0.0.1):
+    - Flutter
+  - soundpool_macos (0.0.1):
+    - Flutter
+  - soundpool_web (0.0.1):
+    - Flutter
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
@@ -407,6 +413,9 @@ DEPENDENCIES:
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
   - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
+  - soundpool (from `.symlinks/plugins/soundpool/ios`)
+  - soundpool_macos (from `.symlinks/plugins/soundpool_macos/ios`)
+  - soundpool_web (from `.symlinks/plugins/soundpool_web/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
@@ -471,6 +480,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_macos/ios"
   shared_preferences_web:
     :path: ".symlinks/plugins/shared_preferences_web/ios"
+  soundpool:
+    :path: ".symlinks/plugins/soundpool/ios"
+  soundpool_macos:
+    :path: ".symlinks/plugins/soundpool_macos/ios"
+  soundpool_web:
+    :path: ".symlinks/plugins/soundpool_web/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher:
@@ -483,7 +498,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
-  cloud_firestore: 31454d48df21f3e1a900015e36143c0d46a304b7
+  cloud_firestore: 2a4f8f802fb0b701cf809b283b6bec7477ebaa6f
   cloud_firestore_web: 9ec3dc7f5f98de5129339802d491c1204462bfec
   esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
   Firebase: 919186c8e119dd9372a45fd1dd17a8a942bc1892
@@ -519,6 +534,9 @@ SPEC CHECKSUMS:
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
   shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
+  soundpool: c7f4422ca206e77f8900ed3c4ee6a6ff5a0e38a9
+  soundpool_macos: 36b3b9047369167e8b68ef1e1b6f25fb7c893825
+  soundpool_web: bd713866c1993a5bfd40bfc875e7ebb30cbe8342
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313

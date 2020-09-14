@@ -65,7 +65,7 @@ dependencies:
   shared_preferences:
 
 flutter_icons:
-  image_path: "recursos/imagenes/launcher.png" 
+  image_path: "recursos/imagenes/launcher.jpg" 
   android: true 
   ios: true
 # For information on the generic Dart part of this file, see the
