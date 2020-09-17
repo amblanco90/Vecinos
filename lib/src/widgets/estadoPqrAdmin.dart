@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:edificion247/src/models/respuestaPqr.dart';
+import 'package:edificion247/src/pages/admin/drawer_admin.dart';
 import 'package:edificion247/src/providers/pqrProvider.dart';
 import 'package:edificion247/src/providers/respuestasResidenteProvider.dart';
 import 'package:edificion247/src/widgets/alerts.dart';
@@ -10,6 +11,8 @@ import 'package:edificion247/src/widgets/respuestaPqrAdminAlert.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+
+import 'heroPhotoView.dart';
 
 estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
   final respuestapqrProvider = RespuestaResidenteProvider();
@@ -206,7 +209,7 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                             ? ListView.builder(
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return cardRespuestaPqr(snapshot.data[index].residente, snapshot.data[index].fechaCreacion, snapshot.data[index].mensaje, snapshot.data[index].foto);
+                                  return cardRespuestaPqr(snapshot.data[index].residente, snapshot.data[index].fechaCreacion, snapshot.data[index].mensaje, snapshot.data[index].foto, context);
                                 },
                               )
                             : Center(child:Text("Pqr sin respuesta."));
@@ -229,15 +232,28 @@ estadoPqrAdmin(BuildContext context, texto, foto,estado,id,destinatario,tipo) {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
-                          width: 80.0,
-                          height: 80.0,
-                          color: Colors.grey.shade200,
-                          child: foto == null
-                              ? Center(
-                                  child: Icon(Icons.camera),
-                                )
-                              : Image.memory(base64.decode(foto)),
+                        GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HeroPhotoViewRouteWrapper(
+                  imageProvider: MemoryImage(base64.decode(foto)),
+              ),
+            ));
+              
+                                },
+                            child: Container(
+                            width: 80.0,
+                            height: 80.0,
+                            color: Colors.grey.shade200,
+                            child: foto == null
+                                ? Center(
+                                    child: Icon(Icons.camera),
+                                  )
+                                : Image.memory(base64.decode(foto))
+                                  
+                          ),
                         ),
 
                         Expanded(child: Container()),

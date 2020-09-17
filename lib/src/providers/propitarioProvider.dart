@@ -1,8 +1,10 @@
 import 'package:edificion247/src/models/propietario.dart';
 import 'package:http/http.dart' as client;
 import 'dart:convert';
+
+import '../constantes.dart';
 class PropitarioProvider{
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl = constantes.apiUrl;
   Future<DatosPropietario> getPropitario(String cedula) async {
     final Map<String, dynamic> authData = {
       "cedula": cedula

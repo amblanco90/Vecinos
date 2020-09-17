@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as client;
 import 'package:http/http.dart';
 
+import '../constantes.dart';
+
 class PqrProvider {
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl = constantes.apiUrl;
 
   Future<void> generarPqr(
       BuildContext context, String descripcion, File image) async {

@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>La informacion solicitada se utiliza para llevar un registro de las acciones de los usuarios en la aplicacion</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>La informacion solicitada se utiliza para llevar un registro de las acciones de los usuarios en la aplicacion</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -25,11 +19,17 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Need to upload image</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>La informacion solicitada se utiliza para llevar un registro de las acciones de los usuarios en la aplicacion</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>La informacion solicitada se utiliza para llevar un registro de las acciones de los usuarios en la aplicacion</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need to upload image</string>
 	<key>NSPhotoLibraryUsageDescription</key>

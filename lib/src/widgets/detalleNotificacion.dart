@@ -155,7 +155,7 @@ detalleNotificacion(BuildContext context, texto, foto,estado,id,destinatario,tip
                             ? ListView.builder(
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return cardRespuestaNotificacion(snapshot.data[index].emisor, snapshot.data[index].fechaCreacion.toString(), snapshot.data[index].mensaje, snapshot.data[index].foto);
+                                  return cardRespuestaNotificacion(snapshot.data[index].emisor, snapshot.data[index].fechaCreacion.toString(), snapshot.data[index].mensaje, snapshot.data[index].foto, context);
                                 },
                               )
                             : Center(child:Text("Sin respuesta."));

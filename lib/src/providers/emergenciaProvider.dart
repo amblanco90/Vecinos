@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as client;
 import 'package:http/http.dart';
 
+import '../constantes.dart';
+
  class EmergenciaProvider{
 
-  final String baseUrl = "http://18.191.213.12//api";
+  final String baseUrl = constantes.apiUrl;
 
   Future generarEmergencia(BuildContext context, String mensaje) async {
 

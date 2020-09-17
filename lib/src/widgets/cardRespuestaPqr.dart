@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-cardRespuestaPqr(nombre,hora,texto,foto){
+import 'heroPhotoView.dart';
+
+cardRespuestaPqr(nombre,hora,texto,foto, BuildContext context){
   return  Card(
                                 
                                 child: Column(
@@ -56,16 +58,28 @@ cardRespuestaPqr(nombre,hora,texto,foto){
 
                                        children: <Widget>[
 
-                                         Container(
-                          margin: EdgeInsets.all(5.0),
-                          width: 80.0,
-                          height: 80.0,
-                          color: Colors.grey.shade200,
-                          child: foto == null
-                              ? Center(
-                                      child: Icon(Icons.camera),
-                                    )
-                              : Image.memory(base64.decode(foto)),
+                                         GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HeroPhotoViewRouteWrapper(
+                  imageProvider: MemoryImage(base64.decode(foto)),
+              ),
+            ));
+              
+                                },
+                            child: Container(
+                            width: 80.0,
+                            height: 80.0,
+                            color: Colors.grey.shade200,
+                            child: foto == null
+                                ? Center(
+                                    child: Icon(Icons.camera),
+                                  )
+                                : Image.memory(base64.decode(foto))
+                                  
+                          ),
                         ),
 
 
@@ -83,7 +97,7 @@ cardRespuestaPqr(nombre,hora,texto,foto){
                          
 }
 
-cardRespuestaNotificacion(nombre,hora,texto,foto){
+cardRespuestaNotificacion(context,nombre,hora,texto,foto){
   return  Card(
                                 
                                 child: Column(
@@ -137,16 +151,28 @@ cardRespuestaNotificacion(nombre,hora,texto,foto){
 
                                        children: <Widget>[
 
-                                         Container(
-                          margin: EdgeInsets.all(5.0),
-                          width: 80.0,
-                          height: 80.0,
-                          color: Colors.grey.shade200,
-                          child: foto == null
-                              ? Center(
-                                      child: Icon(Icons.camera),
-                                    )
-                              : Image.memory(base64.decode(foto)),
+                                         GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HeroPhotoViewRouteWrapper(
+                  imageProvider: MemoryImage(base64.decode(foto)),
+              ),
+            ));
+              
+                                },
+                            child: Container(
+                            width: 80.0,
+                            height: 80.0,
+                            color: Colors.grey.shade200,
+                            child: foto == null
+                                ? Center(
+                                    child: Icon(Icons.camera),
+                                  )
+                                : Image.memory(base64.decode(foto))
+                                  
+                          ),
                         ),
 
 
