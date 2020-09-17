@@ -15,6 +15,7 @@ class ConyugeProvider{
     final response = await client.post("$baseUrl/nucleo_familiar/get/conyuge",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
+        print(response.body);
     final decodedData = json.decode(response.body);
     final conyuge=new Conyuge.fromJson(decodedData);
 

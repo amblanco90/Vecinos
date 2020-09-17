@@ -21,6 +21,28 @@ class _HijoPageState extends State<HijoPage> {
     bool _estadobuttonguardar=true;
     bool camposCedula=true;
     bool _enablecampos=false;
+    String _resultradio ="CC";
+  String _radioValue = "CC";
+  void _handleRadioValueChange(String value) {
+    setState(() {
+      _radioValue = value;
+  
+      switch (_radioValue) {
+        case "CC":
+          _resultradio = "CC";
+          break;
+        case "TI":
+          _resultradio = "TI";
+          break;
+        case "CR":
+          _resultradio = "CR";
+          break;
+          case "PASAPORTE":
+          _resultradio = "PASAPORTE";
+          break;
+      }
+    });
+  }
   @override
  Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -36,11 +58,12 @@ class _HijoPageState extends State<HijoPage> {
       margin: EdgeInsets.fromLTRB(10, 4, 10, 4),
       height: 50,
                 child:   Row( mainAxisSize: MainAxisSize.max, children: <Widget>[
-          _camposFormularioCedula('CEDULA FAMILIAR', _controllerIdentificacion, TextInputType.number,""),
+          _camposFormularioCedula('IDENTIFICACION DEL FAMILIAR', _controllerIdentificacion, TextInputType.number,""),
          Align(alignment: Alignment.centerRight, child:  _botonBuscarFamiliar(),)
           ],),
                ),
              ),
+             _opcionesDocumentos(),
               _camposFormulario('NOMBRE COMPLETO', _controllerNombre, TextInputType.text),
               _camposFormulario('NUMERO DE CONTACTO', _controllerNumeroContacto, TextInputType.number),
               _camposFormulario('CORREO ELECTRONICO', _controllerCorreo, TextInputType.emailAddress),
@@ -122,7 +145,7 @@ Widget _alertHijoMensajes (BuildContext context,String mensaje){
         child: new ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
-            return  _cardMensajes(snapshot.data[index].documento.toString(),snapshot.data[index].nombre_familiar.toString(),snapshot.data[index].id_nucleo.toString(),snapshot.data[index].correo.toString(),snapshot.data[index].movil.toString(), Colors.red.shade100, context,snapshot.data[index].id_nucleo,snapshot.data[index].id_persona_familiar);
+            return  _cardMensajes(snapshot.data[index].documento.toString(),snapshot.data[index].nombre_familiar.toString(),snapshot.data[index].id_nucleo.toString(),snapshot.data[index].correo.toString(),snapshot.data[index].movil.toString(), Colors.red.shade100, context,snapshot.data[index].id_nucleo,snapshot.data[index].id_persona_familiar,snapshot.data[index].tipo_documento);
             
   }
   )
@@ -145,7 +168,7 @@ return  Padding(
    
   }
 
-   Widget _cardMensajes(texto, nombre_hijo,id,correo,telefono,color,  BuildContext context,nucleo,idfamiliar){
+   Widget _cardMensajes(texto, nombre_hijo,id,correo,telefono,color,  BuildContext context,nucleo,idfamiliar,tipo_documento){
 
   return  GestureDetector(  
          child: Card(
@@ -183,6 +206,8 @@ return  Padding(
                     _controllerNumeroContacto.text=telefono;
                     _idNucleo=nucleo;
                   _idfam=idfamiliar;
+                  _radioValue=tipo_documento;
+                  _handleRadioValueChange(_radioValue);
                   
                   },
                   );
@@ -294,9 +319,52 @@ return  Padding(
     );
   }
 
+  _opcionesDocumentos(){
+    return Visibility(
+      visible: (camposCedula) ? false: true ,
+      child: Container(
+      margin: EdgeInsets.only(
+                      left: 14.0, bottom: 8.0, top: 8.0),
+      height: 40,
+     child: Row(
+      children: <Widget>[
+      new Radio(
+        autofocus: true,
+        activeColor: Color.fromRGBO(255, 153, 29, 1.0),
+        value: "CC",
+        groupValue: _radioValue,
+        onChanged: _handleRadioValueChange,
+      ),
+      Text("CC",style: TextStyle(fontSize: 12,fontFamily: 'CenturyGothic',color: Colors.black),),
+      new Radio(
+        activeColor: Color.fromRGBO(255, 153, 29, 1.0),
+        value: "TI",
+        groupValue: _radioValue,
+        onChanged: _handleRadioValueChange,
+      ),
+      Text("TI",style: TextStyle(fontSize: 12,fontFamily: 'CenturyGothic',color: Colors.black),),
+      new Radio(
+        value: "CR",
+        activeColor: Color.fromRGBO(255, 153, 29, 1.0),
+        groupValue: _radioValue,
+        onChanged: _handleRadioValueChange,
+      ),
+      Text("CR",style: TextStyle(fontSize: 12,fontFamily: 'CenturyGothic',color: Colors.black),),
+      new Radio(
+        value: "PASAPORTE",
+        activeColor: Color.fromRGBO(255, 153, 29, 1.0),
+        groupValue: _radioValue,
+        onChanged: _handleRadioValueChange,
+      ),
+      Text("PASAPORTE",style: TextStyle(fontSize: 12,fontFamily: 'CenturyGothic',color: Colors.black),),
+    ]
+    ), 
+    ),
+    );
+  }
   Widget _camposFormularioCedula(String texto,TextEditingController controller,TextInputType type,String prefix,){
     return Container(
-      width: 150.0,
+      width: 190.0,
       height: 50,
       child:TextField(
               controller: controller,
@@ -304,7 +372,7 @@ return  Padding(
                 keyboardType: type,
                 enabled: camposCedula,
                 style:
-                    new TextStyle(fontSize: 13.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
+                    new TextStyle(fontSize: 11.0, color: Color.fromRGBO(255, 153, 29, 1.0),fontFamily: 'CenturyGothic', fontWeight: FontWeight.bold,),
                     textAlign: TextAlign.justify,
                 decoration: new InputDecoration(
                   filled: true,
@@ -415,11 +483,10 @@ return  Padding(
  }
  
 _botonGuardar(){
-
    if(camposCedula){
      return Container(
        height: 80,
-       child: Text('Primero ingrese el numero de cedula y precione el boton buscar usuario',textAlign: TextAlign.center,),
+       child: Text('Primero ingrese el numero de identificacion y presionar el boton buscar',textAlign: TextAlign.center,),
      );
    }else{
      return GestureDetector(
@@ -479,7 +546,7 @@ _guardareditar(String _idnucleo,String _idfamilia){
                     return;
                   }else{
                     ApiService apiService=new ApiService();
-                    apiService.guardarFamiliar(_idnucleo,"2",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25").then((isSuccess){
+                    apiService.guardarFamiliar(_idnucleo,"2",appData.idUsuario,_idfamilia,_controllerIdentificacion.text.toString(),_controllerNombre.text.toString(),_controllerCorreo.text.toString(),_controllerNumeroContacto.text.toString(),"lle 1 # 45- 25",_resultradio).then((isSuccess){
                       if(isSuccess==""){
                         _alertHijoMensajes(context,isSuccess);
                       }else{

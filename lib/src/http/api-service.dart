@@ -242,8 +242,8 @@ Future<String> guardarReserva(DatosReserva data) async {
   }
 }
 
-Future<String> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,cedula_familiar,nombre_familiar,correo_familiar,movil_familiar,direccion_familiar) async {
-  print(nombre_familiar);
+Future<String> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,cedula_familiar,nombre_familiar,correo_familiar,movil_familiar,direccion_familiar,tipo_identificacion) async {
+  print(correo_familiar);
   final response = await client.post(
     "$baseUrl/nucleo_familiar/save",
     headers: {"content-type": "application/json"},
@@ -258,7 +258,8 @@ Future<String> guardarFamiliar(id_nucleo,id_parentesco,id_residente,id_familiar,
   "correo_familiar": correo_familiar,
   "movil_familiar": movil_familiar,
   "direccion_familiar": direccion_familiar,
-  "username": appData.cedula
+  "username": appData.cedula,
+  "tipo_documento":tipo_identificacion
 }),
   );
   print(response.body);

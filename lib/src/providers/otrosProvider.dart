@@ -15,6 +15,7 @@ class OtrosProvider{
     final response = await client.post("$baseUrl/nucleo_familiar/list/otros",
         body: json.encode(authData),
         headers: {"Content-Type": "application/json"});
+        print(response.body);
         try{
     final decodedData = json.decode(response.body);
 final entidades = new ListaHijo.fromJsonList(decodedData);
