@@ -39,7 +39,8 @@ dependencies:
   firebase_core: ^0.4.4
   cloud_firestore: ^0.13.7
   firebase_messaging: ^6.0.13
-  flushbar: 
+  flushbar:
+  photo_view: 
   soundpool:
   esys_flutter_share: ^1.0.2
   path_provider:

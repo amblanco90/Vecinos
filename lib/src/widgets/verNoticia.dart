@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
+import 'heroPhotoView.dart';
+
 verNoticia(BuildContext context, titulo, descripcion,imagen, creacion,id,funcion) {
   final respuestapqrProvider = RespuestaResidenteProvider();
   ProgressDialog pr;
@@ -173,19 +175,32 @@ verNoticia(BuildContext context, titulo, descripcion,imagen, creacion,id,funcion
                     height: 10.0,
                   ),
                   
-               Center(
+               Center(  
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          width: 80.0,
-                          height: 80.0,
-                          color: Colors.grey.shade200,
-                          child: imagen == null
-                              ? Center(
-                                  child: Icon(Icons.camera),
-                                )
-                              : Image.memory(base64.decode(imagen)),
+                        GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HeroPhotoViewRouteWrapper(
+                  imageProvider: MemoryImage(base64.decode(imagen)),
+              ),
+            ));
+              
+                                },
+                            child: Container(
+                            width: 80.0,
+                            height: 80.0,
+                            color: Colors.grey.shade200,
+                            child: imagen == null
+                                ? Center(
+                                    child: Icon(Icons.camera),
+                                  )
+                                : Image.memory(base64.decode(imagen))
+                                  
+                          ),
                         ),
 
                         
